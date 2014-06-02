@@ -144,8 +144,8 @@ module.exports = function (grunt) {
     grunt.registerTask('bower:install', 'exec:bower-install');
 
     grunt.registerTask('copy:vendor', ['copy:jquery', 'uglify:modernizr']);
-    grunt.registerTask('compile:compass-dev', ['copy:normalize', 'compass:dev']);
-    grunt.registerTask('compile:compass-dist', ['copy:normalize', 'compass:dist']);
+    grunt.registerTask('compile:compass-dev', ['copy:normalize', 'compass:dev', 'clean:normalize']);
+    grunt.registerTask('compile:compass-dist', ['copy:normalize', 'compass:dist', 'clean:normalize']);
 
     grunt.registerTask('dev', ['bower:install', 'compile:compass-dev', 'copy:vendor']);
     grunt.registerTask('dist', ['bower:install', 'compile:compass-dist', 'copy:vendor']);

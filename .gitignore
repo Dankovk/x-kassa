@@ -105,6 +105,9 @@ bower_components
 ##
 ## PROJECT-SPECIFIC
 ## ----------------
+# ignore normalize.scss
+src/styles/base/_normalize.scss
+
 # ignore compiled files, they should be re-compiled on deploy
 styles/**
 scripts/**
