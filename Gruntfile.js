@@ -42,7 +42,9 @@ module.exports = function (grunt) {
         clean: {
             normalize: '<%= path.style.src %>/base/_normalize.scss',
             temp: '<%= path.temp %>',
-            vendor: ['<%= path.vendor.dest %>/jquery-2.1.1.min.js', '<%= path.vendor.dest %>/modernizr-2.8.2.min.js']
+            vendor: ['<%= path.vendor.dest %>/jquery-2.1.1.min.js', '<%= path.vendor.dest %>/modernizr-2.8.2.min.js'],
+            compass: ['<%= path.style.dest %>/main.css'],
+            'html-validation': ['validation-report.json', 'validation-status.json']
         },
 
         compass: {
