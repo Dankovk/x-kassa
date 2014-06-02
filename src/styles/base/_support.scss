@@ -2,6 +2,9 @@
 $legacy-support-for-ie: false !default;
 $legacy-support-for-mozilla: false !default;
 
+// _normalize.scss ie6/ie7 support
+$legacy_browser_support: $legacy-support-for-ie !default;
+
 // Original webkit gradients
 $support-for-original-webkit-gradients: true !default;
 
