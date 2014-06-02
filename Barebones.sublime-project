@@ -1,0 +1,49 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+            "folder_exclude_patterns": ["node_modules", ".idea", ".sass-cache", ".c9revisions", ".settings", "nbproject", "nbbuild", "nbdist", ".komodotools"],
+            "file_exclude_patterns": [".tmproj","*.esproj",".sublime-grunt.cache","*.sublime-workspace", ".project", "dwsync.xml", "nbactions.xml", "nb-configuration.xml", ".cache", "*.komodoproject", "*.psd"]
+		}
+	],
+    "settings": {
+        "default_line_ending": "unix",
+        "rulers":
+        [
+            80,
+            120
+        ],
+        "shift_tab_unindent": true,
+        "tab_size": 4,
+        "translate_tabs_to_spaces": true,
+        "trim_automatic_white_space": true,
+        "trim_trailing_white_space_on_save": true,
+        "use_tab_stops": true
+    },
+    "build_systems":
+    [
+        {
+            "name": "Barebones Grunt",
+            "cmd": ["grunt", "--no-color"],
+            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+            "working_dir": "${project_path:${folder:${file_path}}}",
+            "selector": "Gruntfile.js",
+            "windows":
+            {
+                "cmd": ["grunt.cmd", "--no-color"]
+            },
+            "variants":
+            [
+                {
+                    "name": "Gruntfile",
+                    "cmd": ["grunt", "--no-color"],
+                    "windows":
+                    {
+                        "cmd": ["grunt.cmd", "--no-color"]
+                    }
+                }
+            ]
+        }
+    ]
+}

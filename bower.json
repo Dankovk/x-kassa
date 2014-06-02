@@ -1,0 +1,20 @@
+{
+  "name": "barebones",
+  "version": "0.1.0",
+  "authors": [
+    "Anton Suprun <anton.suprun@popel-studio.com>"
+  ],
+  "description": "Barebones HTML project",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "modernizr": "~2.8.2",
+    "jquery": "~2.1.1",
+    "normalize-scss": "~3.0.1"
+  }
+}

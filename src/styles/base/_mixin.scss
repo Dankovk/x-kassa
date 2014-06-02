@@ -1,0 +1,52 @@
+// Placeholder color mixin
+@mixin placeholder ($color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+
+    &:-moz-placeholder {
+        color: $color;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+}
+
+@mixin selection ($color: false, $background: false) {
+    ::selection {
+        @if $color {
+            color: $color;
+        }
+
+        @if $background {
+            background: $background;
+        }
+    }
+
+    ::-moz-selection {
+        @if $color {
+            color: $color;
+        }
+
+        @if $background {
+            background: $background;
+        }
+    }
+}
+
+// @mixin pie-clearfix() {
+//     &:before,
+//     &:after {
+//         content: "";
+//         display: table;
+//     }
+
+//     &:after {
+//         clear: both;
+//     }
+// }

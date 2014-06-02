@@ -1,0 +1,93 @@
+// Form field styles
+$form-field-margin: $form-margin !default;
+
+// FORM-GROUP
+$form-group-margin: $form-field-margin !default;
+
+.form-group {
+    margin-bottom: $form-group-margin;
+}
+
+// LABEL
+$form-label-margin: $form-field-margin / 4 !default;
+
+label {
+    margin-bottom: $form-label-margin;
+
+    display: inline-block;
+}
+
+// FORM-CONTROL
+$form-control-background: #fff !default;
+$form-control-border-color: #d7d7d7 !default;
+$form-control-border-transitions: true !default;
+$form-control-border-transition-duration: .15s !default;
+$form-control-border-transition-function: linear !default;
+$form-control-height: 30px !default;
+$form-control-padding: ($form-control-height - $form-line-height - 2px) / 2 !default;
+
+$form-control-hover-border-color: false !default;
+$form-control-focus-border-color: #177ee6 !default;
+
+.form-control {
+    @include placeholder (#999);
+
+    background-color: $form-control-background;
+    background-image: none;
+
+    margin: 0;
+    outline: 0;
+    border: 1px solid $form-control-border-color;
+    padding: $form-control-padding 9px;
+
+    @if $form-control-border-transitions {
+        @include transition (border-color $form-control-border-transition-duration $form-control-border-transition-function);
+    }
+
+    display: block;
+    width: 100%;
+    height: $form-control-height;
+
+    @if $form-control-hover-border-color {
+        &:hover {
+            border-color: $form-control-hover-border-color;
+        }
+    }
+
+    &:focus {
+        border-color: $form-control-focus-border-color;
+    }
+}
+
+select.form-control {
+    // Compensate for default select text paddings
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+textarea.form-control {
+    height: auto;
+    min-width: 100%;
+    min-height: $form-line-height * 3 + $form-control-padding * 2 + 2px;
+}
+
+// CHECKBOX AND RADIO
+$form-checkbox-margin: $form-margin / 2 !default;
+
+.radio, .checkbox {
+    margin: $form-checkbox-margin 0;
+    padding-left: 20px; // For default checkboxes and radios
+
+    display: block;
+
+    label {
+        display: inline;
+    }
+}
+
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+    margin-left: -20px;
+
+    float: left;
+}

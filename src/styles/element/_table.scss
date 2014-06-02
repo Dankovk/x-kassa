@@ -1,0 +1,72 @@
+// Basic table styles
+$table-color: #555 !default;
+$table-font-family: Arial, sans-serif !default;
+$table-font-size: 12px !default;
+$table-line-height: 1.2 !default;
+$table-margin: $element-margin !default;
+$table-padding: $table-margin / 2 !default;
+
+// TABLE styles
+table {
+    color: $table-color;
+    font-family: $table-font-family;
+    font-size: $table-font-size;
+    line-height: $table-line-height;
+
+    margin: $table-margin 0;
+
+    width: 100%;
+}
+
+td,
+th {
+    text-align: left;
+
+    padding: $table-padding 0;
+    padding-right: $table-padding;
+
+    vertical-align: top;
+
+    &.center {
+        text-align: center;
+    }
+
+    &.right {
+        text-align: right;
+    }
+}
+
+// TD
+td {
+    strong {
+        color: #333;
+    }
+}
+
+// TH
+$table-th-color: #111 !default;
+$table-th-font-family: $table-font-family !default;
+$table-th-font-size: $table-font-size !default;
+$table-th-line-height: $table-line-height !default;
+
+th {
+    color: $table-th-color;
+    font-family: $table-th-font-family;
+    font-size: $table-th-font-size;
+    font-weight: bold;
+    line-height: $table-th-line-height;
+
+    thead & {
+        border-bottom: 1px solid #177ee6;
+    }
+}
+
+// TFOOT
+
+$table-tfoot-border-color: #ccc;
+
+tfoot {
+    border-color: $table-tfoot-border-color;
+    border-style: solid;
+    border-width: 1px 0 1px 0;
+}

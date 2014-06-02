@@ -1,0 +1,31 @@
+// Sprite styles
+
+// ICON
+$icon-layout: smart !default;
+$icon-spacing: 1px !default;
+$icon-sprite-dimensions: true !default;
+$icon-sprite-base-class: ".icon" !default;
+
+.icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+@import "icon/*.png";
+@include all-icon-sprites;
+
+// MISC
+$misc-layout: smart !default;
+$misc-spacing: 1px !default;
+$misc-sprite-dimensions: true !default;
+
+// @import "misc/*.png";
+
+$sprite-misc-map: sprite-map('misc/*.png');
+
+// http://compass-style.org/reference/compass/helpers/sprites/
+// http://compass-style.org/help/tutorials/spriting/
+// http://compass-style.org/help/tutorials/spriting/customization-options/
+// http://compass-style.org/help/tutorials/spriting/magic-selectors/

@@ -1,0 +1,77 @@
+// Panel styles
+$panel-color: #111 !default;
+$panel-font-family: Arial, sans-serif !default;
+$panel-font-size: 12px !default;
+
+$panel-margin: $element-margin !default;
+$panel-border-width: 1px !default;
+$panel-border-style: dotted !default;
+$panel-border-color: #b7b7b7 !default;
+$panel-border: $panel-border-width $panel-border-style $panel-border-color !default;
+
+// PANEL
+.panel {
+    color: $panel-color;
+    font-family: $panel-font-family;
+    font-size: $panel-font-size;
+
+    margin: $panel-margin 0;
+    border-bottom: $panel-border;
+}
+
+// PANEL-HEADING
+.panel-heading {
+    padding: 8px 0;
+}
+
+// PANEL-TITLE
+$panel-title-font-size: 14px !default;
+
+.panel-title {
+    color: inherit;
+    font-size: $panel-title-font-size;
+    font-weight: normal;
+    text-transform: uppercase;
+
+    margin-top: 0;
+    margin-bottom: 0;
+
+    & > a {
+        color:inherit;
+    }
+
+    .cursor {
+        margin: 0;
+        margin-top: 4px;
+        margin-left: 10px;
+
+        float: right;
+
+        @include sprite-misc(collapse-plus);
+
+        .active & {
+            @include sprite-misc(collapse-minus);
+        }
+    }
+}
+
+// PANEL-BODY
+.panel-body {
+    // @include pie-clearfix();
+
+    p {
+        margin: 10px 0;
+    }
+}
+
+// PANEL-GROUP
+$panel-group-margin: $panel-margin !default;
+
+.panel-group {
+    margin: $panel-group-margin 0;
+
+    .panel {
+        margin: 0;
+        overflow: hidden;
+    }
+}

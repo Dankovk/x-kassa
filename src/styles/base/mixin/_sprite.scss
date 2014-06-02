@@ -1,0 +1,16 @@
+// Sprite-related mixins
+
+@mixin _sprite ($map, $name, $dimensions: true) {
+    background-image: sprite-url($map);
+    background-position: sprite-position($map, $name);
+
+    @if $dimensions {
+        $file: sprite-file($map, $name);
+        width: image-width($file);
+        height: image-height($file);
+    }
+}
+
+@mixin sprite-misc ($name, $dimensions: true) {
+    @include _sprite ($sprite-misc-map, $name, $dimensions);
+}

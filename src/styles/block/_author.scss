@@ -1,0 +1,46 @@
+// AUTHOR
+$author-font-size: 14px !default;
+$author-name-font-family: Arial, sans-serif !default;
+$author-name-margin: $block-margin / 2 !default;
+$author-location-color: #808080 !default;
+
+.author {
+    font-size: $author-font-size;
+
+    .author-link {
+        text-decoration: none;
+
+        display: block;
+    }
+
+    .author-photo {
+        margin: 0 auto;
+        @include border-radius(50%);
+
+        display: block;
+        width: 200px;
+        overflow: hidden;
+
+        & > img {
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+    .author-name,
+    .author-location {
+        text-align: center;
+
+        display: block;
+    }
+
+    .author-name {
+        font-family: $author-name-font-family;
+
+        margin-top: $author-name-margin;
+    }
+
+    .author-location {
+        color: $author-location-color;
+    }
+}

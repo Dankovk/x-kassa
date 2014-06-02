@@ -1,0 +1,64 @@
+// Order specs
+// /Row 1/
+//
+
+$order-spec-font-size: 12px !default;
+$order-spec-font-family: Arial, sans-serif !default;
+$order-spec-color: #555 !default;
+$order-image-border-color: #ebebeb !default;
+
+.order-item {
+    font-size: 0;
+    margin: 10px 0;
+
+    > * {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+.order-image {
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    margin-right: 20px;
+    @include box-sizing(border-box);
+    border: 1px solid $order-image-border-color;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.order-specs {
+    font-size: $order-spec-font-size;
+    font-family: $order-spec-font-family;
+    max-width: 300px;
+}
+
+.order-spec-title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 18px;
+}
+
+.order-spec {
+    color: $order-spec-color;
+}
+
+.order-total-price {
+    display: inline-block;
+    width: 300px;
+    text-align: left;
+    font-size: 18px;
+
+    p {margin: 0;}
+
+    sub {font-size: 12px;}
+}
+
+
+//
+// End Order Specs
+//

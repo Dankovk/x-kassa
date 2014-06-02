@@ -1,0 +1,63 @@
+// Basic list styles
+// $list-color: #333 !default;
+// $list-font-family: $element-font-family !default;
+// $list-font-size: $element-font-size !default;
+// $list-line-height: $element-line-height !default;
+$list-margin: $element-margin !default;
+$list-padding: $list-margin * 2 !default;
+
+ul,
+ol {
+    padding: 0;
+}
+
+// UL
+// $list-ul-color: $list-color !default;
+// $list-ul-font-family: $list-font-family !default;
+// $list-ul-font-size: $list-font-size !default;
+// $list-ul-line-height: $list-line-height !default;
+$list-ul-margin: $list-margin !default;
+$list-ul-padding: $list-padding !default;
+
+ul {
+    // color: $list-ul-color;
+    // font-family: $list-ul-font-family;
+    // font-size: $list-ul-font-size;
+    // line-height: $list-ul-line-height;
+
+    margin: $list-ul-margin 0;
+    padding-left: $list-ul-padding;
+}
+
+// OL
+// $list-ol-color: $list-color !default;
+// $list-ol-font-family: $list-font-family !default;
+// $list-ol-font-size: $list-font-size !default;
+// $list-ol-line-height: $list-line-height !default;
+$list-ol-margin: $list-margin !default;
+$list-ol-padding: $list-padding !default;
+
+ol {
+    // color: $list-ol-color;
+    // font-family: $list-ol-font-family;
+    // font-size: $list-ol-font-size;
+    // line-height: $list-ol-line-height;
+
+    margin: $list-ol-margin 0;
+    padding-left: $list-ol-padding;
+}
+
+// LI
+$list-li-margin: $list-margin / 2 !default;
+
+li {
+    margin: $list-li-margin 0;
+}
+
+// LIST-UNSTYLED
+ul, ol {
+    &.list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+}

@@ -1,0 +1,14 @@
+// Global content wrapper
+$layout-content-margin: 0 !default;
+
+.layout-content {
+    margin: $layout-content-margin 0;
+}
+
+// Basic container
+$layout-container-width: 940px !default;
+
+.layout-container {
+    width: $layout-container-width;
+    margin: 0 auto;
+}

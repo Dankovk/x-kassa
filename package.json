@@ -1,0 +1,43 @@
+{
+  "name": "barebones",
+  "description": "Barebones HTML project",
+  "version": "0.1.0",
+  "keywords": [
+    "css",
+    "sass",
+    "compass",
+    "web",
+    "html",
+    "front-end"
+  ],
+  "homepage": "https://github.com/popel-agency/barebones",
+  "author": "POPEL Interactive Agency",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/popel-agency/barebones.git"
+  },
+  "bugs": {
+    "url": "https://github.com/popel-agency/barebones/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/popel-agency/barebones/blob/master/LICENSE"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-compass": "~0.8.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "load-grunt-tasks": "~0.4.0",
+    "time-grunt": "~0.3.1",
+    "grunt-html-validation": "~0.1.18",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-exec": "~0.4.5"
+  },
+  "engines": {
+      "node": "~0.10.24"
+  },
+  "private": true
+}

@@ -1,0 +1,82 @@
+// Basic typo settings
+$element-color: #555 !default;
+$element-font-family: Georgia, serif !default;
+$element-font-size: 16px !default;
+$element-line-height: 1.5 !default;
+$element-margin: 20px !default;
+
+$element-selection-color: #fff !default;
+$element-selection-background: #177ee6 !default;
+
+// Body
+$element-body-color: $element-color !default;
+$element-body-font-family: $element-font-family !default;
+$element-body-font-size: $element-font-size !default;
+$element-body-line-height: $element-line-height !default;
+$element-body-background: #fff !default;
+
+$element-body-selection-color: $element-selection-color !default;
+$element-body-selection-background: $element-selection-background !default;
+
+body {
+    color: $element-body-color;
+    font-family: $element-body-font-family;
+    font-size: $element-body-font-size;
+    line-height: $element-body-line-height;
+
+    background: $element-body-background;
+}
+
+// Selection
+@include selection ($color: $element-body-selection-color, $background: $element-body-selection-background);
+
+// Paragraph styles
+$element-p-margin: $element-margin !default;
+
+p {
+    margin: $element-p-margin 0;
+}
+
+// Figure and figcaption
+$element-figure-color: #808080 !default;
+$element-figure-font-family: $element-font-family !default;
+$element-figure-font-size: $element-font-size !default;
+$element-figure-font-style: italic !default;
+$element-figure-line-height: $element-line-height !default;
+$element-figure-margin: $element-margin * 1.5 !default;
+
+$element-figcaption-margin: $element-margin / 2 !default;
+
+figure {
+    color: $element-figure-color;
+    font-family: $element-figure-font-family;
+    font-size: $element-figure-font-size;
+    font-style: $element-figure-font-style;
+    line-height: $element-figure-line-height;
+    text-align: center;
+
+    margin: $element-figure-margin 0;
+
+    img {
+        margin: 0 auto;
+
+        display: block;
+        max-width: 100%;
+    }
+
+    figcaption {
+        margin: $element-figcaption-margin 0;
+
+        display: block;
+    }
+}
+
+// HR
+$element-hr-color: #ccc !default;
+$element-hr-margin: $element-margin !default;
+
+hr {
+    margin: $element-hr-margin 0;
+    border: 0;
+    border-top: 1px solid $element-hr-color;
+}

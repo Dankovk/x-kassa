@@ -1,0 +1,75 @@
+##
+## REMOVE UNWANTED FILES FROM DIRECTORY LISTING
+## --------------------------------------------
+# Repo folders
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.svn
+RedirectMatch 404 /\.hg
+
+# Editors
+RedirectMatch 404 /\.tmproj
+RedirectMatch 404 /*\.esproj
+RedirectMatch 404 /\.sublime-grunt\.cache
+RedirectMatch 404 /*\.sublime-workspace
+RedirectMatch 404 /*\.sublime-project
+RedirectMatch 404 /\.idea
+RedirectMatch 404 /*\.bak
+RedirectMatch 404 /*\.sym
+RedirectMatch 404 /\.c9revisions
+RedirectMatch 404 /\.c9
+RedirectMatch 404 /\.project
+RedirectMatch 404 /\.buildlog
+RedirectMatch 404 /_notes
+RedirectMatch 404 /dwsync\.xml
+RedirectMatch 404 /\.settings
+RedirectMatch 404 /nbproject/private/
+RedirectMatch 404 /nbbuild/
+RedirectMatch 404 /nbdist/
+RedirectMatch 404 /nbactions\.xml
+RedirectMatch 404 /nb-configuration\.xml
+RedirectMatch 404 /\.cache
+RedirectMatch 404 /*\.komodoproject
+RedirectMatch 404 /\.komodotools
+RedirectMatch 404 /\.editorconfig
+
+# OS-specific
+RedirectMatch 404 /Thumbs\.db
+RedirectMatch 404 /ehthumbs\.db
+RedirectMatch 404 /Desktop\.ini
+RedirectMatch 404 /\$RECYCLE\.BIN/
+RedirectMatch 404 /*~
+RedirectMatch 404 /\.directory
+RedirectMatch 404 /\.DS_Store
+RedirectMatch 404 /\.AppleDouble
+RedirectMatch 404 /\.LSOverride
+RedirectMatch 404 /\._*
+RedirectMatch 404 /\.Spotlight-V100
+RedirectMatch 404 /\.Trashes
+RedirectMatch 404 /\.AppleDB
+RedirectMatch 404 /\.AppleDesktop
+RedirectMatch 404 /Network\sTrash\sFolder
+RedirectMatch 404 /Temporary\sItems
+RedirectMatch 404 /\.apdisk
+
+# Misc
+RedirectMatch 404 /*\.diff
+RedirectMatch 404 /*\.err
+RedirectMatch 404 /*\.orig
+RedirectMatch 404 /*\.log
+RedirectMatch 404 /*\.rej
+RedirectMatch 404 /*\.swo
+RedirectMatch 404 /*\.swp
+RedirectMatch 404 /*\.vi
+
+RedirectMatch 404 /validation-status\.json
+RedirectMatch 404 /validation-report\.json
+RedirectMatch 404 /node_modules
+RedirectMatch 404 /bower_components
+RedirectMatch 404 /\.bowerrc
+RedirectMatch 404 /\.sass-cache
+RedirectMatch 404 /*\.psd
+
+RedirectMatch 404 /Gruntfile\.js
+RedirectMatch 404 /config\.rb
+RedirectMatch 404 /package\.json
+RedirectMatch 404 /bower\.json

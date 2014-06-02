@@ -1,0 +1,58 @@
+// Various block styles
+$block-margin: $element-margin !default;
+
+// BLOCK-HR
+$block-hr-color: $element-hr-color !default;
+$block-hr-margin: $element-hr-margin !default;
+
+.block-hr {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+
+    margin: $block-hr-margin 0;
+
+    .block-hr-inner {
+        display: inline-block;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            border-top: 1px solid $block-hr-color;
+            top: 50%;
+        }
+
+        &:before {
+            margin-left: -103%;
+        }
+
+        &:after {
+            margin-left: 3%;
+        }
+    }
+}
+
+// BADGE
+$badge-color: #fff !default;
+$badge-font-size: 0.8em !default;
+$badge-line-height: 1.667em !default;
+$badge-background: #177ee6 !default;
+$badge-padding-x: 3px !default;
+
+.badge {
+    color: $badge-color;
+    font-size: $badge-font-size;
+    line-height: $badge-line-height;
+    text-align: center;
+
+    background: $badge-background;
+
+    @include border-radius($badge-line-height);
+    padding: 0 $badge-padding-x;
+
+    display: inline-block;
+    @include box-sizing(border-box);
+    min-width: $badge-line-height;
+}

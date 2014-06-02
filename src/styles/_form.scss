@@ -1,0 +1,38 @@
+// Form styles
+$form-color: #000 !default;
+$form-font-family: Arial, sans-serif !default;
+$form-font-size: 12px !default;
+$form-line-height: 18px !default; // We need this to be set explicitly
+$form-margin: 20px !default;
+
+input,
+button,
+select,
+textarea {
+    @include box-sizing(border-box);
+}
+
+select,
+label {
+    cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 3px 0 0;
+    line-height: normal;
+}
+
+// FORM
+.form {
+    color: $form-color;
+    font-family: $form-font-family;
+    font-size: $form-font-size;
+    line-height: $form-line-height;
+
+    margin: 0;
+}
+
+.form-container {
+    margin: $form-margin 0;
+}

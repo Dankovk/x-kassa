@@ -1,0 +1,32 @@
+.quantity {
+    font-size: 0;
+
+    > * {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: $element-font-size;
+    }
+}
+
+.quantity-input {
+    width: 45px;
+    padding: 3px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.icon-quantity-plus,
+.icon-quantity-minus {
+    $color: #bababa;
+    $border-color: $color;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    line-height: 10px;
+    border: 1px solid $border-color;
+    border-radius: 50%;
+    color: $color;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+}

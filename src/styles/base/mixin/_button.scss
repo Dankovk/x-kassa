@@ -1,0 +1,73 @@
+$button-transitions: true !default;
+$button-transition-duration: .15s !default;
+$button-transition-function: linear !default;
+
+@mixin button-basic (
+    $bg,        $color,
+    $bg-hover,  $color-hover,
+    $bg-active, $color-active,
+
+    $bg-disabled: false,  $color-disabled: false,
+    $bg-focus: $bg-hover, $color-focus: $color-hover
+) {
+    &,
+    &:visited {
+        color: $color;
+    }
+
+    background-color: $bg;
+
+    @if $button-transitions {
+        @include transition(
+            color $button-transition-duration $button-transition-function,
+            background-color $button-transition-duration $button-transition-function
+        );
+    }
+
+    @if $color-hover == $color-focus {
+        &:hover,
+        &:focus {
+            color: $color-hover;
+        }
+    } @else {
+        &:hover {
+            color: $color-hover;
+        }
+        &:focus {
+            color: $color-focus;
+        }
+    }
+
+    @if $bg-hover == $bg-focus {
+        &:hover,
+        &:focus {
+            background-color: $bg-hover;
+        }
+    } @else {
+        &:hover {
+            background-color: $bg-hover;
+        }
+        &:focus {
+            background-color: $bg-focus;
+        }
+    }
+
+    &:active {
+        color: $color-active;
+
+        background-color: $bg-active;
+    }
+
+    @if $bg-disabled or $color-disabled {
+        &[disabled],
+        &.disabled {
+            @if $color-disabled {
+                color: $color-disabled;
+            }
+
+            @if $bg-disabled {
+                background-color: $bg-disabled;
+            }
+        }
+    }
+}

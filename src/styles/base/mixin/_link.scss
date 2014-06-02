@@ -1,0 +1,93 @@
+$link-transitions: true !default;
+$link-transition-duration: .15s !default;
+$link-transition-function: linear !default;
+
+@mixin link-basic ($normal, $hover: false, $active: false, $visited: false, $focus: $hover) {
+    color: $normal;
+
+    @if $link-transitions {
+        @include transition(color $link-transition-duration $link-transition-function);
+    }
+
+    @if $visited {
+        &:visited {
+            color: $visited;
+        }
+    }
+
+    @if $hover {
+        @if $hover == $focus {
+            &:hover,
+            &:focus {
+                color: $hover;
+            }
+        } @else {
+            &:hover {
+                color: $hover;
+            }
+            &:focus {
+                color: $focus;
+            }
+        }
+    } @else if $focus {
+        &:focus {
+            color: $focus;
+        }
+    }
+
+    @if $active {
+        &:active {
+            color: $active;
+        }
+    }
+}
+
+@mixin link-bordered ($normal, $hover: false, $active: false, $visited: false, $focus: $hover, $style: solid, $width: 1px) {
+    color: $normal;
+    text-decoration: none;
+
+    border-bottom-style: $style;
+    border-bottom-width: $width;
+
+    @if $link-transitions {
+        @include transition(color $link-transition-duration $link-transition-function, border-bottom-color $link-transition-duration $link-transition-function);
+    }
+
+    @if $visited {
+        &:visited {
+            color: $visited;
+            border-bottom-color: $visited;
+        }
+    }
+
+    @if $hover {
+        @if $hover == $focus {
+            &:hover,
+            &:focus {
+                color: $hover;
+                border-bottom-color: $hover;
+            }
+        } @else {
+            &:hover {
+                color: $hover;
+                border-bottom-color: $hover;
+            }
+            &:focus {
+                color: $focus;
+                border-bottom-color: $focus;
+            }
+        }
+    } @else if $focus {
+        &:focus {
+            color: $focus;
+            border-bottom-color: $focus;
+        }
+    }
+
+    @if $active {
+        &:active {
+            color: $active;
+            border-bottom-color: $active;
+        }
+    }
+}

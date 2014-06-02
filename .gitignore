@@ -1,0 +1,114 @@
+##
+## ARCHIVES
+## --------
+# It's better to unpack these files and commit the raw source because
+# git has its own built in compression methods.
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+*.cab
+
+#packing-only formats
+*.iso
+*.tar
+
+#package management formats
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+*.msi
+*.msm
+*.msp
+
+##
+## EDITORS
+## -------
+.tmproj
+*.esproj
+.sublime-grunt.cache
+*.sublime-workspace
+.idea
+*.bak
+*.sym
+.c9revisions
+.c9
+.project
+.buildlog
+_notes
+dwsync.xml
+.settings
+nbproject/private/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.cache
+*.komodoproject
+.komodotools
+
+##
+## OS-SPECIFIC
+## -----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+.directory
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+##
+## MISC
+## ----
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+
+# grunt-html-validation
+validation-status.json
+validation-report.json
+
+# Folders to ignore
+node_modules
+bower_components
+
+# Sass
+.sass-cache
+
+# photoshop files
+*.psd
+
+##
+## PROJECT-SPECIFIC
+## ----------------
+# ignore compiled files, they should be re-compiled on deploy
+styles/**
+scripts/**
+
+# ignore sprites (add as necessary):
+# images/icon-s*.png
+# images/misc-s*.png
