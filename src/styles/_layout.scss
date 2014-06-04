@@ -11,4 +11,12 @@ $layout-container-width: 940px !default;
 .layout-container {
     width: $layout-container-width;
     margin: 0 auto;
+
+    @extend .clearfix;
+}
+
+.layout-container-fluid {
+    margin: 0 auto;
+
+    @extend .clearfix;
 }

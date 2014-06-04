@@ -8,6 +8,20 @@
         <meta name="viewport" content="width=1024, initial-scale=1">
 
         <link rel="stylesheet" href="styles/main.css">
+        <!-- Example styles, shoud be deleted -->
+        <style>
+            .grid-highlight .row {
+                margin-bottom: 20px;
+            }
+
+            .grid-highlight .row > div > div {
+                font-size: 14px;
+                background: #ddd;
+                padding: 10px;
+                display: block;
+                height: 20px;
+            }
+        </style>
 
         <script src="scripts/vendor/modernizr-2.8.2.min.js"></script>
     </head>
@@ -20,27 +34,79 @@
         <div class="layout-content">
 
             <div class="layout-container">
-                <h1>Grumpy wizards make toxic brew for the evil Queen and Jack.</h1>
+                <h1>Grid</h1>
 
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    tincidunt magna in mi facilisis, sed auctor leo ornare. Nam
-                    pharetra tortor eget eros venenatis, non lobortis nibh vehicula.
-                    Donec quis nisi nisi. In hac habitasse platea dictumst.
-                    Pellentesque sed nisi ac odio tristique imperdiet. Morbi placerat
-                    tellus a urna tristique scelerisque ut eu neque. Maecenas sed
-                    dui sit amet lacus fermentum posuere.
+                    General grid is generated with fixed width columns based on
+                    three variables: number of columns, column width and column
+                    spacing.
                 </p>
 
-                <h2>Grumpy wizards make toxic brew for the evil Queen and Jack.</h2>
+                <div class="grid-highlight">
+                    <div class="row">
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4"><div>.col-4</div></div>
+                        <div class="col-4"><div>.col-4</div></div>
+                        <div class="col-4"><div>.col-4</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6"><div>.col-6</div></div>
+                        <div class="col-6"><div>.col-6</div></div>
+                    </div>
+                </div>
+
+                <h2>Fluid grid</h2>
 
                 <p>
-                    Mauris tincidunt ac purus a tempus. Ut ac dictum urna. Maecenas
-                    rutrum a est et aliquet. Donec vestibulum nisi sed accumsan
-                    viverra. In hac habitasse platea dictumst. Integer hendrerit dui
-                    in mauris venenatis, eget facilisis lacus congue. Nullam gravida
-                    consequat.
+                    Unlike the general grid, fluid grid generates columns with
+                    percent-based widths. The number of columns and column
+                    spacing are the same as the general grid.
                 </p>
+
+                <div class="layout-container-fluid grid-highlight">
+                    <div class="row">
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                        <div class="col-2"><div>.col-2</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                        <div class="col-3"><div>.col-3</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4"><div>.col-4</div></div>
+                        <div class="col-4"><div>.col-4</div></div>
+                        <div class="col-4"><div>.col-4</div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6"><div>.col-6</div></div>
+                        <div class="col-6"><div>.col-6</div></div>
+                    </div>
+                </div>
 
                 <h3>Grumpy wizards make toxic brew for the evil Queen and Jack.</h3>
 
