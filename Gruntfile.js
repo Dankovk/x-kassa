@@ -128,8 +128,8 @@ module.exports = function (grunt) {
 
         watch: {
             compass: {
-                files: '<%= path.style.src %>/**.scss',
-                tasks: ['copy:normalize', 'compass:dev']
+                files: ['<%= path.style.src %>/**/*.scss', '!<%= path.style.src %>/base/_normalize.scss'],
+                tasks: 'compile:compass-dev'
             },
             html: {
                 files: '**.html',
@@ -146,8 +146,8 @@ module.exports = function (grunt) {
     grunt.registerTask('bower:install', 'exec:bower-install');
 
     grunt.registerTask('copy:vendor', ['copy:jquery', 'uglify:modernizr']);
-    grunt.registerTask('compile:compass-dev', ['copy:normalize', 'compass:dev', 'clean:normalize']);
-    grunt.registerTask('compile:compass-dist', ['copy:normalize', 'compass:dist', 'clean:normalize']);
+    grunt.registerTask('compile:compass-dev', ['copy:normalize', 'compass:dev']);
+    grunt.registerTask('compile:compass-dist', ['copy:normalize', 'compass:dist']);
 
     grunt.registerTask('dev', ['bower:install', 'compile:compass-dev', 'copy:vendor']);
     grunt.registerTask('dist', ['bower:install', 'compile:compass-dist', 'copy:vendor']);
