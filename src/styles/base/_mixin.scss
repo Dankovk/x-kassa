@@ -1,3 +1,87 @@
+/*
+ * Mixin
+ *
+ * Contains custom mixins
+ */
+// Base-redefinition mixin
+// Redefines typo settings and background, but only if they differ from base
+// values
+@mixin base-diff ($color: false, $font-family: false, $font-size: false, $font-style: false, $font-weight: false, $line-height: false, $background-color: false) {
+    @if $color and $color != $base-color {
+        color: $color;
+    }
+
+    @if $font-family and $font-family != $base-font-family {
+        font-family: $font-family;
+    }
+
+    @if $font-size and $font-size != $base-font-size {
+        font-size: $font-size;
+    }
+
+    @if $font-style and $font-style != $base-font-style {
+        font-style: $font-style;
+    }
+
+    @if $font-weight and $font-weight != $base-font-weight {
+        font-weight: $font-weight;
+    }
+
+    @if $line-height and $line-height != $base-line-height {
+        line-height: $line-height;
+    }
+
+    @if $background-color and $background-color != $base-background-color {
+        background-color: $background-color;
+    }
+}
+
+@mixin directional-property ($name, $top: false, $right: $top, $bottom: $top, $left: $right) {
+    @if $top and $right and $bottom and $left {
+        // All directions set
+        @if $top == $right == $bottom == $left {
+            // All directions same
+            #{$name}: $top;
+        } @else if $top == $bottom and $right == $left {
+            // Margin groups differ
+            #{$name}: $top $right;
+        } @else if $right == $left {
+            // Y directions differ
+            #{$name}: $top $right $bottom;
+        } @else {
+            // All directions differ
+            // X directions differ
+            #{$name}: $top $right $bottom $left;
+        }
+    } @else {
+        @if $top {
+            #{$name}-top: $top;
+        }
+
+        @if $right {
+            #{$name}-right: $right;
+        }
+
+        @if $bottom {
+            #{$name}-bottom: $bottom;
+        }
+
+        @if $left {
+            #{$name}-left: $left;
+        }
+    }
+}
+
+// Layout margin helper
+@mixin layout-margin ($top: false, $right: $top, $bottom: $top, $left: $right) {
+    @include directional-property (margin, $top, $right, $bottom, $left);
+}
+
+// Layout padding helper
+@mixin layout-padding ($top: false, $right: $top, $bottom: $top, $left: $right) {
+    @include directional-property (padding, $top, $right, $bottom, $left);
+}
+
 // Placeholder color mixin
 @mixin placeholder ($color) {
     &::-webkit-input-placeholder {
@@ -17,6 +101,7 @@
     }
 }
 
+// Selection color and background mixin
 @mixin selection ($color: false, $background: false) {
     ::selection {
         @if $color {
