@@ -15,7 +15,7 @@
 @import "form/button";
 
 // Standalone blocks
-// @import "block";
+@import "block";
 // @import "block/dropdown";
 // @import "block/nav";
 // @import "block/navbar";
@@ -30,8 +30,8 @@
 // @import "block/table-confirm-order";
 // @import "block/quantity";
 
-// Global styles
-@import "grid";
+// Global style
 @import "layout";
+@import "layout/grid";
 @import "layout/header";
 @import "layout/footer";
