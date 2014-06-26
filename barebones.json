@@ -1,0 +1,22 @@
+{
+    "path": {
+        "vendor": {
+            "src": "bower_components",
+            "dest": "scripts/vendor"
+        },
+        "script": {
+            "src": "src/scripts",
+            "dest": "scripts"
+        },
+        "style": {
+            "src": "src/styles",
+            "dest": "styles"
+        },
+        "image": {
+            "src": "src/images",
+            "dest": "images"
+        },
+        "font": "fonts",
+        "http": "/"
+    }
+}

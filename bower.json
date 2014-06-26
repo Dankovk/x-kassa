@@ -12,7 +12,7 @@
     "node_modules",
     "bower_components"
   ],
-  "devDependencies": {
+  "dependencies": {
     "modernizr": "~2.8.2",
     "jquery": "~2.1.1",
     "normalize-scss": "~3.0.1"

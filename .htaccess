@@ -69,7 +69,8 @@ RedirectMatch 404 /\.bowerrc
 RedirectMatch 404 /\.sass-cache
 RedirectMatch 404 /*\.psd
 
-RedirectMatch 404 /Gruntfile\.js
+RedirectMatch 404 /gulpfile\.js
 RedirectMatch 404 /config\.rb
 RedirectMatch 404 /package\.json
 RedirectMatch 404 /bower\.json
+RedirectMatch 404 /barebones\.json
