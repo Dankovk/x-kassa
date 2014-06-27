@@ -10,14 +10,6 @@ var compass = require('gulp-compass'),
 
 // Gulp tasks
 
-/* Default task
- *
- * Compiles dev version (uncompressed css and js)
- */
-gulp.task('default', function() {
-    gulp.start('bower', 'compass', 'vendor');
-});
-
 /* Bower task
  *
  * Installs all bower dependencies
@@ -35,9 +27,7 @@ gulp.task('bower', function (cb) {
  *
  * Copies all vendor dependencies into their respective locations
  */
-gulp.task('vendor', function () {
-    gulp.start('vendor:normalize', 'vendor:jquery', 'vendor:modernizr');
-});
+gulp.task('vendor', ['vendor:normalize', 'vendor:jquery', 'vendor:modernizr']);
 
 /* Vendor:normalize subtask
  *
@@ -83,6 +73,7 @@ gulp.task('compass', ['vendor:normalize'], function () {
             sass: config.path.style.src,
             style: 'expanded'
         }))
+        .on('error', function (err) {}) // Error message is output by the plugin
         .pipe(gulp.dest(config.path.style.dest));
 });
 
@@ -111,20 +102,22 @@ gulp.task('watch', function () {
     gulp.watch([config.path.style.src + '/**/*.scss', '!' + config.path.style.src + '/base/_normalize.scss'], ['compass']);
 });
 
+/* Default task
+ *
+ * Compiles dev version (uncompressed css and js)
+ */
+gulp.task('default', ['bower', 'compass', 'vendor']);
+
 /* Dev task
  *
  * Enters dev mode: compiles all resources and starts watching for changes
  */
-gulp.task('dev', function () {
-    gulp.start('bower', 'compass', 'vendor', 'watch');
-});
+gulp.task('dev', ['bower', 'compass', 'vendor', 'watch']);
 
 /* Dist task
  *
  * Compiles all resources for production
  */
-gulp.task('dist', function () {
-    gulp.start('bower', 'compass-dist', 'vendor');
-});
+gulp.task('dist', ['bower', 'compass-dist', 'vendor']);
 
 // validation
