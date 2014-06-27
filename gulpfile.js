@@ -91,6 +91,7 @@ gulp.task('compass-dist', ['vendor:normalize'], function () {
             sass: config.path.style.src,
             style: 'compressed'
         }))
+        .on('error', function (err) {}) // Error message is output by the plugin
         .pipe(gulp.dest(config.path.style.dest));
 });
 
