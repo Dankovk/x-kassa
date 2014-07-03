@@ -6,6 +6,10 @@
  * [Consider] rewriting gulp to require a single `gulp install` at installation
    instead of constantly running bower and vendor tasks
 
+## Compass
+
+ * [Consider] moving normalize.scss outside of compass src folder
+
 ## Misc
 
  * Finish README.md
