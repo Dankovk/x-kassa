@@ -24,23 +24,23 @@
     "build_systems":
     [
         {
-            "name": "Barebones Grunt",
-            "cmd": ["grunt", "--no-color"],
+            "name": "Barebones Gulp",
+            "cmd": ["gulp", "--no-color"],
             "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
             "working_dir": "${project_path:${folder:${file_path}}}",
-            "selector": "Gruntfile.js",
+            "selector": "gulpfile.js",
             "windows":
             {
-                "cmd": ["grunt.cmd", "--no-color"]
+                "cmd": ["gulp.cmd", "--no-color"]
             },
             "variants":
             [
                 {
-                    "name": "Gruntfile",
-                    "cmd": ["grunt", "--no-color"],
+                    "name": "Gulpfile",
+                    "cmd": ["gulp", "--no-color"],
                     "windows":
                     {
-                        "cmd": ["grunt.cmd", "--no-color"]
+                        "cmd": ["gulp.cmd", "--no-color"]
                     }
                 }
             ]
