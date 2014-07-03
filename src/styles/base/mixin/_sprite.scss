@@ -1,5 +1,17 @@
-// Sprite-related mixins
+/* Barebones Compass sprite mixins
+ *
+ * Contains custom sprite mixins in use within the project
+ *
+ * See individual mixins for more info
+ */
 
+/* Internal sprite mixin
+ *
+ * Sets background-image and background-position for a passed sprite image. If
+ * $dimensions is true (default), also sets width and height for the image
+ *
+ * This is used as a base for all custom sprite mixins
+ */
 @mixin _sprite ($map, $name, $dimensions: true) {
     background-image: sprite-url($map);
     background-position: sprite-position($map, $name);
@@ -11,6 +23,14 @@
     }
 }
 
+/* Misc sprite mixin
+ *
+ * Sets background-image and background-position for a passed sprite image. If
+ * $dimensions is true (default), also sets width and height for the image
+ *
+ * @uses base/mixin/_sprite.scss:_sprite()
+ * @uses base/_sprite.scss:$sprite-misc-map
+ */
 @mixin sprite-misc ($name, $dimensions: true) {
     @include _sprite ($sprite-misc-map, $name, $dimensions);
 }

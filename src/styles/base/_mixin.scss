@@ -1,11 +1,25 @@
-/*
- * Mixin
+/* Barebones Compass mixins
  *
- * Contains custom mixins
+ * Contains custom mixins in use within the project
+ *
+ * See individual mixins for more info
  */
-// Base-redefinition mixin
-// Redefines typo settings and background, but only if they differ from base
-// values
+
+/* Base diff mixin
+ *
+ * Redefines basic typography settings and background, but only if they differ
+ * from base values
+ *
+ * Base values are defined in base/_variable.scss
+ *
+ * @uses $base-color
+ * @uses $base-font-family
+ * @uses $base-font-size
+ * @uses $base-font-style
+ * @uses $base-font-weight
+ * @uses $base-line-height
+ * @uses $base-background-color
+ */
 @mixin base-diff ($color: false, $font-family: false, $font-size: false, $font-style: false, $font-weight: false, $line-height: false, $background-color: false) {
     @if $color and $color != $base-color {
         color: $color;
@@ -36,6 +50,12 @@
     }
 }
 
+/* Directional property mixin
+ *
+ * This mixin simplifies redefinition of directional properties (like padding).
+ * If only some property values are passed, they are set individually. But if
+ * all four values are passed, they are set using an optimal combination
+ */
 @mixin directional-property ($name, $top: false, $right: $top, $bottom: $top, $left: $right) {
     @if $top and $right and $bottom and $left {
         // All directions set
@@ -72,17 +92,28 @@
     }
 }
 
-// Layout margin helper
+/* Layout margin mixin
+ *
+ * This is a shortcut to using the directional-property mixin with margin
+ * property
+ */
 @mixin layout-margin ($top: false, $right: $top, $bottom: $top, $left: $right) {
     @include directional-property (margin, $top, $right, $bottom, $left);
 }
 
-// Layout padding helper
+/* Layout padding mixin
+ *
+ * This is a shortcut to using the directional-property mixin with padding
+ * property
+ */
 @mixin layout-padding ($top: false, $right: $top, $bottom: $top, $left: $right) {
     @include directional-property (padding, $top, $right, $bottom, $left);
 }
 
-// Placeholder color mixin
+/* Input placeholder mixin
+ *
+ * This mixin sets the input placeholder text color for all supported browsers
+ */
 @mixin placeholder ($color) {
     &::-webkit-input-placeholder {
         color: $color;
@@ -101,7 +132,10 @@
     }
 }
 
-// Selection color and background mixin
+/* Selection mixin
+ *
+ * This mixin sets the text color and background color of selected elements
+ */
 @mixin selection ($color: false, $background: false) {
     ::selection {
         @if $color {

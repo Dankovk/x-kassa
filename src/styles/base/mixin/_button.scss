@@ -1,7 +1,38 @@
+/* Barebones Compass button mixins
+ *
+ * Contains custom button mixins in use within the project
+ *
+ * See individual mixins for more info
+ */
+
+ /* Button transitions
+  *
+  * Set to false to disable button transitions
+  */
 $button-transitions: true !default;
+
+/* Button transition duration
+ *
+ * Defines button transition duration
+ */
 $button-transition-duration: .15s !default;
+
+/* Button transition function
+ *
+ * Defines button transition function
+ */
 $button-transition-function: linear !default;
 
+/* Basic button mixin
+ *
+ * Defines font and background colors for basic color states: hover, active and
+ * disabled. By default, focus state is the same as hover state, but you can set
+ * different colors for focus state. By default, disabled state is inactive
+ *
+ * @uses $button-transitions
+ * @uses $button-transition-duration
+ * @uses $button-transition-function
+ */
 @mixin button-basic (
     $bg,        $color,
     $bg-hover,  $color-hover,

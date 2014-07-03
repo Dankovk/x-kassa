@@ -1,20 +1,125 @@
-// Legacy support
-$legacy-support-for-ie: false !default;
+/* Barebones Compass support settings
+ *
+ * This file contains values for compass and normalize support settings. They
+ * define which vendor prefixes and other features are used in the project
+ *
+ * See individual variables for more info
+ */
+
+/* Legacy support for IE 6, 7 and 8
+ *
+ * Usually compass hacks apply to ie6, 7 and 8 -- set this to false to disable
+ * support for all of them
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-legacy-support-for-ie
+ */
+$legacy-support-for-ie: false;
+
+/* Legacy support for IE 6
+ *
+ * Setting this to false will result in smaller output, but no support for ie6
+ * hacks
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-legacy-support-for-ie6
+ */
+$legacy-support-for-ie6: $legacy-support-for-ie !default;
+
+/* Legacy support for IE 7
+ *
+ * Setting this to false will result in smaller output, but no support for ie7
+ * hacks
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-legacy-support-for-ie7
+ */
+$legacy-support-for-ie7: $legacy-support-for-ie !default;
+
+/* Legacy support for IE 8
+ *
+ * Setting this to false will result in smaller output, but no support for ie8
+ * hacks
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-legacy-support-for-ie8
+ */
+$legacy-support-for-ie8: $legacy-support-for-ie !default;
+
+/* Legacy support for Mozilla
+ *
+ * Whether to output legacy support for mozilla. Usually this means hacks to
+ * support Firefox 3.6 or earlier
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-legacy-support-for-mozilla
+ */
 $legacy-support-for-mozilla: false !default;
 
-// _normalize.scss ie6/ie7 support
+/* Legacy support for IE 6 and 7 in normalize
+ *
+ * Set to false if you want to drop support for IE6 and IE7 in normalize.scss
+ *
+ * @see https://github.com/appleboy/normalize.scss/blob/3.0.1/_normalize.scss#L10
+ */
 $legacy_browser_support: $legacy-support-for-ie !default;
 
-// Original webkit gradients
+/* Support for original webkit gradients
+ *
+ * Support for webkit's original (non-standard) gradient syntax
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-support-for-original-webkit-gradients
+ */
 $support-for-original-webkit-gradients: true !default;
 
-// Vendor prefixes
+/* Experimental support for webkit
+ *
+ * Support for webkit in experimental css3 properties (-webkit)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-webkit
+ */
 $experimental-support-for-webkit: true !default;
+
+/* Experimental support for khtml
+ *
+ * Support for khtml in experimental css3 properties (-khtml)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-khtml
+ */
 $experimental-support-for-khtml: false !default;
+
+/* Experimental support for mozilla
+ *
+ * Support for mozilla in experimental css3 properties (-moz)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-mozilla
+ */
 $experimental-support-for-mozilla: true !default;
+
+/* Experimental support for microsoft
+ *
+ * Support for microsoft in experimental css3 properties (-ms)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-microsoft
+ */
 $experimental-support-for-microsoft: true !default;
+
+/* Experimental support for opera
+ *
+ * Support for opera in experimental css3 properties (-o)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-opera
+ */
 $experimental-support-for-opera: false !default;
 
-// Misc features
+/* Experimental support for SVG
+ *
+ * Support for svg in experimental css3 properties. Setting this to true might
+ * add significant size to your generated stylesheets
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-svg
+ */
 $experimental-support-for-svg: false !default;
+
+/* Experimental support for PIE
+ *
+ * Support for CSS PIE in experimental css3 properties (-pie)
+ *
+ * @see http://compass-style.org/reference/compass/support/#const-experimental-support-for-pie
+ */
 $experimental-support-for-pie: false !default;

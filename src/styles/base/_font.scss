@@ -1,4 +1,9 @@
-// Font imports
+/* Barebones Compass fonts
+ *
+ * This file contains custom font imports and font stacks for different font
+ * types
+ */
+
 // Roboto (light, regular, bold) and italic variants
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,700,300italic,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
 
@@ -8,10 +13,18 @@
 // Ubuntu Mono (regular, bold) and italic variants
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
 
-// Example of font combination
+/* Example of font combination
+ */
 // @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|PT+Serif:400,700|Roboto:400,700&subset=latin,cyrillic,cyrillic-ext);
 
-// Font stacks
+/* You can also use Compass' font-face mixin
+ *
+ * @see http://compass-style.org/reference/compass/css3/font_face/
+ */
+// @include font-face("Blooming Grove", font-files("examples/bgrove.ttf", "examples/bgrove.otf"));
+
+/* Font stacks
+ */
 $font-sans-serif: 'Roboto', Arial, "Helvetica Neue", Helvetica, sans-serif;
 $font-serif: "PT Serif", Cambria, Georgia, serif;
 $font-monospace: "Ubuntu Mono", Consolas, monaco, monospace;

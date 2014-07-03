@@ -1,3 +1,13 @@
+/* Barebones Compass base styles
+ *
+ * This file provides base styles, mixins and variables, used throughout the
+ * project
+ *
+ * See individual included files for more info
+ *
+ * NOTE: This file is not meant to contain any rules directly
+ */
+
 // Compass
 @import "base/support";
 @import "compass";
@@ -8,12 +18,14 @@
 // Sprite config
 // @import "base/sprite";
 
+// Project fonts and font stacks
+@import "base/font";
+
+// Project variables and settings
+@import "base/variable";
+
 // Mixins
 @import "base/mixin";
 @import "base/mixin/link";
 @import "base/mixin/button";
 @import "base/mixin/sprite";
-
-// Global project-specific stuff
-@import "base/font";
-@import "base/variable";

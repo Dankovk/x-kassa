@@ -1,7 +1,38 @@
+/* Barebones Compass link mixins
+ *
+ * Contains custom link mixins in use within the project
+ *
+ * See individual mixins for more info
+ */
+
+/* Link transitions
+ *
+ * Set to false to disable link transitions
+ */
 $link-transitions: true !default;
+
+/* Link transition duration
+ *
+ * Defines link transition duration
+ */
 $link-transition-duration: .15s !default;
+
+/* Link transition function
+ *
+ * Defines link transition function
+ */
 $link-transition-function: linear !default;
 
+/* Basic link mixin
+ *
+ * Defines font colors for basic link states: visited, hover and active. By
+ * default, focus state is the same as hover state, but you can set a different
+ * color for focus state
+ *
+ * @uses $link-transitions
+ * @uses $link-transition-duration
+ * @uses $link-transition-function
+ */
 @mixin link-basic ($normal, $hover: false, $active: false, $visited: false, $focus: $hover) {
     color: $normal;
 
@@ -42,6 +73,16 @@ $link-transition-function: linear !default;
     }
 }
 
+/* Bordered link mixin
+ *
+ * Defines font and bottom border colors for basic link states: visited, hover
+ * and active. By default, focus state is the same as hover state, but you can
+ * set a different color for focus state
+ *
+ * @uses $link-transitions
+ * @uses $link-transition-duration
+ * @uses $link-transition-function
+ */
 @mixin link-bordered ($normal, $hover: false, $active: false, $visited: false, $focus: $hover, $style: solid, $width: 1px) {
     color: $normal;
     text-decoration: none;
