@@ -8,6 +8,7 @@
 
 ## Compass
 
+ * Use support vars in base/_mixin.scss:placeholder()
  * [Consider] moving normalize.scss outside of compass src folder
 
 ## Misc
