@@ -1,3 +1,16 @@
+/* Barebones Compass stylesheet
+ *
+ * This file is used to include all the other scss files
+ *
+ * One exception is base.scss, which itself contains other included files. This
+ * is done so you can use the same base styles with different sets of included
+ * files
+ *
+ * See individual included files for more info
+ *
+ * NOTE: This file is not meant to contain any rules directly
+ */
+
 // Base
 @import "base";
 
@@ -30,7 +43,7 @@
 // @import "block/table-confirm-order";
 // @import "block/quantity";
 
-// Global style
+// Layout styles
 @import "layout";
 @import "layout/grid";
 @import "layout/header";
