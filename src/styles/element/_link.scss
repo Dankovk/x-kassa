@@ -1,87 +1,94 @@
-// Basic link
-$link-normal-color: #177ee6 !default;
-$link-hover-color: #14ccad !default;
-$link-active-color: #3d5266 !default;
-$link-visited-color: #5777d9 !default;
-$link-text-decoration: underline !default;
+/* Barebones Compass link styles
+ *
+ * Link element styles
+ */
 
+/* A element settings
+ */
+$element-a-color: #177ee6 !default;
+$element-a-hover-color: #14ccad !default;
+$element-a-active-color: #3d5266 !default;
+$element-a-visited-color: #5777d9 !default;
+
+$element-a-text-decoration: underline !default;
+
+/* A element styles
+ */
 a {
-    text-decoration: $link-text-decoration;
+    text-decoration: $element-a-text-decoration;
 
-    @include link-basic ($link-normal-color, $link-hover-color, $link-active-color, $link-visited-color);
+    @include link-basic ($element-a-color, $element-a-hover-color, $element-a-active-color, $element-a-visited-color);
 }
 
+/* Segmented link
+ *
+ * Intended for use with icons to avoid icons being undelined:
+ *
+ *     <a class="link-segmented" href="/profile.html">
+ *         <span class="icon-user"></span>
+ *         <span class="segment-text">Profile</span>
+ *     </a>
+ */
 .link-segmented {
     text-decoration: none;
 
     .segment-text {
-        text-decoration: $link-text-decoration;
+        text-decoration: $element-a-text-decoration;
     }
 }
 
-// LINK-AJAX
-$link-ajax-normal-color: $link-normal-color !default;
-$link-ajax-hover-color: $link-hover-color !default;
-$link-ajax-active-color: $link-active-color !default;
-$link-ajax-visited-color: $link-visited-color !default;
-$link-ajax-style: dotted !default;
-$link-ajax-width: 1px !default;
-
+/* Ajax link
+ *
+ * A dotted border is used to underline the link
+ *
+ * @uses $link-transitions
+ * @uses $link-transition-duration
+ * @uses $link-transition-function
+ */
 .link-ajax {
+    $link-ajax-style: dotted;
+    $link-ajax-width: 1px;
+
     text-decoration: none;
 
-    @include link-bordered ($link-ajax-normal-color, $link-ajax-hover-color, $link-ajax-active-color, $link-ajax-visited-color, $style: $link-ajax-style, $width: $link-ajax-width);
+    @include link-bordered ($element-a-color, $element-a-hover-color, $element-a-active-color, $element-a-visited-color, $style: $link-ajax-style, $width: $link-ajax-width);
 
     &.link-segmented {
         border-bottom: 0;
 
         @if $link-transitions {
+            // Split transition: use color for the whole link
             @include transition(color $link-transition-duration $link-transition-function);
         }
 
         .segment-text {
-            border-bottom-color: $link-ajax-normal-color;
+            border-bottom-color: $element-a-color;
             border-bottom-style: $link-ajax-style;
             border-bottom-width: $link-ajax-width;
 
             @if $link-transitions {
+                // Split transition: use border-bottom-color for the text
                 @include transition(border-bottom-color $link-transition-duration $link-transition-function);
             }
         }
 
         &:visited {
             .segment-text {
-                border-bottom-color: $link-ajax-visited-color;
+                border-bottom-color: $element-a-visited-color;
             }
         }
 
         &:hover,
         &:focus {
             .segment-text {
-                border-bottom-color: $link-ajax-hover-color;
+                border-bottom-color: $element-a-hover-color;
             }
         }
 
         &:active {
             .segment-text {
-                border-bottom-color: $link-ajax-active-color;
+                border-bottom-color: $element-a-active-color;
             }
         }
     }
-}
-
-// Link danger
-
-$danger-link-color: #e64839 !default;
-$danger-link-hover-color: #e64839 !default;
-$danger-link-active-color: #e64839 !default;
-$danger-link-visited-color: #e64839 !default;
-
-.link-danger {
-    @include link-basic ($danger-link-color, $danger-link-hover-color, $danger-link-active-color, $danger-link-visited-color);
-}
-
-.link-dotted {
-    text-decoration: none;
-    border-bottom: 1px dotted;
 }
