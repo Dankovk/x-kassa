@@ -6,7 +6,8 @@
  * Font stacks are defined within base/_font.scss
  */
 
-// Basic typo settings
+/* Base typography settings
+ */
 $base-color: #555;
 $base-font-family: $font-sans-serif;
 $base-font-size: 16px;
@@ -14,8 +15,19 @@ $base-font-style: normal;
 $base-font-weight: normal;
 $base-line-height: 1.5;
 
-// Basic visual settings
+/* Base visual settings
+ */
 $base-background-color: #fff;
 
-// Basic layout settings
-$base-margin: 20px !default;
+$base-selection-color: #fff;
+$base-selection-background: #177ee6;
+
+/* Base layout settings
+ */
+$base-margin: 20px;
+
+/* Some custom element settings
+ */
+$element-figure-color: #888;
+$element-figure-font-family: $font-serif;
+$element-figure-font-style: italic;

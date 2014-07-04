@@ -4,27 +4,63 @@
  * types
  */
 
-// Roboto (light, regular, bold) and italic variants
-@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,700,300italic,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
-
-// PT Serif (regular, bold) and italic variants
-@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
-
-// Ubuntu Mono (regular, bold) and italic variants
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
-
-/* Example of font combination
- */
-// @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|PT+Serif:400,700|Roboto:400,700&subset=latin,cyrillic,cyrillic-ext);
-
-/* You can also use Compass' font-face mixin
+/* Examples of font import statements
  *
+ * Copy and paste outside of comment section
+ *
+ * Google Fonts single font face
+ * @see http://www.google.com/fonts
+ *
+ *     @import url(http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic&subset=latin,cyrillic,cyrillic-ext);
+ *
+ * Google Fonts combination of font faces
+ * @see http://www.google.com/fonts
+ *
+ *     @import url(http://fonts.googleapis.com/css?family=Roboto:400,700|PT+Serif:400,700&subset=latin,cyrillic,cyrillic-ext);
+ *
+ * Compass' font-face mixin with local font files
  * @see http://compass-style.org/reference/compass/css3/font_face/
+ * @see http://compass-style.org/reference/compass/helpers/font-files/
+ * @see http://www.fontsquirrel.com/tools/webfont-generator
+ *
+ *     // Regular
+ *     @include font-face(
+ *         "My Font",
+ *         font-files("../fonts/myfont.woff", "../fonts/myfont.ttf", "../fonts/myfont.svg"),
+ *         "../fonts/myfont.eot"
+ *     );
+ *
+ *     // Bold
+ *     @include font-face(
+ *         "My Font",
+ *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
+ *         "../fonts/myfontb.eot", bold
+ *     );
+ *
+ *     // Italic
+ *     @include font-face(
+ *         "My Font",
+ *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
+ *         "../fonts/myfontb.eot", normal, italic
+ *     );
+ *
+ *     // Bold+Italic
+ *     @include font-face(
+ *         "My Font",
+ *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
+ *         "../fonts/myfontb.eot", bold, italic
+ *     );
+ *
+ *     // Custom font weight
+ *     @include font-face(
+ *         "My Font",
+ *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
+ *         "../fonts/myfontb.eot", 300
+ *     );
  */
-// @include font-face("Blooming Grove", font-files("examples/bgrove.ttf", "examples/bgrove.otf"));
 
-/* Font stacks
+/* Default font stacks
  */
-$font-sans-serif: 'Roboto', Arial, "Helvetica Neue", Helvetica, sans-serif;
-$font-serif: "PT Serif", Cambria, Georgia, serif;
-$font-monospace: "Ubuntu Mono", Consolas, monaco, monospace;
+$font-sans-serif: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font-serif: Cambria, Georgia, serif;
+$font-monospace: Consolas, monaco, monospace;
