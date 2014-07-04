@@ -1,44 +1,48 @@
+# Define attr patterns
+[attr]txt          text eol=lf
+[attr]wintxt        text eol=crlf
+
 # Convert line endings to lf by default
-*           text=auto eol=lf
+*                   text=auto
 
 # Image formats
-*.png       binary
-*.jpg       binary
-*.jpeg      binary
-*.gif       binary
-*.ico       binary
-*.svg       text
+*.png               binary
+*.jpg               binary
+*.jpeg              binary
+*.gif               binary
+*.ico               binary
+*.svg               txt
 
 # Audio formats
-.mp3        binary
+.mp3                binary
 
 # Video formats
-*.mov       binary
-*.mp4       binary
+*.mov               binary
+*.mp4               binary
 
 # Font formats
-*.woff      binary
-*.ttf       binary
-*.otf       binary
-*.eot       binary
+*.woff              binary
+*.ttf               binary
+*.otf               binary
+*.eot               binary
 
 # Text formats
-*.php       text diff=php
-*.inc       text diff=php
-*.html      text diff=html
-*.htm       text diff=html
-*.css       text
-*.js        text
-*.json      text
-*.txt       text
-*.xml       text
-*.rb        text diff=ruby
-*.ini       text
+*.php               txt diff=php
+*.inc               txt diff=php
+*.html              txt diff=html
+*.htm               txt diff=html
+*.css               txt
+*.js                txt
+*.json              txt
+*.txt               txt
+*.xml               txt
+*.rb                txt diff=ruby
+*.ini               txt
 
 # Other formats
-*.flv       binary
-*.fla       binary
-*.swf       binary
+*.flv               binary
+*.fla               binary
+*.swf               binary
 
 # Special files
-.htaccess   text
+.htaccess           txt
