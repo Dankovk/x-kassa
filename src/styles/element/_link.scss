@@ -62,9 +62,7 @@ a {
         }
 
         .segment-text {
-            border-bottom-color: $element-a-color;
-            border-bottom-style: $link-ajax-style;
-            border-bottom-width: $link-ajax-width;
+            border-bottom: $link-ajax-width $link-ajax-width $element-a-color;
 
             @if $link-transitions {
                 // Split transition: use border-bottom-color for the text
