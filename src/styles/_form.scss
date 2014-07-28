@@ -9,7 +9,7 @@ input,
 button,
 select,
 textarea {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
 }
 
 select,

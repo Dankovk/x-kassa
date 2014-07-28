@@ -30,8 +30,6 @@ $form-control-hover-border-color: false !default;
 $form-control-focus-border-color: #177ee6 !default;
 
 .form-control {
-    @include placeholder (#999);
-
     background-color: $form-control-background;
     background-image: none;
 
@@ -41,7 +39,7 @@ $form-control-focus-border-color: #177ee6 !default;
     padding: $form-control-padding 9px;
 
     @if $form-control-border-transitions {
-        @include transition (border-color $form-control-border-transition-duration $form-control-border-transition-function);
+        transition: border-color $form-control-border-transition-duration $form-control-border-transition-function;
     }
 
     display: block;
@@ -56,6 +54,10 @@ $form-control-focus-border-color: #177ee6 !default;
 
     &:focus {
         border-color: $form-control-focus-border-color;
+    }
+
+    &::placeholder {
+        color: #999;
     }
 }
 

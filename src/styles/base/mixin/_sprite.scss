@@ -31,6 +31,6 @@
  * @uses base/mixin/_sprite.scss:_sprite()
  * @uses base/_sprite.scss:$sprite-misc-map
  */
-@mixin sprite-misc ($name, $dimensions: true) {
-    @include _sprite ($sprite-misc-map, $name, $dimensions);
-}
+// @mixin sprite-misc ($name, $dimensions: true) {
+//     @include _sprite ($sprite-misc-map, $name, $dimensions);
+// }

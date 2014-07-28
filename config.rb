@@ -1,26 +1,33 @@
-# Require any additional compass plugins here.
+# PATHS
+# -----
+# www root path
+http_path = "/dist/"
 
-# Set this to the root of your project when deployed:
-http_path = "/"
-css_dir = "styles"
+# css destination directory
+css_dir = "dist/styles"
+
+# scss source directory
 sass_dir = "src/styles"
-images_dir = "src/images"
-javascripts_dir = "scripts"
-fonts_dir = "fonts"
-generated_images_dir = "images"
 
-# You can select your preferred output style here (can be overridden via the command line):
-# output_style = :expanded or :nested or :compact or :compressed
+# sprite source directory
+images_dir = "src/sprites"
+
+# js destination directory
+javascripts_dir = "dist/scripts"
+
+# font destination directory
+fonts_dir = "dist/fonts"
+
+# image destination directory
+generated_images_dir = "dist/images"
+
+# SETTINGS
+# --------
+# css output style
 output_style = (environment == :production) ? :compressed : :expanded
 
-# To enable relative paths to assets via compass helper functions. Uncomment:
+# enable relative assets
 relative_assets = true
 
-# To disable debugging comments that display the original location of your selectors. Uncomment:
+# disable line comments
 line_comments = false
-
-# If you prefer the indented syntax, you might want to regenerate this
-# project again passing --syntax sass, or you can uncomment this:
-# preferred_syntax = :sass
-# and then run:
-# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass

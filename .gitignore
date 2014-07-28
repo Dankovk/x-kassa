@@ -105,13 +105,8 @@ bower_components
 ##
 ## PROJECT-SPECIFIC
 ## ----------------
-# ignore normalize.scss
-src/styles/base/_normalize.scss
+# ignore normalize
+src/styles/vendor/_normalize.scss
 
 # ignore compiled files, they should be re-compiled on deploy
-styles/**
-scripts/**
-
-# ignore sprites (add as necessary):
-# images/icon-s*.png
-# images/misc-s*.png
+dist/**

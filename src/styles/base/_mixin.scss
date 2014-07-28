@@ -110,28 +110,6 @@
     @include directional-property (padding, $top, $right, $bottom, $left);
 }
 
-/* Input placeholder mixin
- *
- * This mixin sets the input placeholder text color for all supported browsers
- */
-@mixin placeholder ($color) {
-    &::-webkit-input-placeholder {
-        color: $color;
-    }
-
-    &:-moz-placeholder {
-        color: $color;
-    }
-
-    &::-moz-placeholder {
-        color: $color;
-    }
-
-    &:-ms-input-placeholder {
-        color: $color;
-    }
-}
-
 /* Selection mixin
  *
  * This mixin sets the text color and background color of selected elements

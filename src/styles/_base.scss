@@ -13,7 +13,7 @@
 @import "compass";
 
 // Normalize
-@import "base/normalize";
+@import "vendor/normalize";
 
 // Project fonts and font stacks
 @import "base/font";
@@ -22,7 +22,7 @@
 @import "base/variable";
 
 // Sprite config
-// @import "base/sprite";
+@import "base/sprite";
 
 // Mixins
 @import "base/mixin";
