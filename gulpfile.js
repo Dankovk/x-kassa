@@ -115,7 +115,7 @@ gulp.task('image', function() {
  *
  * Compiles main.scss to main.min.css
  */
-gulp.task('style', ['vendor:normalize'], function () {
+gulp.task('style', function () {
     gulp.src(config.path.style.src + '/*.scss')
         .pipe(compass({
             config_file: 'config.rb',
@@ -194,12 +194,12 @@ gulp.task('clean:style', function () {
  *
  * Compiles dev version (uncompressed css and js)
  */
-gulp.task('default', ['bower', 'font', 'image', 'style', 'html', 'vendor']);
+gulp.task('default', ['font', 'image', 'style', 'html']);
 
-/* Dev task
+/* Init task
  *
- * Enters dev mode: compiles all resources and starts watching for changes
+ * Loads and installs required vendor libraries via bower
  */
-gulp.task('dev', ['bower', 'font', 'image', 'style', 'html', 'vendor', 'watch']);
+gulp.task('init', ['bower', 'vendor']);
 
 // validation
