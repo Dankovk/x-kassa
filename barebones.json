@@ -18,6 +18,10 @@
             "src": "src/images",
             "dest": "dist/images"
         },
+        "sprite": {
+            "src": "src/sprites",
+            "dest": "dist/images"
+        },
         "font": {
             "src": "src/fonts",
             "dest": "dist/fonts"
