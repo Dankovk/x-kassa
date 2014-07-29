@@ -151,6 +151,7 @@ gulp.task('watch', function () {
         config.path.style.src + '/*.scss',
         config.path.sprite.src + '/**/*'
     ], ['style']);
+    gulp.watch(config.path.html.src + '/*.html', ['html']);
 });
 
 /* Clean task
