@@ -148,7 +148,7 @@ gulp.task('watch', function () {
     gulp.watch(config.path.font.src + '/**/*', ['font']);
     gulp.watch(config.path.image.src + '/**/*', ['image']);
     gulp.watch([
-        config.path.style.src + '/*.scss',
+        config.path.style.src + '/**/*.scss',
         config.path.sprite.src + '/**/*'
     ], ['style']);
     gulp.watch(config.path.html.src + '/*.html', ['html']);
