@@ -107,6 +107,8 @@ bower_components
 ## ----------------
 # ignore normalize
 src/styles/vendor/_normalize.scss
+# ignore js vendor libraries
+src/scripts/vendor/*.js
 
 # ignore compiled files, they should be re-compiled on deploy
 dist/**

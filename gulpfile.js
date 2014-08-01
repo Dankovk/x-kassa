@@ -6,6 +6,7 @@ var exec   = require('child_process').exec,
 // Gulp plugins
 var rename = require("gulp-rename"),
     clean  = require('gulp-clean'),
+    filter = require('gulp-filter'),
 
     cache    = require('gulp-cache'),
     imagemin = require('gulp-imagemin'),
@@ -14,6 +15,7 @@ var rename = require("gulp-rename"),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss    = require('gulp-minify-css'),
 
+    useref = require('gulp-useref'),
     uglify = require('gulp-uglify');
 
 /* Project directory structure
@@ -56,7 +58,7 @@ gulp.task('bower', function (cb) {
  *
  * Copies all vendor dependencies into their respective locations
  */
-gulp.task('vendor', ['vendor:normalize', 'vendor:jquery', 'vendor:modernizr']);
+gulp.task('vendor', ['vendor:normalize', 'vendor:modernizr', 'vendor:jquery', 'vendor:bootstrap']);
 
 /* Vendor:normalize subtask
  *
@@ -67,24 +69,32 @@ gulp.task('vendor:normalize', ['bower'], function () {
         .pipe(gulp.dest(config.path.style.vendor));
 });
 
+/* Vendor:modernizr subtask
+ *
+ * Copies modernizr to js vendor dir
+ */
+gulp.task('vendor:modernizr', ['bower'], function () {
+    gulp.src('bower_components/modernizr/modernizr.js')
+        .pipe(gulp.dest(config.path.script.vendor));
+});
+
 /* Vendor:jquery subtask
  *
- * Copies jquery to vendor dest dir
+ * Copies jquery to dest js vendor dir
  */
 gulp.task('vendor:jquery', ['bower'], function () {
     gulp.src('bower_components/jquery/dist/jquery.min.js')
         .pipe(rename('jquery-2.1.1.min.js'))
-        .pipe(gulp.dest(config.path.script.vendor));
+        .pipe(gulp.dest(config.path.script.dest + '/vendor'));
 });
 
-/* Vendor:modernizr subtask
+/* Vendor:bootstrap task
  *
- * Copies modernizr to vendor dest dir
+ * Copies bootstrap js files to js vendor dir
  */
-gulp.task('vendor:modernizr', ['bower'], function () {
-    gulp.src('bower_components/modernizr/modernizr.js')
-        .pipe(uglify())
-        .pipe(rename('modernizr-2.8.2.min.js'))
+gulp.task('vendor:bootstrap', ['bower'], function () {
+    gulp.src('bower_components/bootstrap/js/*.js')
+        .pipe(rename({prefix: 'bootstrap-'}))
         .pipe(gulp.dest(config.path.script.vendor));
 });
 
@@ -93,8 +103,30 @@ gulp.task('vendor:modernizr', ['bower'], function () {
  * Copies font files over to dest dir
  */
 gulp.task('font', function () {
-    gulp.src(config.path.font.src + '/**/*')
+    gulp.src(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}')
         .pipe(gulp.dest(config.path.font.dest));
+});
+
+/* Html task
+ *
+ * Copies html files over to dest dir
+ */
+gulp.task('html', function () {
+    var assets  = useref.assets(),
+        jsfiles = filter("**/*.js");
+
+    gulp.src(config.path.html.src + '/*.html')
+        .pipe(assets)
+
+        // Concatenate and minify javascripts
+        .pipe(jsfiles)
+        // .pipe(uglify())
+        .pipe(jsfiles.restore())
+
+        // Restore html stream and write concatenated js file names
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(gulp.dest(config.path.html.dest));
 });
 
 /* Image task
@@ -102,7 +134,7 @@ gulp.task('font', function () {
  * Copies compressed and optimized images over to dest dir
  */
 gulp.task('image', function() {
-  gulp.src(config.path.image.src + '/**/*')
+  gulp.src(config.path.image.src + '/**/*.{jpg,png}')
       .pipe(cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
@@ -111,9 +143,15 @@ gulp.task('image', function() {
       .pipe(gulp.dest(config.path.image.dest));
 });
 
-/* Compass task
+/* Script task
  *
- * Compiles main.scss to main.min.css
+ * Concatenates and uglifies scripts
+ */
+gulp.task('script', ['html']);
+
+/* Style task
+ *
+ * Compiles scss files to css dest dir
  */
 gulp.task('style', function () {
     gulp.src(config.path.style.src + '/*.scss')
@@ -131,36 +169,19 @@ gulp.task('style', function () {
         .pipe(gulp.dest(config.path.style.dest));
 });
 
-/* Html task
- *
- * Copies html files over to dest dir
- */
-gulp.task('html', function () {
-    gulp.src(config.path.html.src + '/*.html')
-        .pipe(gulp.dest(config.path.html.dest));
-});
-
 /* Watch task
  *
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    gulp.watch(config.path.font.src + '/**/*', ['font']);
-    gulp.watch(config.path.image.src + '/**/*', ['image']);
+    gulp.watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', ['font']);
+    gulp.watch(config.path.html.src + '/*.html', ['html']);
+    gulp.watch(config.path.image.src + '/**/*.{jpg,png}', ['image']);
+    gulp.watch(config.path.script.src + '/**/*.js', ['script']);
     gulp.watch([
         config.path.style.src + '/**/*.scss',
-        config.path.sprite.src + '/**/*'
+        config.path.sprite.src + '/**/*.png' // TODO: check if sprites support jpegs
     ], ['style']);
-    gulp.watch(config.path.html.src + '/*.html', ['html']);
-});
-
-/* Clean task
- *
- * Removes html dest folder
- */
-gulp.task('clean', function () {
-    gulp.src([config.path.html.dest], {read: false})
-        .pipe(clean());
 });
 
 /* Clean:font task
@@ -168,8 +189,17 @@ gulp.task('clean', function () {
  * Removes font dest folder
  */
 gulp.task('clean:font', function () {
-     gulp.src([config.path.font.dest], {read: false})
-         .pipe(clean());
+    gulp.src(config.path.font.dest, {read: false})
+        .pipe(clean());
+});
+
+/* Clean:html task
+ *
+ * Removes html files from dest folder
+ */
+gulp.task('clean:html', function () {
+    gulp.src(config.path.html.dest + '/*.html', {read: false})
+        .pipe(clean());
 });
 
 /* Clean:image task
@@ -177,8 +207,21 @@ gulp.task('clean:font', function () {
  * Removes image dest folder
  */
 gulp.task('clean:image', function () {
-     gulp.src([config.path.image.dest], {read: false})
-         .pipe(clean());
+    gulp.src(config.path.image.dest, {read: false})
+        .pipe(clean());
+});
+
+/* Clean:script
+ *
+ * Clears script dest folder, except vendor subfolder
+ */
+gulp.task('clean:script', function () {
+    gulp.src([
+        config.path.script.dest + '/**/*',
+        '!' + config.path.script.dest + '/vendor',
+        '!' + config.path.script.dest + '/vendor/**/*.js'
+    ], {read: false})
+        .pipe(clean());
 });
 
 /* Clean:style task
@@ -186,15 +229,21 @@ gulp.task('clean:image', function () {
  * Removes style dest folder
  */
 gulp.task('clean:style', function () {
-    gulp.src([config.path.style.dest], {read: false})
+    gulp.src(config.path.style.dest, {read: false})
         .pipe(clean());
 });
+
+/* Clean task
+ *
+ * Removes html dest folder
+ */
+gulp.task('clean', ['clean:font', 'clean:html', 'clean:image', 'clean:script', 'clean:style']);
 
 /* Default task
  *
  * Compiles dev version (uncompressed css and js)
  */
-gulp.task('default', ['font', 'image', 'style', 'html']);
+gulp.task('default', ['font', 'html', 'image', 'script', 'style']);
 
 /* Init task
  *
