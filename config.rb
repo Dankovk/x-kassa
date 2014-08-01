@@ -1,33 +1,28 @@
+# Read barebones.json
+# -------------------
+begin
+    require 'open-uri'
+    require 'json'
+
+    data   = open('barebones.json', "UserAgent" => "Ruby-Wget").read
+    config = JSON.parse(data)
+rescue
+    abort("Error trying to read 'barebones.json'. Make sure it exists and is a valid JSON file")
+end
+
 # PATHS
 # -----
-# www root path
-http_path = "/dist/"
+http_path  = config['path']['http']
+css_dir    = config['path']['style']['dest']
+sass_dir   = config['path']['style']['src']
+images_dir = config['path']['sprite']['src']
+fonts_dir  = config['path']['font']['dest']
 
-# css destination directory
-css_dir = "dist/styles"
-
-# scss source directory
-sass_dir = "src/styles"
-
-# sprite source directory
-images_dir = "src/sprites"
-
-# js destination directory
-javascripts_dir = "dist/scripts"
-
-# font destination directory
-fonts_dir = "dist/fonts"
-
-# image destination directory
-generated_images_dir = "dist/images"
+javascripts_dir      = config['path']['script']['dest']
+generated_images_dir = config['path']['sprite']['dest']
 
 # SETTINGS
 # --------
-# css output style
-output_style = (environment == :production) ? :compressed : :expanded
-
-# enable relative assets
+output_style = :expanded # the css is compiled after autoprefixer is done with it
 relative_assets = true
-
-# disable line comments
-line_comments = false
+line_comments = false # disable line comments
