@@ -40,15 +40,14 @@ use it, you must install an [editorconfig plugin](http://editorconfig.org/#downl
 
 3. Rename `Barebones.sublime-project` to match your project name
 4. Edit `package.json` to match your project information
-5. Optionally, edit source and destination build paths in `barebones.json` and
-   `config.rb`. The latter is required for compass to work properly
+5. Optionally, edit source and destination build paths in `barebones.json`
 
 ## Usage
 Barebones contains some default build instructions, including a custom watch
 task. Before you can start working, you need to download and set up all vendor
 dependencies:
 
-```gulp bower vendor```
+```gulp init```
 
 After that you can just run the watch task, and it will rebuild your resources
 every time you save changes in the source files:
