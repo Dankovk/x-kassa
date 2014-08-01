@@ -1,30 +1,30 @@
 {
     "path": {
+        "font": {
+            "src": "src/fonts",
+            "dest": "dist/fonts"
+        },
         "html": {
             "src": "src",
             "dest": "dist"
-        },
-        "script": {
-            "src": "src/scripts",
-            "dest": "dist/scripts",
-            "vendor": "dist/scripts/vendor"
-        },
-        "style": {
-            "src": "src/styles",
-            "dest": "dist/styles",
-            "vendor": "src/styles/vendor"
         },
         "image": {
             "src": "src/images",
             "dest": "dist/images"
         },
+        "script": {
+            "src": "src/scripts",
+            "dest": "dist/scripts",
+            "vendor": "src/scripts/vendor"
+        },
         "sprite": {
             "src": "src/sprites",
             "dest": "dist/images"
         },
-        "font": {
-            "src": "src/fonts",
-            "dest": "dist/fonts"
+        "style": {
+            "src": "src/styles",
+            "dest": "dist/styles",
+            "vendor": "src/styles/vendor"
         },
         "http": "/dist/"
     }
