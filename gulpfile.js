@@ -208,7 +208,7 @@ gulp.task('clean:html', function () {
  */
 gulp.task('clean:image', function () {
     gulp.src(config.path.image.dest, {read: false})
-        .pipe(clean());
+        .pipe(clean()).pipe(cache.clear());
 });
 
 /* Clean:script
@@ -252,3 +252,25 @@ gulp.task('default', ['font', 'html', 'image', 'script', 'style']);
 gulp.task('init', ['bower', 'vendor']);
 
 // validation
+
+/* Static server
+ *
+ *  serve-static serve files from within a given root directory
+ *  serve-index returns middlware that serves an index of the directory in the given path
+ */
+gulp.task('connect', function() {
+    var serveStatic = require('serve-static'),
+        serverPath = config.path.server.path,
+        serveIndex = require('serve-index');
+    var app = require('connect')()
+        .use(serveStatic(serverPath))
+        .use(serveIndex(serverPath));
+
+    require('http').createServer(app)
+        .listen(9000)
+        .on('listening', function() {
+            console.log('Started connect web server on http://localhost:9000');
+        });
+});
+
+gulp.task('server', ['connect', 'watch']);
