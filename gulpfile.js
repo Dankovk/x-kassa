@@ -120,7 +120,7 @@ gulp.task('html', function () {
 
         // Concatenate and minify javascripts
         .pipe(jsfiles)
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(jsfiles.restore())
 
         // Restore html stream and write concatenated js file names
@@ -242,7 +242,7 @@ gulp.task('clean', ['clean:font', 'clean:html', 'clean:image', 'clean:script', '
 
 /* Default task
  *
- * Compiles dev version (uncompressed css and js)
+ * Compiles all files
  */
 gulp.task('default', ['font', 'html', 'image', 'script', 'style']);
 
@@ -252,26 +252,29 @@ gulp.task('default', ['font', 'html', 'image', 'script', 'style']);
  */
 gulp.task('init', ['bower', 'vendor']);
 
-// validation
-
-/* Static server
+/* Connect task
  *
- *  serve-static serve files from within a given root directory
- *  serve-index returns middlware that serves an index of the directory in the given path
+ * Creates a web server with an index of all html files within html dest dir
  */
 gulp.task('connect', function() {
     var serveStatic = require('serve-static'),
-        serverPath = config.path.server.path,
-        serveIndex = require('serve-index');
+        serveIndex  = require('serve-index');
     var app = require('connect')()
-        .use(serveStatic(serverPath))
-        .use(serveIndex(serverPath));
+        .use(serveStatic(config.path.html.dest)) // serve files from within a given root directory
+        .use(serveIndex(config.path.html.dest)); // returns middlware that serves an index of the directory in the given path
 
-    require('http').createServer(app)
-        .listen(9000)
+    require('http')
+        .createServer(app)
+        .listen(config.server.port)
         .on('listening', function() {
-            console.log('Started connect web server on http://localhost:9000');
+            console.log('Started connect web server on http://localhost:' + config.server.port);
         });
 });
 
+/* Server task
+ *
+ * Creates a web server and starts watching for any changes within src dir
+ */
 gulp.task('server', ['connect', 'watch']);
+
+// validation
