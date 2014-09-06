@@ -58,7 +58,7 @@ gulp.task('bower', function (cb) {
  *
  * Copies all vendor dependencies into their respective locations
  */
-gulp.task('vendor', ['vendor:normalize', 'vendor:modernizr', 'vendor:jquery', 'vendor:bootstrap']);
+gulp.task('vendor', ['vendor:normalize', 'vendor:modernizr', 'vendor:jquery', 'vendor:bootstrap', 'vendor:jquery-mousewheel', 'vendor:jquery-touchswipe']);
 
 /* Vendor:normalize subtask
  *
@@ -95,6 +95,26 @@ gulp.task('vendor:jquery', ['bower'], function () {
 gulp.task('vendor:bootstrap', ['bower'], function () {
     gulp.src('bower_components/bootstrap/js/*.js')
         .pipe(rename({prefix: 'bootstrap-'}))
+        .pipe(gulp.dest(config.path.script.vendor));
+});
+
+/* Vendor:jquery-mousewheel task
+ *
+ * Copies jquery-mousewheel js file to js vendor dir
+ */
+gulp.task('vendor:jquery-mousewheel', ['bower'], function () {
+    gulp.src('bower_components/jquery-mousewheel/jquery.mousewheel.js')
+        .pipe(rename('jquery-mousewheel.js'))
+        .pipe(gulp.dest(config.path.script.vendor));
+});
+
+/* Vendor:jquery-touchswipe task
+ *
+ * Copies jquery-touchswipe js file to js vendor dir
+ */
+gulp.task('vendor:jquery-touchswipe', ['bower'], function () {
+    gulp.src('bower_components/jquery-touchswipe/jquery.touchSwipe.js')
+        .pipe(rename('jquery-touchswipe.js'))
         .pipe(gulp.dest(config.path.script.vendor));
 });
 
@@ -259,6 +279,7 @@ gulp.task('init', ['bower', 'vendor']);
 gulp.task('connect', function() {
     var serveStatic = require('serve-static'),
         serveIndex  = require('serve-index');
+
     var app = require('connect')()
         .use(serveStatic(config.path.html.dest)) // serve files from within a given root directory
         .use(serveIndex(config.path.html.dest)); // returns middlware that serves an index of the directory in the given path
