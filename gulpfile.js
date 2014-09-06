@@ -5,7 +5,7 @@ var exec   = require('child_process').exec,
 
 // Gulp plugins
 var rename = require("gulp-rename"),
-    clean  = require('gulp-clean'),
+    rimraf = require('gulp-rimraf'),
     filter = require('gulp-filter'),
 
     cache    = require('gulp-cache'),
@@ -190,7 +190,7 @@ gulp.task('watch', function () {
  */
 gulp.task('clean:font', function () {
     gulp.src(config.path.font.dest, {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 /* Clean:html task
@@ -199,7 +199,7 @@ gulp.task('clean:font', function () {
  */
 gulp.task('clean:html', function () {
     gulp.src(config.path.html.dest + '/*.html', {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 /* Clean:image task
@@ -208,7 +208,8 @@ gulp.task('clean:html', function () {
  */
 gulp.task('clean:image', function () {
     gulp.src(config.path.image.dest, {read: false})
-        .pipe(clean()).pipe(cache.clear());
+        .pipe(rimraf())
+        .pipe(cache.clear());
 });
 
 /* Clean:script
@@ -221,7 +222,7 @@ gulp.task('clean:script', function () {
         '!' + config.path.script.dest + '/vendor',
         '!' + config.path.script.dest + '/vendor/**/*.js'
     ], {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 /* Clean:style task
@@ -230,7 +231,7 @@ gulp.task('clean:script', function () {
  */
 gulp.task('clean:style', function () {
     gulp.src(config.path.style.dest, {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 /* Clean task
