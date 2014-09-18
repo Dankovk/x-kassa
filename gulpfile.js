@@ -58,7 +58,14 @@ gulp.task('bower', function (cb) {
  *
  * Copies all vendor dependencies into their respective locations
  */
-gulp.task('vendor', ['vendor:normalize', 'vendor:modernizr', 'vendor:jquery', 'vendor:bootstrap', 'vendor:jquery-mousewheel', 'vendor:jquery-touchswipe']);
+gulp.task('vendor', [
+    'vendor:normalize',
+    'vendor:modernizr',
+    'vendor:jquery',
+    'vendor:bootstrap',
+    'vendor:jquery-mousewheel',
+    'vendor:jquery-touchswipe'
+]);
 
 /* Vendor:normalize subtask
  *
@@ -299,19 +306,36 @@ gulp.task('clean:misc', function () {
  *
  * Removes html dest folder
  */
-gulp.task('clean', ['clean:font', 'clean:html', 'clean:image', 'clean:script', 'clean:style', 'clean:misc']);
+gulp.task('clean', [
+    'clean:font',
+    'clean:html',
+    'clean:image',
+    'clean:script',
+    'clean:style',
+    'clean:misc'
+]);
 
 /* Default task
  *
  * Compiles all files
  */
-gulp.task('default', ['font', 'html', 'image', 'script', 'style', 'misc']);
+gulp.task('default', [
+    'font',
+    'html',
+    'image',
+    'script',
+    'style',
+    'misc'
+]);
 
 /* Init task
  *
  * Loads and installs required vendor libraries via bower
  */
-gulp.task('init', ['bower', 'vendor']);
+gulp.task('init', [
+    'bower',
+    'vendor'
+]);
 
 /* Connect task
  *
@@ -337,6 +361,9 @@ gulp.task('connect', function() {
  *
  * Creates a web server and starts watching for any changes within src dir
  */
-gulp.task('server', ['connect', 'watch']);
+gulp.task('server', [
+    'connect',
+    'watch'
+]);
 
 // validation
