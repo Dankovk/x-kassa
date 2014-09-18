@@ -23,13 +23,13 @@ var rename = require("gulp-rename"),
  * barebones
  * |
  * |- bower_components          [vendor]  libraries (via Bower)
- * |- dist                      [project] compiled files (html)
+ * |- dist                      [project] compiled files, misc files (html, ico)
  * |  |- fonts                  [fonts]   compressed (eot, svg, ttf, woff)
  * |  |- images                 [images]  compressed (jpg, png) and sprites (png)
  * |  |- scripts                [scripts] combined and minified (min.js)
  * |  |  '- vendor              [scripts] vendor libraries (min.js)
  * |  '- styles                 [styles]  prefixed and minifed (min.css)
- * '- src                       [project] source files (html)
+ * '- src                       [project] source files, misc files (html, ico)
  *    |- fonts                  [fonts]   source (eot, svg, ttf, woff)
  *    |- images                 [images]  source (jpg, png)
  *    |- scripts                [scripts] source (js)
@@ -189,6 +189,27 @@ gulp.task('style', function () {
         .pipe(gulp.dest(config.path.style.dest));
 });
 
+/* Misc task
+ *
+ * Copies misc files misc dest dir
+ */
+gulp.task('misc', function () {
+    // Compile a list of all paths
+    var files = config.path.misc.files || [],
+        src   = config.path.misc.src,
+        dest  = config.path.misc.dest,
+        paths = [];
+
+    // Compile a list of files
+    for (var i = 0, l = files.length; i < l; i++) {
+        paths.push(src + '/' + files[i]);
+    }
+
+    // Copy all files from the list
+    gulp.src(paths)
+        .pipe(gulp.dest(dest));
+});
+
 /* Watch task
  *
  * Enters watch mode, automatically recompiling assets on source changes
@@ -254,17 +275,37 @@ gulp.task('clean:style', function () {
         .pipe(rimraf());
 });
 
+/* Clean:misc task
+ *
+ * Removes misc files from dest folder
+ */
+gulp.task('clean:misc', function () {
+    // Compile a list of all paths
+    var files = config.path.misc.files || [],
+        dest  = config.path.misc.dest,
+        paths = [];
+
+    // Compile a list of files
+    for (var i = 0, l = files.length; i < l; i++) {
+        paths.push(dest + '/' + files[i]);
+    }
+
+    // Clean all files and folders from the list
+    gulp.src(paths, {read: false})
+        .pipe(clean());
+});
+
 /* Clean task
  *
  * Removes html dest folder
  */
-gulp.task('clean', ['clean:font', 'clean:html', 'clean:image', 'clean:script', 'clean:style']);
+gulp.task('clean', ['clean:font', 'clean:html', 'clean:image', 'clean:script', 'clean:style', 'clean:misc']);
 
 /* Default task
  *
  * Compiles all files
  */
-gulp.task('default', ['font', 'html', 'image', 'script', 'style']);
+gulp.task('default', ['font', 'html', 'image', 'script', 'style', 'misc']);
 
 /* Init task
  *

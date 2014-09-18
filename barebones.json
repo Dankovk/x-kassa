@@ -26,6 +26,13 @@
             "dest": "dist/styles",
             "vendor": "src/styles/vendor"
         },
+        "misc": {
+            "src": "src",
+            "dest": "dist",
+            "files": [
+                "favicon.ico"
+            ]
+        },
         "http": "/dist/"
     },
     "server": {
