@@ -209,9 +209,8 @@ gulp.task('misc', function () {
     // We need this because apparently there is a maximum number of files
     for (var i = 0, l = files.length; i < l; i++) {
         // Copy files
-        gulp.src(files[i], {
-            cwd: src
-        }).pipe(gulp.dest(dest));
+        gulp.src(files[i], {cwd: src})
+            .pipe(gulp.dest(dest));
     }
 });
 
@@ -286,10 +285,8 @@ gulp.task('clean:style', function () {
  */
 gulp.task('clean:misc', function () {
     // Clean all files and folders from the list
-    gulp.src(config.path.misc.files, {
-        read: false,
-        cwd: config.path.misc.dest
-    }).pipe(rimraf());
+    gulp.src(config.path.misc.files, {read: false, cwd: config.path.misc.dest})
+        .pipe(rimraf());
 });
 
 /* Clean task
