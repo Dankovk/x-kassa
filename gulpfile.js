@@ -299,7 +299,7 @@ gulp.task('clean:misc', function () {
 
     // Clean all files and folders from the list
     gulp.src(paths, {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 /* Clean task
