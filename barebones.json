@@ -30,7 +30,12 @@
             "src": "src",
             "dest": "dist",
             "files": [
-                "favicon.ico"
+                "favicon.ico",
+
+                "crossdomain.xml",
+
+                "robots.txt",
+                "humans.txt"
             ]
         },
         "http": "/dist/"
