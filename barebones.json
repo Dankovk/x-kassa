@@ -32,6 +32,17 @@
             "files": [
                 "favicon.ico",
 
+                "favicon.png",
+                "favicon-+([0-9])x+([0-9]).png",
+
+                "apple-touch-icon.png",
+                "apple-touch-icon-precomposed.png",
+                "apple-touch-icon-+([0-9])x+([0-9]).png",
+
+                "mstile.png",
+                "mstile-+([0-9])x+([0-9]).png",
+
+                "browserconfig.xml",
                 "crossdomain.xml",
 
                 "robots.txt",
