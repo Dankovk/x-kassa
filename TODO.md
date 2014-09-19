@@ -11,6 +11,7 @@
 
  * Clean up prefix mixins (in favor of autoprefixer)
  * Clean up custom mixins that are made obsolete by autoprefixer
+ * Maybe use http://susy.oddbird.net/?
 
 ## Misc
 
