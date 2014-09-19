@@ -201,20 +201,18 @@ gulp.task('style', function () {
  * Copies misc files misc dest dir
  */
 gulp.task('misc', function () {
-    // Compile a list of all paths
-    var files = config.path.misc.files || [],
+    var files = config.path.misc.files,
         src   = config.path.misc.src,
-        dest  = config.path.misc.dest,
-        paths = [];
+        dest  = config.path.misc.dest;
 
-    // Compile a list of files
+    // Iterate through files from the list
+    // We need this because apparently there is a maximum number of files
     for (var i = 0, l = files.length; i < l; i++) {
-        paths.push(src + '/' + files[i]);
+        // Copy files
+        gulp.src(files[i], {
+            cwd: src
+        }).pipe(gulp.dest(dest));
     }
-
-    // Copy all files from the list
-    gulp.src(paths)
-        .pipe(gulp.dest(dest));
 });
 
 /* Watch task
@@ -287,19 +285,11 @@ gulp.task('clean:style', function () {
  * Removes misc files from dest folder
  */
 gulp.task('clean:misc', function () {
-    // Compile a list of all paths
-    var files = config.path.misc.files || [],
-        dest  = config.path.misc.dest,
-        paths = [];
-
-    // Compile a list of files
-    for (var i = 0, l = files.length; i < l; i++) {
-        paths.push(dest + '/' + files[i]);
-    }
-
     // Clean all files and folders from the list
-    gulp.src(paths, {read: false})
-        .pipe(rimraf());
+    gulp.src(config.path.misc.files, {
+        read: false,
+        cwd: config.path.misc.dest
+    }).pipe(rimraf());
 });
 
 /* Clean task
