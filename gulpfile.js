@@ -285,7 +285,10 @@ gulp.task('clean:style', function () {
  */
 gulp.task('clean:misc', function () {
     // Clean all files and folders from the list
-    gulp.src(config.path.misc.files, {read: false, cwd: config.path.misc.dest})
+    gulp.src(config.path.misc.files, {
+        read: false,
+        cwd: config.path.misc.dest
+    })
         .pipe(rimraf());
 });
 
