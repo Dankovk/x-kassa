@@ -26,36 +26,36 @@
  *     // Regular
  *     @include font-face(
  *         "My Font",
- *         font-files("../fonts/myfont.woff", "../fonts/myfont.ttf", "../fonts/myfont.svg"),
- *         "../fonts/myfont.eot"
+ *         font-files("myfont.woff", "myfont.ttf", "myfont.svg"),
+ *         "myfont.eot"
  *     );
  *
  *     // Bold
  *     @include font-face(
  *         "My Font",
- *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
- *         "../fonts/myfontb.eot", bold
+ *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
+ *         "myfontb.eot", bold
  *     );
  *
  *     // Italic
  *     @include font-face(
  *         "My Font",
- *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
- *         "../fonts/myfontb.eot", normal, italic
+ *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
+ *         "myfontb.eot", normal, italic
  *     );
  *
  *     // Bold+Italic
  *     @include font-face(
  *         "My Font",
- *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
- *         "../fonts/myfontb.eot", bold, italic
+ *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
+ *         "myfontb.eot", bold, italic
  *     );
  *
  *     // Custom font weight
  *     @include font-face(
  *         "My Font",
- *         font-files("../fonts/myfontb.woff", "../fonts/myfontb.ttf", "../fonts/myfontb.svg"),
- *         "../fonts/myfontb.eot", 300
+ *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
+ *         "myfontb.eot", 300
  *     );
  */
 
