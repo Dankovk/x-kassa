@@ -14,7 +14,7 @@ $layout-grid-col-padding: $layout-grid-col-padding-y $layout-grid-col-padding-x 
 .row {
     margin: $layout-grid-row-margin;
 
-    @extend .clearfix;
+    @extend %clearfix;
 
     %col {
         min-height: 1px;

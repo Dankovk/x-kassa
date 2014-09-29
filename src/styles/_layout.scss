@@ -12,12 +12,12 @@ $layout-container-width: 940px !default;
     width: $layout-container-width;
     margin: 0 auto;
 
-    @extend .clearfix;
+    @extend %clearfix;
 }
 
 .layout-container-fluid {
     margin: 0 auto;
     padding: 0 10px; // Should be taken from layout/_grid.scss:$layout-grid-row-margin-x
 
-    @extend .clearfix;
+    @extend %clearfix;
 }

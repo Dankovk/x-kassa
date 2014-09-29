@@ -135,3 +135,106 @@
         }
     }
 }
+
+
+
+// Px to REM font-size: rem(36px, 16px);
+@function rem($px, $base: $base-font-size) {
+    @return ($px / $base) * 1rem;
+}
+
+// Px to EM font-size: em(36px);
+@function em($px, $base: $base-font-size) {
+    @return ($px / $base) * 1em;
+}
+
+// Vertical centering
+@mixin vertical-center ($container) {
+    &:before,
+    > #{$container} {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &:before {
+        content: '';
+        margin-left: -0.25em;
+        width: 0;
+        height: 100%;
+    }
+}
+
+
+// Placeholder mixin
+//
+// @include placeholder {color: #fff;}
+
+// @mixin placeholder {
+//     $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+//     @each $placeholder in $placeholders {
+//         &:#{$placeholder}-placeholder {
+//             @content;
+//         }
+//     }
+// }
+
+
+// All text inputs
+
+@mixin textInputs {
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="url"] {
+        @content;
+    }
+}
+
+
+// List reset
+//
+// @extend %list-reset;
+
+%list-reset {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+// Clearfix
+//
+// @extend %clearfix;
+
+%clearfix {
+    &:after {
+        content:"";
+        display: table;
+        clear: both;
+    }
+}
+
+
+// Example media mixin
+//
+//  @include break(tablet) {width: 100%;}
+@mixin break($point) {
+    @if $point==tablet {
+        @media all and (max-width: 1100px) and (min-width: 950px) {
+            @content;
+        }
+    }
+    @else if $point==mobile {
+        @media all and (max-width: 949px) {
+            @content;
+        }
+    }
+    @else if $point==iphone {
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) {
+            @content;
+        }
+    }
+}
