@@ -13,10 +13,12 @@ var rename = require("gulp-rename"),
 
     compass      = require('gulp-compass'),
     autoprefixer = require('gulp-autoprefixer'),
-    minifycss    = require('gulp-minify-css'),
 
     useref = require('gulp-useref'),
-    uglify = require('gulp-uglify');
+    uglify = require('gulp-uglify'),
+
+    csso = require('gulp-csso'),
+    checkCSS = require('gulp-check-unused-css');
 
 /* Project directory structure
  *
@@ -192,7 +194,11 @@ gulp.task('style', function () {
         .pipe(autoprefixer("> 1%", "last 2 version"))
         .pipe(gulp.dest(config.path.style.dest))
         .pipe(rename({suffix: '.min'}))
-        .pipe(minifycss())
+        .pipe(csso())
+        .pipe(checkCSS({
+                files: config.path.html.dest + '/*.html',
+                ignoreClassPatterns: [/col-/g, /validation-/gi, /clearfix/]
+            }))
         .pipe(gulp.dest(config.path.style.dest));
 });
 
