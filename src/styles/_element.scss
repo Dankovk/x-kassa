@@ -27,6 +27,9 @@ body {
     color: $base-color;
     font-family: $base-font-family;
     font-size: $base-font-size;
+    // Font smoothing OSX
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     @if $base-font-style != normal {
         font-style: $base-font-style;
