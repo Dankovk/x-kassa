@@ -259,7 +259,8 @@ gulp.task('clean:html', function () {
  */
 gulp.task('clean:image', function () {
     gulp.src(config.path.image.dest, {read: false})
-        .pipe(rimraf())
+        .pipe(rimraf());
+    gulp.src(config.path.image.src + '/**/*.{jpg,png}')
         .pipe(cache.clear());
 });
 
