@@ -195,11 +195,11 @@ gulp.task('style', function () {
         .pipe(gulp.dest(config.path.style.dest))
         .pipe(rename({suffix: '.min'}))
         .pipe(csso())
+        .pipe(gulp.dest(config.path.style.dest))
         .pipe(checkCSS({
-                files: config.path.html.dest + '/*.html',
-                ignoreClassPatterns: [/col-/g, /validation-/gi, /clearfix/]
-            }))
-        .pipe(gulp.dest(config.path.style.dest));
+            files: config.path.html.dest + '/*.html',
+            ignoreClassPatterns: [/col-/g, /validation-/gi, /clearfix/]
+        }));
 });
 
 /* Misc task
