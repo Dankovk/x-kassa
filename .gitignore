@@ -88,10 +88,6 @@ Temporary Items
 *.swp
 *.vi
 
-# grunt-html-validation
-validation-status.json
-validation-report.json
-
 # Folders to ignore
 node_modules
 bower_components
@@ -105,10 +101,5 @@ bower_components
 ##
 ## PROJECT-SPECIFIC
 ## ----------------
-# ignore normalize
-src/styles/vendor/_normalize.scss
-# ignore js vendor libraries
-src/scripts/vendor/*.js
-
 # ignore compiled files, they should be re-compiled on deploy
 dist/**
