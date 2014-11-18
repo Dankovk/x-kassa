@@ -1,26 +1,29 @@
+/* Barebones Compass layout styles
+ *
+ * Grid styles
+ */
+
 $layout-grid-columns:        12 !default;
 $layout-grid-column-width:   60px !default;
 $layout-grid-column-spacing: 20px !default;
 
-$layout-grid-row-margin-x: -($layout-grid-column-spacing / 2) !default;
-$layout-grid-row-margin-y: 0 !default;
-$layout-grid-row-margin: $layout-grid-row-margin-y $layout-grid-row-margin-x !default;
+// Calculate row magin and column padding
+$layout-grid-row-margin: -($layout-grid-column-spacing / 2);
+$layout-grid-col-padding: $layout-grid-column-spacing / 2;
 
-$layout-grid-col-padding-x: $layout-grid-column-spacing / 2 !default;
-$layout-grid-col-padding-y: 0 !default;
-$layout-grid-col-padding: $layout-grid-col-padding-y $layout-grid-col-padding-x !default;
-
-// Fixed grid
 .row {
-    margin: $layout-grid-row-margin;
+    margin: $layout-grid-row-margin 0;
 
     @extend %clearfix;
+
+    .layout-container-fluid > & {
+        margin: 0;
+    }
 
     %col {
         min-height: 1px;
 
-        padding: $layout-grid-col-padding;
-        @include box-sizing(border-box);
+        padding: 0 $layout-grid-col-padding;
 
         float: left;
 
@@ -28,12 +31,13 @@ $layout-grid-col-padding: $layout-grid-col-padding-y $layout-grid-col-padding-x 
     }
 
     @for $i from 1 through $layout-grid-columns {
-        .col-#{$i} {
+        > .col-#{$i} {
+            // column padding is included because of border-box
             width: ($layout-grid-column-width + $layout-grid-column-spacing) * $i;
 
             @extend %col;
 
-            .layout-container-fluid & {
+            .layout-container-fluid > & {
                 width: (100% / $layout-grid-columns) * $i;
             }
         }

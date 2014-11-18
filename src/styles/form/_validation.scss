@@ -1,29 +1,22 @@
-// Form validation styles
-$validation-ok-color: #14ccad !default;
-$validation-error-color: #f27349 !default;
-
-// VALIDATION-OK
-$validation-ok-border-color: $validation-ok-color !default;
+/* Barebones Compass form styles
+ *
+ * Form validation styles
+ */
 
 .validation-ok {
     .form-control {
-        border-color: $validation-ok-border-color;
+        border-color: #14ccad;
     }
 }
 
-// VALIDATION-ERROR
-$validation-error-border-color: $validation-error-color !default;
-$validation-error-msg-color: $validation-error-color !default;
-$validation-error-msg-margin: $form-margin / 4 !default;
-
 .validation-error {
     .form-control {
-        border-color: $validation-error-border-color;
+        border-color: #f27349;
     }
 
     .validation-msg {
-        color: $validation-error-msg-color;
+        color: #f27349;
 
-        margin: $validation-error-msg-margin 0 0;
+        margin: ($base-margin / 4) 0 0;
     }
 }

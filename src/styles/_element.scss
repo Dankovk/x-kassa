@@ -3,30 +3,15 @@
  * General element styles
  */
 
-/* Base default settings
- */
-$base-color: #000 !default;
-$base-font-family: $font-sans-serif !default;
-$base-font-size: 16px !default;
-$base-font-style: normal !default;
-$base-font-weight: normal !default;
-$base-line-height: 1.5 !default;
-
-$base-background-color: #fff !default;
-
-$base-selection-color: #fff !default;
-$base-selection-background: #177ee6 !default;
-
-$base-margin: 20px !default;
-
-/* Body styles
+/* Html styles
  *
- * Body uses base styles, which are inherited globally
+ * Html uses base styles, which are inherited globally
  */
-body {
+html {
     color: $base-color;
     font-family: $base-font-family;
     font-size: $base-font-size;
+
     // Font smoothing OSX
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -42,75 +27,32 @@ body {
     line-height: $base-line-height;
 
     background-color: $base-background-color;
+
+    // http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+    box-sizing: border-box;
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
 }
 
-/* Selection styles
- *
- * @uses base/_mixin.scss:selection()
- */
-@include selection ($color: $base-selection-color, $background: $base-selection-background);
+@include selection {
+    color: #fff;
+    background-color: #177ee6;
+}
 
-/* Element basic settings
- *
- * All specific elements inherit from these settings (unless redefined)
- */
-$element-color: $base-color !default;
-$element-font-family: $base-font-family !default;
-$element-font-size: $base-font-size !default;
-$element-font-style: $base-font-style !default;
-$element-font-weight: $base-font-weight !default;
-$element-line-height: $base-line-height !default;
-
-$element-margin-top: $base-margin !default;
-$element-margin-right: 0 !default;
-$element-margin-bottom: $element-margin-top !default;
-$element-margin-left: $element-margin-right !default;
-
-/* P element settings
- */
-$element-p-color: $element-color !default;
-$element-p-font-family: $element-font-family !default;
-$element-p-font-size: $element-font-size !default;
-$element-p-font-style: $element-font-style !default;
-$element-p-font-weight: $element-font-weight !default;
-$element-p-line-height: $element-line-height !default;
-
-$element-p-margin-top: $element-margin-top !default;
-$element-p-margin-right: $element-margin-right !default;
-$element-p-margin-bottom: $element-p-margin-top !default;
-$element-p-margin-left: $element-p-margin-right !default;
-
-/* P element styles
- *
- * @uses base/_mixin.scss:base-diff()
- * @uses base/_mixin.scss:layout-margin()
+/* Custom element styles
  */
 p {
-    @include base-diff ($element-p-color, $element-p-font-family, $element-p-font-size, $element-p-font-style, $element-p-font-weight, $element-p-line-height);
-    @include layout-margin ($element-p-margin-top, $element-p-margin-right, $element-p-margin-bottom, $element-p-margin-left);
+    margin: $base-margin 0;
 }
 
-/* FIGURE element settings
- */
-$element-figure-color: $element-color !default;
-$element-figure-font-family: $element-font-family !default;
-$element-figure-font-size: $element-font-size !default;
-$element-figure-font-style: $element-font-style !default;
-$element-figure-font-weight: $element-font-weight !default;
-$element-figure-line-height: $element-line-height !default;
-
-$element-figure-margin-top: $element-margin-top * 1.5 !default;
-$element-figure-margin-right: $element-margin-right !default;
-$element-figure-margin-bottom: $element-figure-margin-top !default;
-$element-figure-margin-left: $element-figure-margin-right !default;
-
-/* FIGURE element styles
- */
 figure {
-    @include base-diff ($element-figure-color, $element-figure-font-family, $element-figure-font-size, $element-figure-font-style, $element-figure-font-weight, $element-figure-line-height);
     text-align: center;
 
-    @include layout-margin ($element-figure-margin-top, $element-figure-margin-right, $element-figure-margin-bottom, $element-figure-margin-left);
+    margin: $base-margin * 1.5 0;
 
     img {
         margin: 0 auto;
@@ -120,33 +62,13 @@ figure {
     }
 }
 
-/* FIGCAPTION element settings
- */
-$element-figcaption-margin-top: $element-margin-top * 0.5 !default;
-$element-figcaption-margin-right: $element-margin-right !default;
-$element-figcaption-margin-bottom: $element-figcaption-margin-top !default;
-$element-figcaption-margin-left: $element-figcaption-margin-right !default;
-
-/* FIGCAPTION element settings
- */
 figcaption {
-    @include layout-margin ($element-figcaption-margin-top, $element-figcaption-margin-right, $element-figcaption-margin-bottom, $element-figcaption-margin-left);
+    margin: $base-margin * 0.5 0;
 }
 
-/* HR element settings
- */
-$element-hr-color: #ccc !default;
-
-$element-hr-margin-top: $element-margin-top !default;
-$element-hr-margin-right: $element-margin-right !default;
-$element-hr-margin-bottom: $element-hr-margin-top !default;
-$element-hr-margin-left: $element-hr-margin-right !default;
-
-/* HR element styles
- */
 hr {
-    @include layout-margin ($element-hr-margin-top, $element-hr-margin-right, $element-hr-margin-bottom, $element-hr-margin-left);
+    margin: $base-margin 0;
 
     border: 0;
-    border-top: 1px solid $element-hr-color;
+    border-top: 1px solid #ccc;
 }

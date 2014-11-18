@@ -1,12 +1,19 @@
-// Global content wrapper
-$layout-content-margin: 0 !default;
+/* Barebones Compass layout styles
+ *
+ * General layout styles
+ */
 
 .layout-content {
-    margin: $layout-content-margin 0;
+    margin: 0;
 }
 
-// Basic container
-$layout-container-width: 940px !default;
+/* Default layout container width
+ *
+ * NOTE: This should not be changed here. Change it in base/_variable.scss
+ *
+ * @see base/_variable.scss
+ */
+$layout-container-width: 960px !default;
 
 .layout-container {
     width: $layout-container-width;
@@ -17,7 +24,6 @@ $layout-container-width: 940px !default;
 
 .layout-container-fluid {
     margin: 0 auto;
-    padding: 0 10px; // Should be taken from layout/_grid.scss:$layout-grid-row-margin-x
 
     @extend %clearfix;
 }

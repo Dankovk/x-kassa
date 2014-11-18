@@ -8,7 +8,11 @@
 /* Base diff mixin
  *
  * Redefines basic typography settings and background, but only if they differ
- * from base values
+ * from base values:
+ *
+ *     .my-class {
+ *         base-diff(#000, $font-sans-serif, 32px);
+ *     }
  *
  * Base values are defined in base/_variable.scss
  *
@@ -50,108 +54,45 @@
     }
 }
 
-/* Directional property mixin
- *
- * This mixin simplifies redefinition of directional properties (like padding).
- * If only some property values are passed, they are set individually. But if
- * all four values are passed, they are set using an optimal combination
- */
-@mixin directional-property ($name, $top: false, $right: $top, $bottom: $top, $left: $right) {
-    @if $top and $right and $bottom and $left {
-        // All directions set
-        @if $top == $right == $bottom == $left {
-            // All directions same
-            #{$name}: $top;
-        } @else if $top == $bottom and $right == $left {
-            // Margin groups differ
-            #{$name}: $top $right;
-        } @else if $right == $left {
-            // Y directions differ
-            #{$name}: $top $right $bottom;
-        } @else {
-            // All directions differ
-            // X directions differ
-            #{$name}: $top $right $bottom $left;
-        }
-    } @else {
-        @if $top {
-            #{$name}-top: $top;
-        }
-
-        @if $right {
-            #{$name}-right: $right;
-        }
-
-        @if $bottom {
-            #{$name}-bottom: $bottom;
-        }
-
-        @if $left {
-            #{$name}-left: $left;
-        }
-    }
-}
-
-/* Layout margin mixin
- *
- * This is a shortcut to using the directional-property mixin with margin
- * property
- */
-@mixin layout-margin ($top: false, $right: $top, $bottom: $top, $left: $right) {
-    @include directional-property (margin, $top, $right, $bottom, $left);
-}
-
-/* Layout padding mixin
- *
- * This is a shortcut to using the directional-property mixin with padding
- * property
- */
-@mixin layout-padding ($top: false, $right: $top, $bottom: $top, $left: $right) {
-    @include directional-property (padding, $top, $right, $bottom, $left);
-}
-
 /* Selection mixin
  *
- * This mixin sets the text color and background color of selected elements
+ * This mixin applies all styles to the selected text of the element:
+ *
+ *     @include selection {
+ *         color: #fff;
+ *         background-color: #00f;
+ *     }
+ *
+ * TODO: This should be replaced by compass' own selection mixin:
+ * http://compass-style.org/reference/compass/css3/selection/
  */
-@mixin selection ($color: false, $background: false) {
-    ::selection {
-        @if $color {
-            color: $color;
-        }
-
-        @if $background {
-            background: $background;
-        }
-    }
-
+@mixin selection {
     ::-moz-selection {
-        @if $color {
-            color: $color;
-        }
-
-        @if $background {
-            background: $background;
-        }
+        @content;
+    }
+    ::selection {
+        @content;
     }
 }
 
-
-
-// Px to REM font-size: rem(36px, 16px);
-@function rem($px, $base: $base-font-size) {
-    @return ($px / $base) * 1rem;
-}
-
-// Px to EM font-size: em(36px);
-@function em($px, $base: $base-font-size) {
-    @return ($px / $base) * 1em;
-}
-
-// Vertical centering
-@mixin vertical-center ($container) {
+/* Vertical centering mixin
+ *
+ * This mixin allows content to be centered within a container element:
+ *
+ *     .my-container-class {
+ *         @include vertical-center (.my-child-element);
+ *     }
+ *
+ * NOTE: depending on font-size and font-family, you might need to adjust
+ * the pseudo-element's left margin:
+ *
+ *     .my-container-class:before {
+ *         margin-left: -0.3em;
+ *     }
+ */
+@mixin vertical-center ($element) {
     &:before,
-    > #{$container} {
+    > #{$element} {
         display: inline-block;
         vertical-align: middle;
     }
@@ -164,51 +105,37 @@
     }
 }
 
-
-// Placeholder mixin
-//
-// @include placeholder {color: #fff;}
-
-// @mixin placeholder {
-//     $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
-//     @each $placeholder in $placeholders {
-//         &:#{$placeholder}-placeholder {
-//             @content;
-//         }
-//     }
-// }
-
-
-// All text inputs
-
-@mixin textInputs {
+/* Text inputs mixin
+ *
+ * This mixin allows to style all textual inputs with a simple selector:
+ *
+ *     @include text-input {
+ *         color: #ccc;
+ *     }
+ *
+ * Currently includes text, password, email, number, search, tel and url input
+ * types
+ */
+@mixin text-input {
+    input[type="text"],
+    input[type="password"],
     input[type="email"],
     input[type="number"],
-    input[type="password"],
     input[type="search"],
     input[type="tel"],
-    input[type="text"],
     input[type="url"] {
         @content;
     }
 }
 
-
-// List reset
-//
-// @extend %list-reset;
-
-%list-reset {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-
-// Clearfix
-//
-// @extend %clearfix;
-
+/* Clearfix mixin
+ *
+ * Extend this to get a clearfix after element:
+ *
+ *     .my-element {
+ *         @extend %clearfix;
+ *     }
+ */
 %clearfix {
     &:after {
         content:"";
@@ -217,6 +144,19 @@
     }
 }
 
+/* List-reset mixin
+ *
+ * Extend this to reset a list element (ul, ol etc):
+ *
+ *     ul.my-list {
+ *         @extend list-reset;
+ *     }
+ */
+%list-reset {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
 // Example media mixin
 //

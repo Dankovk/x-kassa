@@ -3,26 +3,15 @@
  * Link element styles
  */
 
-/* A element settings
- */
-$element-a-color: #177ee6 !default;
-$element-a-hover-color: #14ccad !default;
-$element-a-active-color: #3d5266 !default;
-$element-a-visited-color: #5777d9 !default;
-
-$element-a-text-decoration: underline !default;
-
-/* A element styles
- */
 a {
-    text-decoration: $element-a-text-decoration;
+    text-decoration: underline;
 
-    @include link-basic ($element-a-color, $element-a-hover-color, $element-a-active-color, $element-a-visited-color);
+    @include link-basic ($link-color, $link-hover-color, $link-active-color, $link-visited-color);
 }
 
 /* Segmented link
  *
- * Intended for use with icons to avoid icons being undelined:
+ * Intended for use with icons to avoid icons being underlined:
  *
  *     <a class="link-segmented" href="/profile.html">
  *         <span class="icon-user"></span>
@@ -33,7 +22,7 @@ a {
     text-decoration: none;
 
     .segment-text {
-        text-decoration: $element-a-text-decoration;
+        text-decoration: underline;
     }
 }
 
@@ -49,9 +38,7 @@ a {
     $link-ajax-style: dotted;
     $link-ajax-width: 1px;
 
-    text-decoration: none;
-
-    @include link-bordered ($element-a-color, $element-a-hover-color, $element-a-active-color, $element-a-visited-color, $style: $link-ajax-style, $width: $link-ajax-width);
+    @include link-bordered ($link-color, $link-hover-color, $link-active-color, $link-visited-color, $style: $link-ajax-style, $width: $link-ajax-width);
 
     &.link-segmented {
         border-bottom: 0;
@@ -62,7 +49,7 @@ a {
         }
 
         .segment-text {
-            border-bottom: $link-ajax-width $link-ajax-width $element-a-color;
+            border-bottom: $link-ajax-width $link-ajax-width $link-color;
 
             @if $link-transitions {
                 // Split transition: use border-bottom-color for the text
@@ -72,20 +59,20 @@ a {
 
         &:visited {
             .segment-text {
-                border-bottom-color: $element-a-visited-color;
+                border-bottom-color: $link-visited-color;
             }
         }
 
         &:hover,
         &:focus {
             .segment-text {
-                border-bottom-color: $element-a-hover-color;
+                border-bottom-color: $link-hover-color;
             }
         }
 
         &:active {
             .segment-text {
-                border-bottom-color: $element-a-active-color;
+                border-bottom-color: $link-active-color;
             }
         }
     }

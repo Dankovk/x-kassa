@@ -1,16 +1,7 @@
-// Form styles
-$form-color: #000 !default;
-$form-font-family: Arial, sans-serif !default;
-$form-font-size: 12px !default;
-$form-line-height: 18px !default; // We need this to be set explicitly
-$form-margin: 20px !default;
-
-input,
-button,
-select,
-textarea {
-    box-sizing: border-box;
-}
+/* Barebones Compass form styles
+ *
+ * General form styles
+ */
 
 select,
 label {
@@ -23,16 +14,14 @@ input[type="checkbox"] {
     line-height: normal;
 }
 
-// FORM
-.form {
-    color: $form-color;
-    font-family: $form-font-family;
-    font-size: $form-font-size;
-    line-height: $form-line-height;
+@include text-input {
+    // Styles for text elements
+}
 
+.form {
     margin: 0;
 }
 
 .form-container {
-    margin: $form-margin 0;
+    margin: $base-margin 0;
 }

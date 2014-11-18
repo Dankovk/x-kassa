@@ -1,18 +1,18 @@
-// Footer styles
-$layout-footer-background: #f0f2f5 !default;
-$layout-footer-height: 50px !default;
-$layout-footer-sticky: false !default;
+/* Barebones Compass layout styles
+ *
+ * Footer styles
+ */
 
 .layout-footer {
-    background-color: $layout-footer-background;
+    background-color: #f0f2f5;
 }
 
-// Sticky footer
-// TODO: move this around to different files?
-@if $layout-footer-sticky {
+$layout-footer-sticky: 0 !default;
+
+@if $layout-footer-sticky != false and $layout-footer-sticky > 0 {
     html,
     body {
-        height: 100%;
+        min-height: 100%;
     }
 
     .layout-content {
@@ -20,18 +20,18 @@ $layout-footer-sticky: false !default;
         min-height: 100%;
         height: auto !important;
         height: 100%;
-        margin-bottom: -$layout-footer-height;
+        margin-bottom: -$layout-footer-sticky;
     }
 
     .layout-content:after {
         content: "";
         display: block;
-        height: $layout-footer-height;
+        height: $layout-footer-sticky;
     }
 
     .layout-footer {
         clear: both;
         position: relative;
-        height: $layout-footer-height;
+        height: $layout-footer-sticky;
     }
 }

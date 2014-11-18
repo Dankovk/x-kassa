@@ -1,83 +1,48 @@
-// Button styles
-// BTN
-$button-font-family: Arial, sans-serif !default;
-$button-font-size: 12px !default;
-$button-font-weight: bold !default;
-$button-line-height: $form-line-height !default;
-$button-height: 36px !default;
-$button-border-radius: 5px !default;
-$button-padding: ($button-height - $button-line-height) / 2 !default;
-$button-padding-x: $button-padding !default;
-$button-padding-y: $button-padding !default;
-
-$button-color: #fff !default;
-$button-hover-color: $button-color !default;
-$button-active-color: $button-color !default;
-$button-background: #333 !default;
-$button-hover-background: #777 !default;
-$button-active-background: #000 !default;
+/* Barebones Compass form styles
+ *
+ * Form button styles
+ */
 
 .btn {
-    font-family: $button-font-family;
-    font-size: $button-font-size;
-    font-weight: $button-font-weight;
     letter-spacing: 1px;
-    line-height: $button-line-height;
     text-align: center;
-    text-transform: uppercase;
 
     background-image: none;
 
     margin: 0;
     outline: 0;
     border: 0;
-    @if $button-border-radius {
-        @include border-radius($button-border-radius);
-    }
-    padding: $button-padding-y $button-padding-x;
+    border-radius: 5px;
+    padding: 5px;
 
     display: inline-block;
     vertical-align: middle;
 
-    @include box-sizing(border-box);
-    @include user-select(none);
+    user-select: none;
 
     @include button-basic(
-        $button-background, $button-color,
-        $button-hover-background, $button-hover-color,
-        $button-active-background, $button-active-color
+        $bg:        #333, $color:        #fff,
+        $bg-hover:  #777, $color-hover:  #fff,
+        $bg-active: #000, $color-active: #fff
     );
 }
-
-// BTN-PRIMARY
-$button-primary-color: $button-color !default;
-$button-primary-hover-color: $button-hover-color !default;
-$button-primary-active-color: $button-active-color !default;
-$button-primary-background: #177ee6 !default;
-$button-primary-hover-background: #3d97f2 !default;
-$button-primary-active-background: #246bb3 !default;
 
 .btn-primary {
     @include button-basic(
-        $button-primary-background, $button-primary-color,
-        $button-primary-hover-background, $button-primary-hover-color,
-        $button-primary-active-background, $button-primary-active-color
+        $bg:        #177ee6, $color:        #fff,
+        $bg-hover:  #3d97f2, $color-hover:  #fff,
+        $bg-active: #246bb3, $color-active: #fff
     );
 }
-
-// BTN-BLOCK
-$button-block-margin: $form-margin / 2 !default;
 
 .btn-block {
     display: block;
     width: 100%;
 
     & + & {
-        margin-top: $button-block-margin;
+        margin-top: $base-margin / 2;
     }
 }
-
-// BTN TRANSPARENT
 
 .btn-transparent {
     border-color: transparent;

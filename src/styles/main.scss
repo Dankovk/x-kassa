@@ -17,9 +17,9 @@
 // Elements
 @import "element";
 @import "element/link";
-// @import "element/header";
-// @import "element/list";
-// @import "element/table";
+@import "element/header";
+@import "element/list";
+@import "element/table";
 
 // Forms
 @import "form";
@@ -31,9 +31,11 @@
 @import "block";
 // @import "block/blockname";
 
-
 // Layout styles
 @import "layout";
 @import "layout/grid";
 @import "layout/header";
 @import "layout/footer";
+
+// Content styles
+@import "content";

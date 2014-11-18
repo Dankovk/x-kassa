@@ -1,9 +1,7 @@
-// Basic header styles
-$header-color: #000 !default;
-$header-font-family: Arial, sans-serif !default;
-$header-line-height: 1.33 !default;
-$header-font-weight: bold !default;
-$header-margin: $element-margin !default;
+/* Barebones Compass header styles
+ *
+ * Header element styles
+ */
 
 h1,
 h2,
@@ -11,117 +9,38 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0;
+    font-weight: bold;
+    line-height: 1.33;
+
+    margin: $base-margin 0;
 }
 
-// H1
-$header-h1-color: $header-color !default;
-$header-h1-font-size: 36px !default;
-$header-h1-font-family: $header-font-family !default;
-$header-h1-line-height: $header-line-height !default;
-$header-h1-font-weight: $header-font-weight !default;
-$header-h1-margin: $header-margin !default;
+h1,
+h2,
+h3 {
+    margin-top: $base-margin * 1.75;
+}
 
 h1 {
-    color: $header-h1-color;
-    font-family: $header-h1-font-family;
-    font-size: $header-h1-font-size;
-    font-weight: $header-h1-font-weight;
-    line-height: $header-h1-line-height;
-
-    margin-top: $header-h1-margin * 1.75;
-    margin-bottom: $header-h1-margin;
+    font-size: rem(36px);
 }
-
-// H2
-$header-h2-color: $header-color !default;
-$header-h2-font-size: 30px !default;
-$header-h2-font-family: $header-font-family !default;
-$header-h2-line-height: $header-line-height !default;
-$header-h2-font-weight: $header-font-weight !default;
-$header-h2-margin: $header-margin !default;
 
 h2 {
-    color: $header-h2-color;
-    font-family: $header-h2-font-family;
-    font-size: $header-h2-font-size;
-    font-weight: $header-h2-font-weight;
-    line-height: $header-h2-line-height;
-
-    margin-top: $header-h2-margin * 1.75;
-    margin-bottom: $header-h2-margin;
+    font-size: rem(30px);
 }
-
-// H3
-$header-h3-color: #111 !default;
-$header-h3-font-size: 24px !default;
-$header-h3-font-family: $header-font-family !default;
-$header-h3-line-height: $header-line-height !default;
-$header-h3-font-weight: $header-font-weight !default;
-$header-h3-margin: $header-margin !default;
 
 h3 {
-    color: $header-h3-color;
-    font-family: $header-h3-font-family;
-    font-size: $header-h3-font-size;
-    font-weight: $header-h3-font-weight;
-    line-height: $header-h3-line-height;
-
-    margin-top: $header-h3-margin * 1.75;
-    margin-bottom: $header-h3-margin;
+    font-size: rem(24px);
 }
-
-// H4
-$header-h4-color: #111 !default;
-$header-h4-font-size: 18px !default;
-$header-h4-font-family: $header-font-family !default;
-$header-h4-line-height: $header-line-height !default;
-$header-h4-font-weight: $header-font-weight !default;
-$header-h4-margin: $header-margin !default;
 
 h4 {
-    color: $header-h4-color;
-    font-family: $header-h4-font-family;
-    font-size: $header-h4-font-size;
-    font-weight: $header-h4-font-weight;
-    line-height: $header-h4-line-height;
-    text-transform: uppercase;
-
-    margin-bottom: $header-h4-margin;
+    font-size: rem(18px);
 }
-
-// H5
-$header-h5-color: #111 !default;
-$header-h5-font-size: 16px !default;
-$header-h5-font-family: $header-font-family !default;
-$header-h5-line-height: $header-line-height !default;
-$header-h5-font-weight: $header-font-weight !default;
-$header-h5-margin: $header-margin !default;
 
 h5 {
-    color: $header-h5-color;
-    font-family: $header-h5-font-family;
-    font-size: $header-h5-font-size;
-    font-weight: $header-h5-font-weight;
-    line-height: $header-h5-line-height;
-
-    margin-bottom: $header-h5-margin;
+    font-size: rem(16px);
 }
 
-// H6
-$header-h6-color: $header-color !default;
-$header-h6-font-size: 14px !default;
-$header-h6-font-family: $header-font-family !default;
-$header-h6-line-height: $header-line-height !default;
-$header-h6-font-weight: $header-font-weight !default;
-$header-h6-margin: $header-margin !default;
-
 h6 {
-    color: $header-h6-color;
-    font-family: $header-h6-font-family;
-    font-size: $header-h6-font-size;
-    font-weight: $header-h6-font-weight;
-    line-height: $header-h6-line-height;
-
-    margin-bottom: $header-h6-margin;
+    font-size: rem(14px);
 }

@@ -1,0 +1,20 @@
+/* Barebones Compass functions
+ *
+ * Contains custom functions in use within the project
+ *
+ * See individual functions for more info
+ */
+
+/* PX to REM function
+ *
+ * This function is used to calculate rem value based on base font size value:
+ *
+ *     .my-class {
+ *         font-size: rem(24px);
+ *     }
+ *
+ * @uses $base-font-size as the default $base value
+ */
+@function rem($px, $base: $base-font-size) {
+    @return ($px / $base) * 1rem;
+}

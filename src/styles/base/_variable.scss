@@ -19,15 +19,42 @@ $base-line-height: 1.5;
  */
 $base-background-color: #fff;
 
-$base-selection-color: #fff;
-$base-selection-background: #177ee6;
-
 /* Base layout settings
  */
 $base-margin: 20px;
 
-/* Some custom element settings
+/* Element settings
  */
-$element-figure-color: #888;
-$element-figure-font-family: $font-serif;
-$element-figure-font-style: italic;
+$link-color: #177ee6;
+$link-hover-color: #14ccad;
+$link-active-color: #3d5266;
+$link-visited-color: #5777d9;
+
+/* Layout settings
+ */
+$layout-container-width: 960px;
+
+/* Layout grid settings
+ *
+ * NOTE: grid container is usually placed inside .layout-container element. This
+ * means the grid is limited by $layout-container-width. That is why the following
+ * condition should be met:
+ *
+ *     $width:   $layout-grid-column-width;
+ *     $columns: $layout-grid-columns;
+ *     $spacing: $layout-grid-column-spacing;
+ *
+ *     $layout-container-width == ($width * $columns) + ($spacing * ($columns - 1))
+ */
+$layout-grid-columns:        12;
+$layout-grid-column-width:   60px;
+$layout-grid-column-spacing: 20px;
+
+/* Sticky footer settings
+ *
+ * To use sticky footer, set the following value to the height of the footer (in px).
+ * Your layout markup should only have two elements within the body:
+ * .layout-content and .layout-footer. All other elements should be within
+ * .layout-content
+ */
+$layout-footer-sticky: 0;
