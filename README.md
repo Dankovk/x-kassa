@@ -28,7 +28,7 @@ provides a default `.sublime-project` file. This file provides the editor with
 a list of files and folders to ignore, a default set of formatting settings
 for the project, and a build system configuration for Gulp.
 
-Barebones also contains an [`.editorconfig`](http://editorconfig.org/) file,
+Barebones also contains an `[.editorconfig](http://editorconfig.org/)` file,
 which is the preferred way of defining formatting options for the project. To
 use it, you must install an [editorconfig plugin](http://editorconfig.org/#download)
 
