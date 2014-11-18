@@ -1,12 +1,13 @@
 // Basic stuff we need
 var exec   = require('child_process').exec,
+    del    = require('del'),
     config = require('./barebones.json'),
     gulp   = require('gulp');
 
 // Gulp plugins
-var rename = require("gulp-rename"),
-    rimraf = require('gulp-rimraf'),
-    filter = require('gulp-filter'),
+var rename  = require("gulp-rename"),
+    filter  = require('gulp-filter'),
+    plumber = require('gulp-plumber'),
 
     cache    = require('gulp-cache'),
     imagemin = require('gulp-imagemin'),
@@ -92,9 +93,8 @@ gulp.task('vendor:modernizr', ['bower'], function () {
  * Copies jquery to dest js vendor dir
  */
 gulp.task('vendor:jquery', ['bower'], function () {
-    gulp.src('bower_components/jquery/dist/jquery.min.js')
-        .pipe(rename('jquery-2.1.1.min.js'))
-        .pipe(gulp.dest(config.path.script.dest + '/vendor'));
+    gulp.src('bower_components/jquery/dist/jquery.js')
+        .pipe(gulp.dest(config.path.script.vendor));
 });
 
 /* Vendor:bootstrap task
@@ -145,6 +145,15 @@ gulp.task('html', function () {
         jsfiles = filter("**/*.js");
 
     gulp.src(config.path.html.src + '/*.html')
+
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: function (error) {
+                console.log(error.message);
+                this.emit('end');
+            }
+        }))
+
         .pipe(assets)
 
         // Concatenate and minify javascripts
@@ -184,6 +193,15 @@ gulp.task('script', ['html']);
  */
 gulp.task('style', function () {
     gulp.src(config.path.style.src + '/*.scss')
+
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: function (error) {
+                console.log(error.message);
+                this.emit('end');
+            }
+        }))
+
         .pipe(compass({
             config_file: 'config.rb',
             css: config.path.style.dest,
@@ -191,15 +209,13 @@ gulp.task('style', function () {
             style: 'expanded'
         }))
         .on('error', function (err) {}) // Error message is output by the plugin
+
         .pipe(autoprefixer("> 1%", "last 2 version"))
         .pipe(gulp.dest(config.path.style.dest))
+
         .pipe(rename({suffix: '.min'}))
         .pipe(csso())
-        .pipe(gulp.dest(config.path.style.dest))
-        .pipe(checkCSS({
-            files: config.path.html.dest + '/*.html',
-            ignoreClassPatterns: [/col-/g, /validation-/gi, /clearfix/]
-        }));
+        .pipe(gulp.dest(config.path.style.dest));
 });
 
 /* Misc task
@@ -239,27 +255,24 @@ gulp.task('watch', function () {
  *
  * Removes font dest folder
  */
-gulp.task('clean:font', function () {
-    gulp.src(config.path.font.dest, {read: false})
-        .pipe(rimraf());
+gulp.task('clean:font', function (cb) {
+    del(config.path.font.dest, cb);
 });
 
 /* Clean:html task
  *
  * Removes html files from dest folder
  */
-gulp.task('clean:html', function () {
-    gulp.src(config.path.html.dest + '/*.html', {read: false})
-        .pipe(rimraf());
+gulp.task('clean:html', function (cb) {
+    del(config.path.html.dest + '/*.html', cb);
 });
 
 /* Clean:image task
  *
  * Removes image dest folder
  */
-gulp.task('clean:image', function () {
-    gulp.src(config.path.image.dest, {read: false})
-        .pipe(rimraf());
+gulp.task('clean:image', function (cb) {
+    del(config.path.image.dest, cb);
     gulp.src(config.path.image.src + '/**/*.{jpg,png}')
         .pipe(cache.clear());
 });
@@ -268,35 +281,28 @@ gulp.task('clean:image', function () {
  *
  * Clears script dest folder, except vendor subfolder
  */
-gulp.task('clean:script', function () {
-    gulp.src([
-        config.path.script.dest + '/**/*',
-        '!' + config.path.script.dest + '/vendor',
-        '!' + config.path.script.dest + '/vendor/**/*.js'
-    ], {read: false})
-        .pipe(rimraf());
+gulp.task('clean:script', function (cb) {
+    del(config.path.script.dest, cb);
 });
 
 /* Clean:style task
  *
  * Removes style dest folder
  */
-gulp.task('clean:style', function () {
-    gulp.src(config.path.style.dest, {read: false})
-        .pipe(rimraf());
+gulp.task('clean:style', function (cb) {
+    del(config.path.style.dest, cb);
 });
 
 /* Clean:misc task
  *
  * Removes misc files from dest folder
  */
-gulp.task('clean:misc', function () {
+gulp.task('clean:misc', function (cb) {
     // Clean all files and folders from the list
-    gulp.src(config.path.misc.files, {
+    del(config.path.misc.files, {
         read: false,
         cwd: config.path.misc.dest
-    })
-        .pipe(rimraf());
+    }, cb);
 });
 
 /* Clean task
@@ -312,6 +318,35 @@ gulp.task('clean', [
     'clean:misc'
 ]);
 
+/* Lint:style task
+ *
+ * Checks html files for unused css classes and vice versa
+ */
+gulp.task('lint:style', /*['html', 'style'],*/ function () {
+    // Check unused css classes
+    gulp.src([config.path.style.dest + '/*.css', config.path.html.dest + '/*.html'])
+
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: function (error) {
+                console.log(error.message);
+                this.emit('end');
+            }
+        }))
+
+        .pipe(checkCSS({
+            ignore: ['clearfix', /^col-/, /^icon-?/]
+        }));
+});
+
+/* Lint task
+ *
+ * Uses all available linters
+ */
+gulp.task('lint', [
+    'lint:style'
+]);
+
 /* Default task
  *
  * Compiles all files
@@ -322,7 +357,8 @@ gulp.task('default', [
     'image',
     'script',
     'style',
-    'misc'
+    'misc',
+    'lint'
 ]);
 
 /* Init task

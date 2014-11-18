@@ -235,9 +235,14 @@
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <!-- Compile local jQuery version
+        <!-- build:js scripts/vendor/jquery-2.1.1.min.js -->
+        <script src="scripts/vendor/jquery.js"></script>
+        <!-- endbuild -->
+        -->
         <script>window.jQuery || document.write('<script src="scripts/vendor/jquery-2.1.1.min.js"><\/script>')</script>
 
-        <!-- remove unnecessary files from this list -->
         <!-- build:js scripts/vendor/bootstrap-3.2.0.min.js -->
         <script src="scripts/vendor/bootstrap-transition.js"></script>
         <script src="scripts/vendor/bootstrap-alert.js"></script>
