@@ -43,19 +43,19 @@ use it, you must install an [editorconfig plugin](http://editorconfig.org/#downl
 5. Optionally, edit source and destination build paths in `barebones.json`
 
 ## Usage
-Barebones contains some default build instructions, including a custom watch
+Barebones contains some default build instructions, including a custom server
 task. Before you can start working, you need to download and set up all vendor
 dependencies:
 
 ```gulp init```
 
-After that you can just run the watch task, and it will rebuild your resources
+After that you can just run the server task, and it will rebuild your resources
 every time you save changes in the source files:
 
-```gulp watch```
+```gulp server```
 
-**Note:** shortly after running the watch task, gulp will report that the task
-is finished. The watch itself will continue to run. To stop the watch task,
+**Note:** shortly after running the server task, gulp will report that the task
+is finished. The server itself will continue to run. To stop the server task,
 press Ctrl+C (or Cmd+C) in the console.
 
 You can also initiate rebuild from within Sublime Text by pressing Ctrl+B (or Cmd+B).
