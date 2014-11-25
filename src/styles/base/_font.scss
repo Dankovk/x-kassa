@@ -61,6 +61,8 @@
 
 /* Default font stacks
  */
-$font-sans-serif: Arial, "Helvetica Neue", Helvetica, sans-serif;
+// http://fontfamily.io/Helvetica_Neue,Helvetica,Arial,sans-serif
+// http://fontfamily.io/Arial,Helvetica_Neue,Helvetica,sans-serif
+$font-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-serif: Cambria, Georgia, serif;
 $font-monospace: Consolas, monaco, monospace;
