@@ -12,7 +12,7 @@ $layout-grid-row-margin: -($layout-grid-column-spacing / 2);
 $layout-grid-col-padding: $layout-grid-column-spacing / 2;
 
 .row {
-    margin: $layout-grid-row-margin 0;
+    margin: 0 $layout-grid-row-margin;
 
     @extend %clearfix;
 
