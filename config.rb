@@ -4,7 +4,7 @@ begin
     require 'open-uri'
     require 'json'
 
-    data   = open('barebones.json', "UserAgent" => "Ruby-Wget").read
+    data   = File.read('barebones.json')
     config = JSON.parse(data)
 rescue
     abort("Error trying to read 'barebones.json'. Make sure it exists and is a valid JSON file")
