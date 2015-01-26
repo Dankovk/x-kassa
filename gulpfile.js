@@ -173,6 +173,15 @@ gulp.task('html', function () {
  */
 gulp.task('image', function() {
   gulp.src(config.path.image.src + '/**/*.{jpg,png}')
+
+      // Handle errors
+      .pipe(plumber({
+          errorHandler: function (error) {
+              console.log(error.message);
+              this.emit('end');
+          }
+      }))
+
       .pipe(cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
