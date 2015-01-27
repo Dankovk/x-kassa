@@ -15,7 +15,7 @@
  *
  * To add an icon, place it in the src/sprites/icon directory
  */
-$icon-layout: smart !default;
+$icon-layout: vertical !default;
 $icon-spacing: 1px !default;
 $icon-sprite-dimensions: true !default;
 $icon-sprite-base-class: ".icon" !default;
@@ -43,7 +43,7 @@ $icon-sprite-base-class: ".icon" !default;
  *
  * @see base/mixin/_sprite.scss
  */
-$misc-layout: smart !default;
+$misc-layout: vertical !default;
 $misc-spacing: 1px !default;
 $misc-sprite-dimensions: true !default;
 
