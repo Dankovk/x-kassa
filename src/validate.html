@@ -45,6 +45,18 @@
                 padding: 10px;
                 display: block;
             }
+
+            .form-group.has-success {
+                color: green;
+            }
+
+            .form-group.has-error {
+                color: red;
+            }
+
+            .form-group.validating {
+                color: orange;
+            }
         </style>
 
         <script src="scripts/vendor/modernizr-2.8.3.min.js"></script>
@@ -80,7 +92,7 @@
                     <div class="form-group">
                         <label for="email">E-mail:</label>
                         <input id="email" name="email" type="email" class="form-control"
-                            data-rules="not-empty min-length max-length email email-explicit email-unique"
+                            data-rules="not-empty min-length max-length email email-unique"
                             data-min-length="3"
                             data-max-length="255">
                     </div>
@@ -99,7 +111,7 @@
                             data-same-as="pass">
                     </div>
 
-                    <button type="submit" class="btn btn-primary disabled" disabled>Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
 
@@ -122,7 +134,7 @@
 
             $.fn.popelValidate.addAsyncRule('email-unique', function (value) {
                 return $.ajax({
-                    url: '../email-unique.json',
+                    url: 'email-unique.json',
                     data: {
                         email: value
                     }
@@ -131,14 +143,9 @@
                 return !response.error;
             });
 
-            $.fn.popelValidate.addRule('email-explicit', function (value) {
-                return value != 'хуй';
-            });
-
             $.fn.popelValidate.setMessage({
                 email: "Введите корректный e-mail",
-                'email-explicit': "Заебали ругаться!",
-                'email-unique': "E-mail «:param1» уже занят"
+                'email-unique': "E-mail :value уже занят"
             });
 
         })(window.jQuery);</script>
