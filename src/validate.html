@@ -57,6 +57,49 @@
             .form-group.validating {
                 color: orange;
             }
+
+            button[disabled],
+            html input[disabled] {
+                color: gray;
+            }
+
+            .form-control.readonly {
+                background-color: gray;
+            }
+
+            .help-block {
+                margin: 0;
+            }
+
+            .error-text {
+                padding-top: 20px;
+                display: block;
+            }
+
+            .collapse {
+                display: none;
+                visibility: hidden;
+            }
+
+            .collapse.in {
+                display: block;
+                visibility: visible;
+            }
+
+            .collapsing {
+                position: relative;
+                height: 0;
+                overflow: hidden;
+                -webkit-transition-timing-function: ease;
+                     -o-transition-timing-function: ease;
+                        transition-timing-function: ease;
+                -webkit-transition-duration: .35s;
+                     -o-transition-duration: .35s;
+                        transition-duration: .35s;
+                -webkit-transition-property: height, visibility;
+                     -o-transition-property: height, visibility;
+                        transition-property: height, visibility;
+            }
         </style>
 
         <script src="scripts/vendor/modernizr-2.8.3.min.js"></script>
@@ -111,7 +154,7 @@
                             data-same-as="pass">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary disabled" disabled>Submit</button>
 
                 </form>
 
@@ -132,20 +175,43 @@
 
         <script>(function ($) {
 
+            $.fn.popelValidate.defaults.errorTemplate     = '<p class="help-block collapse"><span class="error-text"></span></p>';
+            $.fn.popelValidate.defaults.errorSelector     = '.help-block';
+            $.fn.popelValidate.defaults.errorTextSelector = '.error-text';
+
             $.fn.popelValidate.addAsyncRule('email-unique', function (value) {
-                return $.ajax({
-                    url: 'email-unique.json',
-                    data: {
-                        email: value
-                    }
-                });
-            }, function (response) {
-                return !response.error;
+                var promise = $.Deferred();
+
+                window.setTimeout(function () {
+                    var rand = Math.round(Math.random());
+
+                    promise[rand === 1 ? 'resolve' : 'reject']();
+                }, 1000);
+
+                return promise;
             });
 
             $.fn.popelValidate.setMessage({
                 email: "Введите корректный e-mail",
                 'email-unique': "E-mail :value уже занят"
+            });
+
+            $(document).on('fieldvalidated.popel.validate', '.form-control', function (event) {
+                var state  = event.validateState;
+
+                if (state === $.fn.popelValidate.Constructor.STATE_INVALID) {
+                    $(this).closest('.form-group').find('.help-block').collapse('show');
+                }
+            });
+
+            $(document).on('resetfielderror.popel.validate', '.form-control', function (event) {
+                event.preventDefault();
+
+                var $error = $(event.relatedTarget);
+
+                $error.collapse('hide').one('hidden.bs.collapse', function () {
+                    $error.remove();
+                })
             });
 
         })(window.jQuery);</script>

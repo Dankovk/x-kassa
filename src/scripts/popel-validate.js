@@ -21,9 +21,11 @@
         ignoreSelector:    'button,input[type="button"],input[type="submit"],input[type="reset"]', // Ignored control selector
         checkSavedState:   true, // If true, controls are not re-validated if their value hasn't changed
 
+        keyupTimeout: 500,
+
         errorTemplate:      '<p class="help-block error-text"></p>', // Control error template
-        errorSelector:      '.error-text', // Error element selector
-        errorTextSelector:  '.help-block', // Error text selector
+        errorSelector:      '.help-block', // Error element selector
+        errorTextSelector:  '.error-text', // Error text selector
         errorInjectElement: '.form-control', // Error inject element selector
         errorInjectMethod:  'after' // Error inject method (called on error inject element)
     };
@@ -47,7 +49,7 @@
     };
 
     // Class properties
-    // Validate.STATE_NONE    = 0;
+    Validate.STATE_NONE    = 0;
     Validate.STATE_INVALID = 1;
     Validate.STATE_PROMISE = 2;
     Validate.STATE_VALID   = 3;
@@ -107,11 +109,6 @@
 
         // Form validate callback
         var cb = function (state) {
-            // Update submit buttons state
-            self.$element.find(':submit')
-                .prop('disabled', state === Validate.STATE_VALID)
-                [(state === Validate.STATE_VALID ? 'remove' : 'add') + 'Class'](self.options.disabledClass || '');
-
             // Trigger validated event on the form
             self.$element.trigger($.Event('validated.' + pluginNs, {
                 validateState: state
@@ -144,6 +141,32 @@
         });
     };
 
+    Validate.prototype.update = function () {
+        // Check form fields
+        var $fields  = this.$element.find(this.options.controlSelector),
+            state    = Validate.STATE_VALID,
+            ignore   = this.options.ignoreSelector || false,
+            self     = this;
+
+        $fields.each(function () {
+            var $field = $(this);
+
+            // Skip ignored fields
+            if (self.options.ignoreSelector && $field.is(self.options.ignoreSelector)) return;
+
+            var savedState = self.getFieldState($field),
+                result     = savedState ? savedState.state : Validate.STATE_NONE;
+
+            // Update form state
+            if (result < state) state = result;
+        });
+
+        // Update submit buttons state
+        this.$element.find(':submit')
+            .prop('disabled', state < Validate.STATE_VALID)
+            [(state < Validate.STATE_VALID ? 'add' : 'remove') + 'Class'](this.options.disabledClass || '');
+    };
+
     Validate.prototype.checkField = function (field, promisesArray) {
         promisesArray = promisesArray || [];
 
@@ -169,7 +192,7 @@
         // Iterate rules and apply each one
         var rules    = $field.data('rules').split(' '),
             state    = Validate.STATE_VALID,
-            params   = [value, $field[0], this],
+            params   = [value, $field[0], this.$element[0], this],
             promises = [],
             self     = this,
             rule, ruleName, result, promise, err;
@@ -235,10 +258,14 @@
                 $field.trigger($.Event('fieldvalidated.' + pluginNs, {
                     validateState: Validate.STATE_VALID
                 }));
+
+                self.update();
             }).fail(function () {
                 $field.trigger($.Event('fieldvalidated.' + pluginNs, {
                     validateState: Validate.STATE_INVALID
                 }));
+
+                self.update();
             });
             promisesArray.push(fieldPromise);
         }
@@ -253,6 +280,9 @@
             value: value,
             state: state
         });
+
+        // Update form state
+        this.update();
 
         // Trigger field event
         if (state !== Validate.STATE_PROMISE) $field.trigger($.Event('fieldvalidated.' + pluginNs, {
@@ -342,6 +372,13 @@
         var $field     = $(field),
             $container = $field.closest(this.options.containerSelector),
             $error     = $container.find(this.options.errorSelector);
+
+        // Trigger check event
+        var event = $.Event('resetfielderror.' + pluginNs, {
+            relatedTarget: $error[0]
+        });
+        $field.trigger(event);
+        if (event.isDefaultPrevented()) return;
 
         $error.remove();
     };
@@ -517,6 +554,39 @@
             var length = $(field).data('max-length');
 
             return value.length <= length;
+        },
+
+        email: function (value) {
+            return true;
+        },
+
+        password: function (value, field) {
+            return true;
+        },
+
+        sameAs: function (value, field, form, validate) {
+            var sameAs  = $(field).data('same-as'),
+                $form   = $(form),
+                $fields = $form.find(validate.options.controlSelector),
+                $field, $other, name;
+
+            for (var i = 0, l = $fields.length; i < l; i++) {
+                $field = $fields.eq(i);
+
+                // Skip ignored fields
+                if (validate.options.ignoreSelector && $field.is(validate.options.ignoreSelector)) return false;
+
+                name = $field.data('name') || $field.attr('name');
+
+                if (name === sameAs) {
+                    $other = $field;
+                    break;
+                }
+            }
+
+            if ($other.length < 1) return true; // Other field does not exist, disable this validation
+
+            return $other.val() === value;
         }
 
     });
@@ -526,7 +596,10 @@
 
         notEmpty:  'This field cannot be empty',
         minLength: 'This field must be at least :dataMinLength characters',
-        maxLength: 'This field must not exceed :dataMaxLength characters'
+        maxLength: 'This field must not exceed :dataMaxLength characters',
+        email:     'This email is invalid',
+        password:  'This password is too weak',
+        sameAs:    'Passwords do not match'
 
     });
 
@@ -546,6 +619,41 @@
             data  = $this.data(pluginNs);
 
         data.submit(event);
+    });
+
+    var _formFieldSelector = 'form[data-toggle="' + pluginNs + '"] input,textarea,select';
+
+    $(document).on('blur.' + pluginNs, _formFieldSelector, function (event) {
+        var $this = $(this),
+            $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
+            data  = $form.data(pluginNs);
+
+        data.checkField(this);
+    });
+
+    $(document).on('keyup.' + pluginNs, _formFieldSelector, function (event) {
+        var $this = $(this),
+            $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
+            data  = $form.data(pluginNs),
+            tid   = $this.data('keyupTimeout.' + pluginNs);
+
+        if (tid) window.clearTimeout(tid);
+        if (event.which == 9) return true; // Tab
+
+        tid = window.setTimeout(function () {
+            $this.removeData('keyupTimeout.' + pluginNs);
+            data.checkField($this);
+        }, data.options.keyupTimeout);
+
+        $this.data('keyupTimeout.' + pluginNs, tid);
+    });
+
+    $(document).on('change.' + pluginNs, _formFieldSelector, function (event) {
+        var $this = $(this),
+            $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
+            data  = $form.data(pluginNs);
+
+        data.checkField(this);
     });
 
 })(window.jQuery);
