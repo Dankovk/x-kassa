@@ -189,17 +189,27 @@
 
                 (function (ruleName, value) {
                     promise.done(function () {
-                        self.resetFieldError($field);
-                        self.setFieldState($field, {
-                            value: value,
-                            state: Validate.STATE_VALID
-                        });
+                        var savedState = self.getFieldState($field);
+
+                        // Make sure we don't make invalid field valid
+                        if (savedState.state >= Validate.STATE_PROMISE) {
+                            self.resetFieldError($field);
+                            self.setFieldState($field, {
+                                value: value,
+                                state: Validate.STATE_VALID
+                            });
+                        }
                     }).fail(function () {
-                        self.setFieldError($field, self.getMessage(ruleName));
-                        self.setFieldState($field, {
-                            value: value,
-                            state: Validate.STATE_INVALID
-                        });
+                        var savedState = self.getFieldState($field);
+
+                        // Make sure we don't display several error messages
+                        if (savedState.state >= Validate.STATE_PROMISE) {
+                            self.setFieldError($field, self.getMessage(ruleName));
+                            self.setFieldState($field, {
+                                value: value,
+                                state: Validate.STATE_INVALID
+                            });
+                        }
                     });
                 })(ruleName, value);
 
@@ -219,7 +229,19 @@
             }
         }
 
-        if (promises.length > 0 && promisesArray.push) promisesArray.push($.when.apply($, promises));
+        // Support async validation
+        if (promises.length > 0 && promisesArray.push) {
+            var fieldPromise = $.when.apply($, promises).done(function () {
+                $field.trigger($.Event('fieldvalidated.' + pluginNs, {
+                    validateState: Validate.STATE_VALID
+                }));
+            }).fail(function () {
+                $field.trigger($.Event('fieldvalidated.' + pluginNs, {
+                    validateState: Validate.STATE_INVALID
+                }));
+            });
+            promisesArray.push(fieldPromise);
+        }
 
         this.resetFieldError($field);
 
@@ -231,6 +253,11 @@
             value: value,
             state: state
         });
+
+        // Trigger field event
+        if (state !== Validate.STATE_PROMISE) $field.trigger($.Event('fieldvalidated.' + pluginNs, {
+            validateState: state
+        }));
 
         return state;
     };
