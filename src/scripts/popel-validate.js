@@ -178,6 +178,9 @@
         // Skip ignored fields
         if (this.options.ignoreSelector && $field.is(this.options.ignoreSelector)) return false;
 
+        // Skip fields with no rules
+        if (!$field.data('rules')) return false;
+
         var value = $field.val();
 
         // Check if field changed since last saved state
