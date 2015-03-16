@@ -335,9 +335,9 @@
             if (id) $label = $('label[for="' + id + '"]');
 
             // Find parent label
-            if ($label.length === 0) $label = $field.closest('label');
+            if (!$label || $label.length === 0) $label = $field.closest('label');
 
-            if ($label.length > 0) params.label = $label.data('caption') || $label.text();
+            if ($label && $label.length > 0) params.label = $label.data('caption') || $label.text();
             // Fall back to field name
             else params.label = name;
         }
