@@ -25,7 +25,6 @@ var rename  = require("gulp-rename"),
  *
  * barebones
  * |
- * |- bower_components          [vendor]  libraries (via Bower)
  * |- dist                      [project] compiled files, misc files (html, ico)
  * |  |- fonts                  [fonts]   compressed (eot, svg, ttf, woff)
  * |  |- images                 [images]  compressed (jpg, png) and sprites (png)
@@ -38,7 +37,8 @@ var rename  = require("gulp-rename"),
  *    |- scripts                [scripts] source (js)
  *    |- sprites                [images]  sprite components (png)
  *    |  '- icon                [example] [images] sprite components (png)
- *    '- styles                 [styles]  uncompiled source (scss)
+ *    |- styles                 [styles]  uncompiled source (scss)
+ *    '- vendor                 [vendor]  libraries (via Bower)
  *
  */
 
@@ -55,76 +55,6 @@ gulp.task('bower', function (cb) {
         if (stderr) console.log(stderr);
         cb(err);
     });
-});
-
-/* Vendor task
- *
- * Copies all vendor dependencies into their respective locations
- */
-gulp.task('vendor', [
-    'vendor:normalize',
-    'vendor:modernizr',
-    'vendor:jquery',
-    'vendor:bootstrap',
-    'vendor:jquery-mousewheel',
-    'vendor:jquery-touchswipe'
-]);
-
-/* Vendor:normalize subtask
- *
- * Copies normalize.scss to style vendor dir
- */
-gulp.task('vendor:normalize', ['bower'], function () {
-    gulp.src('bower_components/normalize-scss/_normalize.scss')
-        .pipe(gulp.dest(config.path.style.vendor));
-});
-
-/* Vendor:modernizr subtask
- *
- * Copies modernizr to js vendor dir
- */
-gulp.task('vendor:modernizr', ['bower'], function () {
-    gulp.src('bower_components/modernizr/modernizr.js')
-        .pipe(gulp.dest(config.path.script.vendor));
-});
-
-/* Vendor:jquery subtask
- *
- * Copies jquery to dest js vendor dir
- */
-gulp.task('vendor:jquery', ['bower'], function () {
-    gulp.src('bower_components/jquery/dist/jquery.js')
-        .pipe(gulp.dest(config.path.script.vendor));
-});
-
-/* Vendor:bootstrap task
- *
- * Copies bootstrap js files to js vendor dir
- */
-gulp.task('vendor:bootstrap', ['bower'], function () {
-    gulp.src('bower_components/bootstrap/js/*.js')
-        .pipe(rename({prefix: 'bootstrap-'}))
-        .pipe(gulp.dest(config.path.script.vendor));
-});
-
-/* Vendor:jquery-mousewheel task
- *
- * Copies jquery-mousewheel js file to js vendor dir
- */
-gulp.task('vendor:jquery-mousewheel', ['bower'], function () {
-    gulp.src('bower_components/jquery-mousewheel/jquery.mousewheel.js')
-        .pipe(rename('jquery-mousewheel.js'))
-        .pipe(gulp.dest(config.path.script.vendor));
-});
-
-/* Vendor:jquery-touchswipe task
- *
- * Copies jquery-touchswipe js file to js vendor dir
- */
-gulp.task('vendor:jquery-touchswipe', ['bower'], function () {
-    gulp.src('bower_components/jquery-touchswipe/jquery.touchSwipe.js')
-        .pipe(rename('jquery-touchswipe.js'))
-        .pipe(gulp.dest(config.path.script.vendor));
 });
 
 /* Font task
@@ -375,8 +305,7 @@ gulp.task('default', [
  * Loads and installs required vendor libraries via bower
  */
 gulp.task('init', [
-    'bower',
-    'vendor'
+    'bower'
 ]);
 
 /* Connect task
