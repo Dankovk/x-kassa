@@ -90,6 +90,7 @@ Temporary Items
 
 # Folders to ignore
 node_modules
+# leave this in for back-compat
 bower_components
 
 # Sass
@@ -101,5 +102,7 @@ bower_components
 ##
 ## PROJECT-SPECIFIC
 ## ----------------
+# ignore vendor files
+src/vendor/**
 # ignore compiled files, they should be re-compiled on deploy
 dist/**
