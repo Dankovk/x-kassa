@@ -90,7 +90,6 @@
         // Check form fields
         var $fields  = this.$element.find(this.options.controlSelector),
             state    = Validate.STATE_VALID,
-            ignore   = this.options.ignoreSelector || false,
             promises = [],
             self     = this;
 
@@ -151,8 +150,11 @@
         $fields.each(function () {
             var $field = $(this);
 
+            // Skip fields with no rules
+            if (!$field.data('rules')) return;
+
             // Skip ignored fields
-            if (self.options.ignoreSelector && $field.is(self.options.ignoreSelector)) return;
+            if ((ignore && $field.is(ignore))) return;
 
             var savedState = self.getFieldState($field),
                 result     = savedState ? savedState.state : Validate.STATE_NONE;
@@ -175,11 +177,11 @@
         // Check if field part of this form
         if (this.$element.has($field[0]).length == 0) return false;
 
-        // Skip ignored fields
-        if (this.options.ignoreSelector && $field.is(this.options.ignoreSelector)) return false;
-
         // Skip fields with no rules
         if (!$field.data('rules')) return false;
+
+        // Skip ignored fields
+        if (this.options.ignoreSelector && $field.is(this.options.ignoreSelector)) return false;
 
         var value = $field.val();
 
@@ -300,6 +302,9 @@
 
         // Check if field part of this form
         if (this.$element.has($field[0]).length == 0) return false;
+
+        // Skip fields with no rules
+        if (!$field.data('rules')) return false;
 
         // Skip ignored fields
         if (this.options.ignoreSelector && $field.is(this.options.ignoreSelector)) return false;
