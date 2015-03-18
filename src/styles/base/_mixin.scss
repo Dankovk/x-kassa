@@ -54,27 +54,6 @@
     }
 }
 
-/* Selection mixin
- *
- * This mixin applies all styles to the selected text of the element:
- *
- *     @include selection {
- *         color: #fff;
- *         background-color: #00f;
- *     }
- *
- * TODO: This should be replaced by compass' own selection mixin:
- * http://compass-style.org/reference/compass/css3/selection/
- */
-@mixin selection {
-    ::-moz-selection {
-        @content;
-    }
-    ::selection {
-        @content;
-    }
-}
-
 /* Vertical centering mixin
  *
  * This mixin allows content to be centered within a container element:
