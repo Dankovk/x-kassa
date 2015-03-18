@@ -24,7 +24,14 @@
  * @uses $base-line-height
  * @uses $base-background-color
  */
-@mixin base-diff ($color: false, $font-family: false, $font-size: false, $font-style: false, $font-weight: false, $line-height: false, $background-color: false) {
+@mixin base-diff ($color: false,
+        $font-family: false,
+        $font-size: false,
+        $font-style: false,
+        $font-weight: false,
+        $line-height: false,
+        $background-color: false) {
+
     @if $color and $color != $base-color {
         color: $color;
     }
