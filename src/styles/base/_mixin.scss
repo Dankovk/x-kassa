@@ -144,21 +144,38 @@
     list-style: none;
 }
 
-// Example media mixin
-//
-//  @include break(tablet) {width: 100%;}
-@mixin break($point) {
-    @if $point==tablet {
+/* Responsive styles mixin
+ *
+ * This mixin allows to style the element for certain devices. Developers are
+ * meant to edit available devices (their names and media queries) within the
+ * mixin before using it in their styles:
+ *
+ *     .my-element {
+ *         width: 940px;
+ *         margin: 0 auto;
+ *
+ *         @include respond(tablet) {
+ *             // Stretch to full width on tablets
+ *             width: auto;
+ *             margin: 0 10px;
+ *         }
+ *     }
+ */
+@mixin respond($device) {
+
+    @if $device == tablet {
         @media all and (max-width: 1100px) and (min-width: 950px) {
             @content;
         }
     }
-    @else if $point==mobile {
+
+    @else if $device == mobile {
         @media all and (max-width: 949px) {
             @content;
         }
     }
-    @else if $point==iphone {
+
+    @else if $device == iphone {
         @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) {
             @content;
         }
