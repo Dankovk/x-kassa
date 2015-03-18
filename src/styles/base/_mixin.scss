@@ -66,17 +66,17 @@
  * This mixin allows content to be centered within a container element:
  *
  *     .my-container-class {
- *         @include vertical-center (.my-child-element);
+ *         @include vertical-center ('.my-child-element');
  *     }
  *
  * NOTE: depending on font-size and font-family, you might need to adjust
  * the pseudo-element's left margin:
  *
- *     .my-container-class:before {
- *         margin-left: -0.3em;
+ *     .my-container-class {
+ *         @include vertical-center ('.my-child-element', -0.3em);
  *     }
  */
-@mixin vertical-center ($element) {
+@mixin vertical-center ($element, $margin-left: -0.25em) {
     &:before,
     > #{$element} {
         display: inline-block;
@@ -85,7 +85,7 @@
 
     &:before {
         content: '';
-        margin-left: -0.25em;
+        margin-left: $margin-left;
         width: 0;
         height: 100%;
     }
