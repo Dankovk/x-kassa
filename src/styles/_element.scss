@@ -38,7 +38,7 @@ html {
     }
 }
 
-@include selection {
+::selection {
     color: #fff;
     background-color: #177ee6;
 }
