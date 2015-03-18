@@ -3,10 +3,12 @@
  * Contains custom triangle mixin in use within the project
  */
 
-/*
+/* Triangle mixin
+ *
+ * This mixin helps drawing triangles with borders.
  *
  *     .my-class {
- *         triangle(15px, #ccc, down);
+ *         triangle(15px, #ccc, bottom);
  *     }
  *
  * TODO: write docs
@@ -20,12 +22,12 @@
     $foreground-color: nth($color, 1);
     $background-color: if(length($color) == 2, nth($color, 2), transparent);
 
-    @if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+    @if ($direction == top) or ($direction == bottom) or ($direction == right) or ($direction == left) {
 
         $width: $width / 2;
         $height: if(length($size) > 1, $height, $height/2);
 
-        @if $direction == up {
+        @if $direction == top {
             border-left:   $width  solid $background-color;
             border-right:  $width  solid $background-color;
             border-bottom: $height solid $foreground-color;
@@ -33,7 +35,7 @@
             border-top:    $width  solid $background-color;
             border-bottom: $width  solid $background-color;
             border-left:   $height solid $foreground-color;
-        } @else if $direction == down {
+        } @else if $direction == bottom {
             border-left:   $width  solid $background-color;
             border-right:  $width  solid $background-color;
             border-top:    $height solid $foreground-color;
@@ -42,30 +44,30 @@
             border-bottom: $width  solid $background-color;
             border-right:  $height solid $foreground-color;
         }
-    } @else if ($direction == up-right) or ($direction == up-left) {
+    } @else if ($direction == top-right) or ($direction == top-left) {
 
         border-top: $height solid $foreground-color;
 
-        @if $direction == up-right {
+        @if $direction == top-right {
             border-left:  $width solid $background-color;
-        } @else if $direction == up-left {
+        } @else if $direction == top-left {
             border-right: $width solid $background-color;
         }
-    } @else if ($direction == down-right) or ($direction == down-left) {
+    } @else if ($direction == bottom-right) or ($direction == bottom-left) {
 
         border-bottom: $height solid $foreground-color;
 
-        @if $direction == down-right {
+        @if $direction == bottom-right {
             border-left:  $width solid $background-color;
         }
-        @else if $direction == down-left {
+        @else if $direction == bottom-left {
             border-right: $width solid $background-color;
         }
-    } @else if ($direction == inset-up) {
+    } @else if ($direction == inset-top) {
         border-width: $height $width;
         border-style: solid;
         border-color: $background-color $background-color $foreground-color;
-    } @else if ($direction == inset-down) {
+    } @else if ($direction == inset-bottom) {
         border-width: $height $width;
         border-style: solid;
         border-color: $foreground-color $background-color $background-color;
