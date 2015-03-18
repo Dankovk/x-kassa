@@ -3,13 +3,13 @@
  * Form validation styles
  */
 
-.validation-ok {
+.has-succes {
     .form-control {
         border-color: #14ccad;
     }
 }
 
-.validation-error {
+.has-error {
     .form-control {
         border-color: #f27349;
     }

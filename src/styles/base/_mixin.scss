@@ -80,7 +80,7 @@
  * This mixin allows content to be centered within a container element:
  *
  *     .my-container-class {
- *         @include vertical-center (.my-child-element);
+ *         @include vertical-center ('.my-child-element');
  *     }
  *
  * NOTE: depending on font-size and font-family, you might need to adjust

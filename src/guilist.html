@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Barebones</title>
+        <meta name="description" content="Barebones HTML project">
+        <meta name="viewport" content="width=1024, minimal-ui">
+
+        <!-- Favicon block -->
+        <!-- Images generated from a single 260x260 image by http://realfavicongenerator.net/ -->
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+
+        <link rel="icon" type="image/png" href="favicon-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicon-160x160.png" sizes="160x160">
+        <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+
+        <meta name="msapplication-TileColor" content="#d10d3f">
+        <meta name="msapplication-TileImage" content="mstile-144x144.png">
+        <meta name="msapplication-config" content="browserconfig.xml">
+        <!-- / Favicon block -->
+
+        <link rel="stylesheet" href="styles/main.min.css">
+        <!-- Example styles, shoud be deleted -->
+        <style>
+            .grid-highlight.row {
+                margin-bottom: 20px;
+            }
+
+            .grid-highlight.row > div > div {
+                font-size: 14px;
+                background: #ccc;
+                padding: 10px;
+                display: block;
+            }
+        </style>
+
+        <!-- build:js scripts/vendor/modernizr-2.8.3.min.js -->
+        <script src="scripts/vendor/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="layout-header">header</div>
+
+        <div class="layout-container">
+            <div class="layout-aside">
+            sidebar
+            </div>
+            <div class="layout-content">
+                <h1>Заголовок h1</h1>
+
+                <p>Lorem ipsum dolor sit <strong>amet</strong>, consectetur adipisicing elit. Facere quam totam, minus cumque, recusandae esse fugiat. Quisquam necessitatibus voluptatibus ea unde culpa, voluptates nostrum numquam et. Alias provident qui laboriosam!</p>
+
+                <p><strong>Lorem ipsum dolor</strong> sit amet, consectetur adipisicing elit. Facere quam totam, minus cumque, recusandae <a href="#">esse</a> fugiat. Quisquam necessitatibus voluptatibus ea unde culpa, voluptates nostrum numquam et. Alias provident qui laboriosam!</p>
+
+                <h2>Ссылки и кнопки (h2)</h2>
+
+                <a href="#" class="link-ajax">ajax ссылка</a>
+                <a href="#">Ссылка</a>
+
+                <button class="btn">Кнопка</button>
+                <button class="btn btn-primary">Primary button</button>
+                <button disabled class="btn btn-disabled">Отключенныя кнопка</button>
+
+                <h3>Поля для ввода (h3)</h3>
+                <div class="form-group">
+                    <label for="input1">Ваш e-mail</label>
+                    <input class="form-control" type="text" id="input1">
+                </div>
+                <div class="form-group" class="has-success">
+                    <label for="input2">Ваш e-mail</label>
+                    <input class="form-control" type="text" id="input2" value="myEmail@mail.com">
+                </div>
+                <div class="form-group" class="has-error">
+                    <label for="input3">Ваш e-mail</label>
+                    <input class="form-control" type="text" id="input3" value="email@.com">
+                    <p class="help-block error-text">Неверный e-mail</p>
+                </div>
+                <div class="form-group" class="validating">
+                    <label for="input4">Ваш e-mail</label>
+                    <input class="form-control" type="text" id="input4">
+                </div>
+
+
+                <div class="row">
+                    <div class="col-3">
+                        <h4>Переключатели</h4>
+                        <input type="checkbox" id="toggle1" name="toggle">
+                        <label for="toggle1">Автоскролл</label>
+                        <input type="checkbox" id="toggle2" name="toggle">
+                        <label for="toggle2">Во весь єкран</label>
+                    </div>
+                    <div class="col-3">
+                        <h4>Радиокнопки</h4>
+                        <input type="radio" id="radio1" name="radio">
+                        <label for="radio1">Длинный вариант текста, с несколькими строками</label>
+                        <input type="radio" id="radio2" name="radio">
+                        <label for="radio2">Короткий вариант</label>
+                    </div>
+                    <div class="col-3">
+                        <h4>Чекбоксы</h4>
+                        <input type="checkbox" id="checkbox1">
+                        <label for="checkbox1">Вариант 1</label>
+                        <input type="checkbox" id="checkbox2">
+                        <label for="checkbox2">Вариант 2</label>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+        <div class="layout-footer">
+            Footer area
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <!-- Compile local jQuery version
+        <!-- build:js scripts/vendor/jquery-2.1.1.min.js -->
+        <script src="scripts/vendor/jquery.js"></script>
+        <!-- endbuild -->
+        -->
+        <script>window.jQuery || document.write('<script src="scripts/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+
+        <!-- build:js scripts/vendor/bootstrap-3.2.0.min.js -->
+        <script src="scripts/vendor/bootstrap-transition.js"></script>
+        <script src="scripts/vendor/bootstrap-alert.js"></script>
+        <script src="scripts/vendor/bootstrap-button.js"></script>
+        <script src="scripts/vendor/bootstrap-carousel.js"></script>
+        <script src="scripts/vendor/bootstrap-collapse.js"></script>
+        <script src="scripts/vendor/bootstrap-dropdown.js"></script>
+        <script src="scripts/vendor/bootstrap-modal.js"></script>
+        <script src="scripts/vendor/bootstrap-tooltip.js"></script>
+        <script src="scripts/vendor/bootstrap-popover.js"></script>
+        <script src="scripts/vendor/bootstrap-scrollspy.js"></script>
+        <script src="scripts/vendor/bootstrap-tab.js"></script>
+        <script src="scripts/vendor/bootstrap-affix.js"></script>
+        <!-- endbuild -->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!--script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script-->
+    </body>
+</html>

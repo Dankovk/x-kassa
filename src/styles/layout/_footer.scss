@@ -5,9 +5,10 @@
 
 .layout-footer {
     background-color: #f0f2f5;
+    height: $footer-height;
 }
 
-$layout-footer-sticky: 0 !default;
+$layout-footer-sticky: 20 !default;
 
 @if $layout-footer-sticky != false and $layout-footer-sticky > 0 {
     html,
