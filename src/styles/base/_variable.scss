@@ -34,12 +34,16 @@ $link-transitions: true;
 $link-transition-duration: .15s;
 $link-transition-function: linear;
 
-/* Element settings
- */
 $link-color: #177ee6;
 $link-hover-color: #14ccad;
 $link-active-color: #3d5266;
 $link-visited-color: #5777d9;
+
+/* Button settings
+ */
+$button-transitions: true;
+$button-transition-duration: .15s;
+$button-transition-function: linear;
 
 /* Layout settings
  */
