@@ -565,11 +565,24 @@
         },
 
         email: function (value) {
-            return true;
+            /**
+            * Email pattern:myemail+anything@gmail.com
+            *   
+            *   /^(([^<>()[\]\\.,;:\s@\"]+(\.\+[^<>()[\]\\.,;:\s@\"]+)*))+[^\+]           //started not with symbol and followed by dot or plus delimetered not-technical symbols ended not with plus…
+            *   @
+            *   ((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.) // dot-delimetered groups of alphabetical and numeric characters ended with dot
+            *   +[a-zA-Z]{2,}))$/                                                         //…finally ended with two or more letters for zone
+            *   
+            */
+            var stringEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\+\.[^<>()[\]\\.,;:\s@\"]+)*)+[^\+])@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return stringEmail.test(value); // 
         },
 
         password: function (value, field) {
-            return true;
+            var allowed =  /^([A-Za-z0-9_]+[^_])$/; //Alphabetical characters, digits and underscore (not ended with)
+            var groupDigits = /([0-9]+)/;       // One or more digits anywhere in given value
+            var groupLetters = /([A-Za-z]+)/;   // One or more letter characters anywhere in given value
+            return allowed.test(value)&&groupDigits.test(value)&&groupLetters.test(value);
         },
 
         sameAs: function (value, field, form, validate) {
