@@ -6,6 +6,11 @@
  * Font stacks are defined within base/_font.scss
  */
 
+/* Sprite settings
+ */
+$sprite-layout-default: vertical;
+$sprite-spacing-default: 1px;
+
 /* Base typography settings
  */
 $base-color: #555;
