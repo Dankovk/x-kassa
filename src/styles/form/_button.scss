@@ -45,10 +45,11 @@
 }
 
 .btn-transparent {
-    border-color: transparent;
+    border: 1px solid #555;
     background: transparent;
     outline: 0;
     text-decoration: none;
+    color: #555;
 }
 
 .btn-disabled {
