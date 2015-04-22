@@ -1,16 +1,17 @@
 // Basic stuff we need
-var exec   = require('child_process').exec,
-    del    = require('del'),
-    config = require('./barebones.json'),
-    gulp   = require('gulp');
+var exec    = require('child_process').exec,
+    del     = require('del'),
+    config  = require('./barebones.json'),
+    gulp    = require('gulp');
 
 // Gulp plugins
 var rename  = require("gulp-rename"),
     filter  = require('gulp-filter'),
     plumber = require('gulp-plumber'),
 
-    cache    = require('gulp-cache'),
-    imagemin = require('gulp-imagemin'),
+    cache       = require('gulp-cache'),
+    imagemin    = require('gulp-imagemin'),
+    fileinclude = require('gulp-file-include'),
 
     compass      = require('gulp-compass'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -93,6 +94,15 @@ gulp.task('html', function () {
             }
         }))
 
+        // Include partials
+        .pipe(fileinclude({
+            prefix: config.partials.prefix,
+            suffix: config.partials.suffix,
+            basepath: config.path.html.partials + '/',
+            context: config.partials.context
+        }))
+
+        // Include all available assets
         .pipe(assets)
 
         // Concatenate and minify javascripts
@@ -198,8 +208,9 @@ gulp.task('misc', function () {
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    gulp.watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', ['font']);
     gulp.watch(config.path.html.src + '/*.html', ['html']);
+    gulp.watch(config.path.html.partials + '/**/*.partial.html', ['html']);
+    gulp.watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', ['font']);
     gulp.watch(config.path.image.src + '/**/*.{jpg,png}', ['image']);
     gulp.watch(config.path.script.src + '/**/*.js', ['script']);
     gulp.watch([
