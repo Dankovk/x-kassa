@@ -6,7 +6,8 @@
         },
         "html": {
             "src": "src",
-            "dest": "dist"
+            "dest": "dist",
+            "partials": "./src/partials"
         },
         "image": {
             "src": "src/images",
@@ -53,5 +54,12 @@
     },
     "server": {
         "port": 9000
+    },
+    "partials": {
+        "prefix": "<!-- partial:",
+        "suffix": " -->",
+        "context": {
+            "compileJs": false
+        }
     }
 }
