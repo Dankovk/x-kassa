@@ -8,6 +8,11 @@
  * @see http://compass-style.org/help/tutorials/spriting/magic-selectors/
  */
 
+/* Default sprite settings
+ */
+$sprite-layout-default: vertical !default;
+$sprite-spacing-default: 1px !default;
+
 /* Icon sprites
  *
  * Each icon gets its own class. This allows you to use any available icon in
@@ -15,8 +20,8 @@
  *
  * To add an icon, place it in the src/sprites/icon directory
  */
-$icon-layout: vertical !default;
-$icon-spacing: 1px !default;
+$icon-layout: $sprite-layout-default !default;
+$icon-spacing: $sprite-spacing-default !default;
 $icon-sprite-dimensions: true !default;
 $icon-sprite-base-class: ".icon" !default;
 
@@ -43,8 +48,8 @@ $icon-sprite-base-class: ".icon" !default;
  *
  * @see base/mixin/_sprite.scss
  */
-$misc-layout: vertical !default;
-$misc-spacing: 1px !default;
+$misc-layout: $sprite-layout-default !default;
+$misc-spacing: $sprite-spacing-default !default;
 $misc-sprite-dimensions: true !default;
 
 @import "misc/*.png";

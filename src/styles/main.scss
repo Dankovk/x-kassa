@@ -14,6 +14,10 @@
 // Base
 @import "base";
 
+// Vendor
+@import "../vendor/selectize-scss/src/selectize.scss";
+@import "../vendor/selectize-scss/src/selectize.default.scss";
+
 // Elements
 @import "element";
 @import "element/link";
@@ -35,6 +39,8 @@
 @import "layout";
 @import "layout/grid";
 @import "layout/header";
+@import "layout/aside";
+@import "layout/content";
 @import "layout/footer";
 
 // Content styles

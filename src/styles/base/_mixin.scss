@@ -24,7 +24,14 @@
  * @uses $base-line-height
  * @uses $base-background-color
  */
-@mixin base-diff ($color: false, $font-family: false, $font-size: false, $font-style: false, $font-weight: false, $line-height: false, $background-color: false) {
+@mixin base-diff ($color: false,
+        $font-family: false,
+        $font-size: false,
+        $font-style: false,
+        $font-weight: false,
+        $line-height: false,
+        $background-color: false) {
+
     @if $color and $color != $base-color {
         color: $color;
     }
@@ -54,43 +61,22 @@
     }
 }
 
-/* Selection mixin
- *
- * This mixin applies all styles to the selected text of the element:
- *
- *     @include selection {
- *         color: #fff;
- *         background-color: #00f;
- *     }
- *
- * TODO: This should be replaced by compass' own selection mixin:
- * http://compass-style.org/reference/compass/css3/selection/
- */
-@mixin selection {
-    ::-moz-selection {
-        @content;
-    }
-    ::selection {
-        @content;
-    }
-}
-
 /* Vertical centering mixin
  *
  * This mixin allows content to be centered within a container element:
  *
  *     .my-container-class {
- *         @include vertical-center (.my-child-element);
+ *         @include vertical-center ('.my-child-element');
  *     }
  *
  * NOTE: depending on font-size and font-family, you might need to adjust
  * the pseudo-element's left margin:
  *
- *     .my-container-class:before {
- *         margin-left: -0.3em;
+ *     .my-container-class {
+ *         @include vertical-center ('.my-child-element', -0.3em);
  *     }
  */
-@mixin vertical-center ($element) {
+@mixin vertical-center ($element, $margin-left: -0.25em) {
     &:before,
     > #{$element} {
         display: inline-block;
@@ -99,7 +85,7 @@
 
     &:before {
         content: '';
-        margin-left: -0.25em;
+        margin-left: $margin-left;
         width: 0;
         height: 100%;
     }
@@ -158,21 +144,38 @@
     list-style: none;
 }
 
-// Example media mixin
-//
-//  @include break(tablet) {width: 100%;}
-@mixin break($point) {
-    @if $point==tablet {
+/* Responsive styles mixin
+ *
+ * This mixin allows to style the element for certain devices. Developers are
+ * meant to edit available devices (their names and media queries) within the
+ * mixin before using it in their styles:
+ *
+ *     .my-element {
+ *         width: 940px;
+ *         margin: 0 auto;
+ *
+ *         @include respond(tablet) {
+ *             // Stretch to full width on tablets
+ *             width: auto;
+ *             margin: 0 10px;
+ *         }
+ *     }
+ */
+@mixin respond($device) {
+
+    @if $device == tablet {
         @media all and (max-width: 1100px) and (min-width: 950px) {
             @content;
         }
     }
-    @else if $point==mobile {
+
+    @else if $device == mobile {
         @media all and (max-width: 949px) {
             @content;
         }
     }
-    @else if $point==iphone {
+
+    @else if $device == iphone {
         @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) {
             @content;
         }

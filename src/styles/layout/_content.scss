@@ -1,0 +1,12 @@
+/* Barebones Compass layout styles
+ *
+ * Content styles
+ */
+
+.layout-content {
+
+}
+
+.layout-aside + .layout-content {
+    margin-left: $aside-width + $aside-margin-right;
+}

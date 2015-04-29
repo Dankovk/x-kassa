@@ -23,12 +23,27 @@ $base-background-color: #fff;
  */
 $base-margin: 20px;
 
-/* Element settings
+/* Sprite settings
  */
+$sprite-layout-default: vertical;
+$sprite-spacing-default: 1px;
+
+/* Link settings
+ */
+$link-transitions: true;
+$link-transition-duration: .15s;
+$link-transition-function: linear;
+
 $link-color: #177ee6;
 $link-hover-color: #14ccad;
 $link-active-color: #3d5266;
 $link-visited-color: #5777d9;
+
+/* Button settings
+ */
+$button-transitions: true;
+$button-transition-duration: .15s;
+$button-transition-function: linear;
 
 /* Layout settings
  */
@@ -58,3 +73,19 @@ $layout-grid-column-spacing: 20px;
  * .layout-content
  */
 $layout-footer-sticky: 0;
+
+
+/* Main container settings
+ *
+ *
+ */
+
+//Header
+$header-height: 50px;
+
+//Footer
+$footer-height:100px;
+
+
+$aside-width:300px;
+$aside-margin-right: 10px;
