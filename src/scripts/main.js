@@ -1,4 +1,4 @@
-$(document).ready(function () {
+(function ($) {
 
     $('.selectize').selectize({
         sortField: 'text'
@@ -15,4 +15,4 @@ $(document).ready(function () {
             }
         }
     });
-});
+})(window.jQuery);

@@ -19,10 +19,7 @@
   "bugs": {
     "url": "https://github.com/popel-agency/barebones/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/popel-agency/barebones/blob/master/LICENSE"
-  },
+  "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.12",
     "connect": "^3.3.5",

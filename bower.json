@@ -1,8 +1,8 @@
 {
   "name": "barebones",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "authors": [
-    "Anton Suprun <anton.suprun@popel-studio.com>"
+    "Anton Suprun <anton.suprun@popel.com.ua>"
   ],
   "description": "Barebones HTML project",
   "license": "MIT",
