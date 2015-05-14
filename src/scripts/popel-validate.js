@@ -652,7 +652,7 @@
         data.checkField(this);
     });
 
-    $(document).on('keyup.' + pluginNs, _formFieldSelector, function (event) {
+    $(document).on('keyup.' + pluginNs + ' input.' + pluginNs, _formFieldSelector, function (event) {
         var $this = $(this),
             $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
             data  = $form.data(pluginNs),
@@ -669,7 +669,7 @@
         $this.data('keyupTimeout.' + pluginNs, tid);
     });
 
-    $(document).on('change.' + pluginNs + ' input.' + pluginNs, _formFieldSelector, function (event) {
+    $(document).on('change.' + pluginNs, _formFieldSelector, function (event) {
         var $this = $(this),
             $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
             data  = $form.data(pluginNs);
