@@ -386,9 +386,8 @@
             relatedTarget: $error[0]
         });
         $field.trigger(event);
-        if (event.isDefaultPrevented()) return;
-
         $error.remove();
+        if (event.isDefaultPrevented()) return;
     };
 
     Validate.prototype.setFieldState = function (field, state) {
@@ -649,6 +648,8 @@
             $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
             data  = $form.data(pluginNs);
 
+        if ($form.length < 1 || !data) return true;
+
         data.checkField(this);
     });
 
@@ -657,6 +658,8 @@
             $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
             data  = $form.data(pluginNs),
             tid   = $this.data('keyupTimeout.' + pluginNs);
+
+        if ($form.length < 1 || !data) return true;
 
         if (tid) window.clearTimeout(tid);
         if (event.which == 9) return true; // Tab
@@ -673,6 +676,8 @@
         var $this = $(this),
             $form = $this.closest('form[data-toggle="' + pluginNs + '"]'),
             data  = $form.data(pluginNs);
+
+        if ($form.length < 1 || !data) return true;
 
         data.checkField(this);
     });
