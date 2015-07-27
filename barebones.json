@@ -28,7 +28,7 @@
             "vendor": "src/styles/vendor"
         },
         "misc": {
-            "src": "src",
+            "src": "src/favicons",
             "dest": "dist",
             "files": [
                 "favicon.ico",

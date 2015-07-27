@@ -45,7 +45,7 @@ a {
 
         @if $link-transitions {
             // Split transition: use color for the whole link
-            @include transition(color $link-transition-duration $link-transition-function);
+            transition: color $link-transition-duration $link-transition-function;
         }
 
         .segment-text {
@@ -53,7 +53,7 @@ a {
 
             @if $link-transitions {
                 // Split transition: use border-bottom-color for the text
-                @include transition(border-bottom-color $link-transition-duration $link-transition-function);
+                transition: border-bottom-color $link-transition-duration $link-transition-function;
             }
         }
 

@@ -5,22 +5,36 @@ var exec    = require('child_process').exec,
     gulp    = require('gulp');
 
 // Gulp plugins
-var rename  = require("gulp-rename"),
-    filter  = require('gulp-filter'),
-    plumber = require('gulp-plumber'),
+var rename       = require('gulp-rename'),
+    filter       = require('gulp-filter'),
+    plumber      = require('gulp-plumber'),
+    gulpSequence = require('gulp-sequence'),
+    watch        = require('gulp-watch'),
+    notify       = require("gulp-notify"),
 
-    cache       = require('gulp-cache'),
-    imagemin    = require('gulp-imagemin'),
-    fileinclude = require('gulp-file-include'),
+    cache        = require('gulp-cache'),
+    imagemin     = require('gulp-imagemin'),
+    fileinclude  = require('gulp-file-include'),
 
-    compass      = require('gulp-compass'),
-    autoprefixer = require('gulp-autoprefixer'),
+    sourcemaps   = require('gulp-sourcemaps'),
+    spritesmith  = require('gulp.spritesmith'),
+    merge        = require('merge-stream'),
 
-    useref = require('gulp-useref'),
-    uglify = require('gulp-uglify'),
+    sass         = require('gulp-sass'),
+    postcss      = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    sprites      = require('postcss-sprites'),
+    mqpacker     = require('css-mqpacker'),
+    csswring     = require('csswring'),
 
-    csso = require('gulp-csso'),
-    checkCSS = require('gulp-check-unused-css');
+    useref       = require('gulp-useref'),
+    uglify       = require('gulp-uglify');
+
+/* Unused plugins
+ *
+ * checkCSS = require('gulp-check-unused-css');
+ *
+ */
 
 /* Project directory structure
  *
@@ -67,10 +81,7 @@ gulp.task('font', function () {
 
         // Handle errors
         .pipe(plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
+            errorHandler: handleError
         }))
 
         .pipe(gulp.dest(config.path.font.dest));
@@ -88,10 +99,7 @@ gulp.task('html', function () {
 
         // Handle errors
         .pipe(plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
+            errorHandler: handleError
         }))
 
         // Include partials
@@ -121,22 +129,19 @@ gulp.task('html', function () {
  * Copies compressed and optimized images over to dest dir
  */
 gulp.task('image', function() {
-  gulp.src(config.path.image.src + '/**/*.{jpg,png}')
+    gulp.src(config.path.image.src + '/**/*.{jpg,png}')
 
-      // Handle errors
-      .pipe(plumber({
-          errorHandler: function (error) {
-              console.log(error.message);
-              this.emit('end');
-          }
-      }))
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: handleError
+        }))
 
-      .pipe(cache(imagemin({
+        .pipe(cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
-      })))
-      .pipe(gulp.dest(config.path.image.dest));
+        })))
+        .pipe(gulp.dest(config.path.image.dest));
 });
 
 /* Script task
@@ -154,26 +159,46 @@ gulp.task('style', function () {
 
         // Handle errors
         .pipe(plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
+            errorHandler: handleError
         }))
-
-        .pipe(compass({
-            config_file: 'config.rb',
-            css: config.path.style.dest,
-            sass: config.path.style.src,
-            style: 'expanded'
-        }))
-        .on('error', function (err) {}) // Error message is output by the plugin
-
-        .pipe(autoprefixer("> 1%", "last 2 version"))
-        .pipe(gulp.dest(config.path.style.dest))
-
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'compressed'}))
+        .pipe(postcss([
+            autoprefixer({
+                browsers: ['last 2 version']
+            }),
+            mqpacker,
+            csswring
+        ]))
         .pipe(rename({suffix: '.min'}))
-        .pipe(csso())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.path.style.dest));
+});
+
+/* Sprite task
+ *
+ * Creates sprite from icons in /sprites folder, 
+ * copies it to the dest folder, and creates _sprite.scss 
+ * into src/styles folder before 'styles' task begins
+ */
+gulp.task('sprite', function () {
+    // Generate our spritesheet
+    var spriteData = gulp.src(config.path.sprite.src + '/**/*.png')
+        .pipe(spritesmith({
+            imgName: 'sprite.png',
+            cssName: '_sprite.scss',
+            imgPath: '../images/sprite.png'
+        }));
+
+    // Pipe image stream through image optimizer and onto disk
+    var imgStream = spriteData.img
+        .pipe(gulp.dest(config.path.image.dest));
+
+    // Pipe CSS stream through CSS optimizer and onto disk
+    var scssStream = spriteData.css
+        .pipe(gulp.dest(config.path.style.src + '/generated'));
+
+    return merge(imgStream, scssStream);
 });
 
 /* Misc task
@@ -193,10 +218,7 @@ gulp.task('misc', function () {
 
             // Handle errors
             .pipe(plumber({
-                errorHandler: function (error) {
-                    console.log(error.message);
-                    this.emit('end');
-                }
+                errorHandler: handleError
             }))
 
             .pipe(gulp.dest(dest));
@@ -208,15 +230,33 @@ gulp.task('misc', function () {
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    gulp.watch(config.path.html.src + '/*.html', ['html']);
-    gulp.watch(config.path.html.partials + '/**/*.partial.html', ['html']);
-    gulp.watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', ['font']);
-    gulp.watch(config.path.image.src + '/**/*.{jpg,png}', ['image']);
-    gulp.watch(config.path.script.src + '/**/*.js', ['script']);
-    gulp.watch([
-        config.path.style.src + '/**/*.scss',
-        config.path.sprite.src + '/**/*.png' // TODO: check if sprites support jpegs
-    ], ['style']);
+    watch(config.path.html.src + '/*.html', function() { 
+        gulp.start('html')
+    });
+
+    watch(config.path.html.partials + '/**/*.partial.html', function() { 
+        gulp.start('html')
+    });
+
+    watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() { 
+        gulp.start('font')
+    });
+
+    watch(config.path.script.src + '/**/*.js', function() { 
+        gulp.start('script')
+    });
+
+    watch(config.path.sprite.src + '**/*.png', function(cb) { 
+        gulp.start('sprite')
+    });
+
+    watch(config.path.style.src + '/**/*.scss', function() { 
+        gulp.start('style')
+    });
+
+    watch(config.path.image.src + '/**/*.{jpg,png}', function() { 
+        gulp.start('image')
+    });
 });
 
 /* Clean:font task
@@ -245,10 +285,23 @@ gulp.task('clean:image', function (cb) {
 
         // Handle errors
         .pipe(plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
+            errorHandler: handleError
+        }))
+
+        .pipe(cache.clear());
+});
+
+/* Clean:sprite task
+ *
+ * Removes sprite.png from dest folder
+ */
+gulp.task('clean:sprite', function (cb) {
+    del(config.path.image.dest, cb);
+    gulp.src(config.path.image.src + '/sprite.png')
+
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: handleError
         }))
 
         .pipe(cache.clear());
@@ -290,53 +343,19 @@ gulp.task('clean', [
     'clean:font',
     'clean:html',
     'clean:image',
+    'clean:sprite',
     'clean:script',
     'clean:style',
     'clean:misc'
-]);
-
-/* Lint:style task
- *
- * Checks html files for unused css classes and vice versa
- */
-gulp.task('lint:style', /*['html', 'style'],*/ function () {
-    // Check unused css classes
-    gulp.src([config.path.style.dest + '/*.css', config.path.html.dest + '/*.html'])
-
-        // Handle errors
-        .pipe(plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
-        }))
-
-        .pipe(checkCSS({
-            ignore: ['clearfix', /^col-/, /^icon-?/]
-        }));
-});
-
-/* Lint task
- *
- * Uses all available linters
- */
-gulp.task('lint', [
-    'lint:style'
 ]);
 
 /* Default task
  *
  * Compiles all files
  */
-gulp.task('default', [
-    'font',
-    'html',
-    'image',
-    'script',
-    'style',
-    'misc',
-    'lint'
-]);
+gulp.task('default', function(cb) {
+    gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
+});
 
 /* Init task
  *
@@ -375,4 +394,47 @@ gulp.task('server', [
     'watch'
 ]);
 
-// validation
+
+
+/* Handle error function */
+function handleError(errorObject, callback) {
+    notify.onError(errorObject.toString().split(': ').join(': ')).apply(this, arguments);
+    // Keep gulp from hanging on this task
+    if (typeof this.emit === 'function') this.emit('end');
+};
+
+
+
+/* Unused gulp tasks */
+
+/* Lint:style task
+ *
+ * Checks html files for unused css classes and vice versa
+ */
+
+// gulp.task('lint:style', /*['html', 'style'],*/ function () {
+//     // Check unused css classes
+//     gulp.src([config.path.style.dest + '/*.css', config.path.html.dest + '/*.html'])
+
+//         // Handle errors
+//         .pipe(plumber({
+//             errorHandler: function (error) {
+//                 console.log(error.message);
+//                 this.emit('end');
+//             }
+//         }))
+
+//         .pipe(checkCSS({
+//             ignore: ['clearfix', /^col-/, /^icon-?/]
+//         }));
+// });
+
+
+/* Lint task
+ *
+ * Uses all available linters
+ */
+
+// gulp.task('lint', [
+//     'lint:style'
+// ]);

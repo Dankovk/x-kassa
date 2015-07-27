@@ -37,7 +37,7 @@ $link-transition-function: linear !default;
     color: $normal;
 
     @if $link-transitions {
-        @include transition(color $link-transition-duration $link-transition-function);
+        transition: color $link-transition-duration $link-transition-function;
     }
 
     @if $visited {
@@ -91,7 +91,7 @@ $link-transition-function: linear !default;
     border-bottom-width: $width;
 
     @if $link-transitions {
-        @include transition(color $link-transition-duration $link-transition-function, border-bottom-color $link-transition-duration $link-transition-function);
+        transition: color $link-transition-duration $link-transition-function, border-bottom-color $link-transition-duration $link-transition-function;
     }
 
     @if $visited {

@@ -1,4 +1,4 @@
-/* Barebones Compass fonts
+/* Barebones fonts
  *
  * This file contains custom font imports and font stacks for different font
  * types
@@ -18,45 +18,11 @@
  *
  *     @import url(http://fonts.googleapis.com/css?family=Roboto:400,700|PT+Serif:400,700&subset=latin,cyrillic,cyrillic-ext);
  *
- * Compass' font-face mixin with local font files
- * @see http://compass-style.org/reference/compass/css3/font_face/
- * @see http://compass-style.org/reference/compass/helpers/font-files/
- * @see http://www.fontsquirrel.com/tools/webfont-generator
  *
- *     // Regular
- *     @include font-face(
- *         "My Font",
- *         font-files("myfont.woff", "myfont.ttf", "myfont.svg"),
- *         "myfont.eot"
- *     );
- *
- *     // Bold
- *     @include font-face(
- *         "My Font",
- *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
- *         "myfontb.eot", bold
- *     );
- *
- *     // Italic
- *     @include font-face(
- *         "My Font",
- *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
- *         "myfontb.eot", normal, italic
- *     );
- *
- *     // Bold+Italic
- *     @include font-face(
- *         "My Font",
- *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
- *         "myfontb.eot", bold, italic
- *     );
- *
- *     // Custom font weight
- *     @include font-face(
- *         "My Font",
- *         font-files("myfontb.woff", "myfontb.ttf", "myfontb.svg"),
- *         "myfontb.eot", 300
- *     );
+ *     // Example of mixin usage
+ *	   @include font-face(YourAwesomeFont, '/fonts/your-awesome-font/your-awesome-font-regular');
+ *     @include font-face(YourAwesomeFont, '/fonts/your-awesome-font/your-awesome-font-bold', bold);
+ *     @include font-face(YourAwesomeFont, '/fonts/your-awesome-font/your-awesome-font-italic', normal, italic);
  */
 
 /* Default font stacks

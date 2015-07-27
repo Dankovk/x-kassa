@@ -6,10 +6,12 @@
  * Add html validation
  * Incorporate some of the ideas from [HTML 5 Boilerplate gulpfile](https://github.com/h5bp/html5-boilerplate/blob/master/gulpfile.js)
  * Incorporate ideas from [Barebones gitlab wiki](https://gitlab.com/popel/barebones/wikis/home)
-
-## Compass
-
- * Maybe use http://susy.oddbird.net/?
+ 
+ * SVG PostCSS
+ * MultiSprites
+ * Auto path to sprite
+ * Add Gulp-change
+ * Debug watcher (it doesn't run on file rename or when new file added)
 
 ## Misc
 

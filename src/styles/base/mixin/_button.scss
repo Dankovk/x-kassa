@@ -49,10 +49,10 @@ $button-transition-function: linear !default;
     background-color: $bg;
 
     @if $button-transitions {
-        @include transition(
+        transition:
             color $button-transition-duration $button-transition-function,
             background-color $button-transition-duration $button-transition-function
-        );
+        ;
     }
 
     @if $color-hover == $color-focus {

@@ -8,20 +8,14 @@
  * NOTE: This file is not meant to contain any rules directly
  */
 
-// Compass
-@import "compass";
-
 // Normalize
-@import "../vendor/normalize-scss/normalize";
+@import "../vendor/inuit-normalize/generic.normalize";
 
 // Project fonts and font stacks
 @import "base/font";
 
 // Project variables and settings
 @import "base/variable";
-
-// Sprite config
-@import "base/sprite";
 
 // Functions
 @import "base/function";
@@ -31,4 +25,3 @@
 @import "base/mixin/link";
 @import "base/mixin/triangle";
 @import "base/mixin/button";
-@import "base/mixin/sprite";

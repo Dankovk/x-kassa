@@ -18,6 +18,9 @@
 @import "../vendor/selectize-scss/src/selectize.scss";
 @import "../vendor/selectize-scss/src/selectize.default.scss";
 
+// Sprites
+@import "generated/sprite";
+
 // Elements
 @import "element";
 @import "element/link";
