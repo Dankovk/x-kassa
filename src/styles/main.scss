@@ -11,15 +11,16 @@
  * NOTE: This file is not meant to contain any rules directly
  */
 
+// Generated sprites code
+@import "generated/sprite";
+@import "generated/sprite2";
+
 // Base
 @import "base";
 
 // Vendor
 @import "../vendor/selectize-scss/src/selectize.scss";
 @import "../vendor/selectize-scss/src/selectize.default.scss";
-
-// Sprites
-@import "generated/sprite";
 
 // Elements
 @import "element";
@@ -36,6 +37,7 @@
 
 // Standalone blocks
 @import "block";
+@import "block/guilist";
 // @import "block/blockname";
 
 // Layout styles

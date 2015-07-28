@@ -2,33 +2,40 @@
 var exec    = require('child_process').exec,
     del     = require('del'),
     config  = require('./barebones.json'),
+    fs      = require('fs'),
+    path    = require('path'),
     gulp    = require('gulp');
 
 // Gulp plugins
-var rename       = require('gulp-rename'),
-    filter       = require('gulp-filter'),
-    plumber      = require('gulp-plumber'),
-    gulpSequence = require('gulp-sequence'),
-    watch        = require('gulp-watch'),
-    notify       = require("gulp-notify"),
+var rename         = require('gulp-rename'),
+    filter         = require('gulp-filter'),
+    plumber        = require('gulp-plumber'),
+    gulpSequence   = require('gulp-sequence'),
+    watch          = require('gulp-watch'),
+    gulpif         = require('gulp-if'),
+    notify         = require("gulp-notify"),
 
-    cache        = require('gulp-cache'),
-    imagemin     = require('gulp-imagemin'),
-    fileinclude  = require('gulp-file-include'),
+    cache          = require('gulp-cache'),
+    imagemin       = require('gulp-imagemin'),
+    fileinclude    = require('gulp-file-include'),
 
-    sourcemaps   = require('gulp-sourcemaps'),
-    spritesmith  = require('gulp.spritesmith'),
-    merge        = require('merge-stream'),
+    sourcemaps     = require('gulp-sourcemaps'),
+    spritesmith    = require('gulp.spritesmith'),
+    merge          = require('merge-stream'),
 
-    sass         = require('gulp-sass'),
-    postcss      = require('gulp-postcss'),
-    autoprefixer = require('autoprefixer'),
-    sprites      = require('postcss-sprites'),
-    mqpacker     = require('css-mqpacker'),
-    csswring     = require('csswring'),
+    sass           = require('gulp-sass'),
+    postcss        = require('gulp-postcss'),
+    autoprefixer   = require('autoprefixer'),
+    sprites        = require('postcss-sprites'),
+    mqpacker       = require('css-mqpacker'),
+    csswring       = require('csswring'),
+    postcssSVG     = require('postcss-svg'),
+    postcssEasings = require('postcss-easings'),
 
-    useref       = require('gulp-useref'),
-    uglify       = require('gulp-uglify');
+    useref         = require('gulp-useref'),
+    uglify         = require('gulp-uglify');
+
+var buildPath;
 
 /* Unused plugins
  *
@@ -77,14 +84,14 @@ gulp.task('bower', function (cb) {
  * Copies font files over to dest dir
  */
 gulp.task('font', function () {
-    gulp.src(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}')
+    gulp.src(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}')
 
         // Handle errors
         .pipe(plumber({
             errorHandler: handleError
         }))
 
-        .pipe(gulp.dest(config.path.font.dest));
+        .pipe(gulp.dest(buildPath + config.path.font.dest));
 });
 
 /* Html task
@@ -95,7 +102,7 @@ gulp.task('html', function () {
     var assets  = useref.assets(),
         jsfiles = filter("**/*.js");
 
-    gulp.src(config.path.html.src + '/*.html')
+    gulp.src(config.path.source + '/*.html')
 
         // Handle errors
         .pipe(plumber({
@@ -106,7 +113,7 @@ gulp.task('html', function () {
         .pipe(fileinclude({
             prefix: config.partials.prefix,
             suffix: config.partials.suffix,
-            basepath: config.path.html.partials + '/',
+            basepath: config.path.source + config.path.html.partials + '/',
             context: config.partials.context
         }))
 
@@ -115,13 +122,13 @@ gulp.task('html', function () {
 
         // Concatenate and minify javascripts
         .pipe(jsfiles)
-        .pipe(uglify())
+        .pipe(gulpif(process.env.NODE_ENV == 'production', uglify()))
         .pipe(jsfiles.restore())
 
         // Restore html stream and write concatenated js file names
         .pipe(assets.restore())
         .pipe(useref())
-        .pipe(gulp.dest(config.path.html.dest));
+        .pipe(gulp.dest(buildPath));
 });
 
 /* Image task
@@ -129,7 +136,7 @@ gulp.task('html', function () {
  * Copies compressed and optimized images over to dest dir
  */
 gulp.task('image', function() {
-    gulp.src(config.path.image.src + '/**/*.{jpg,png}')
+    gulp.src(config.path.source + config.path.image.src + '/**/*.{jpg,png}')
 
         // Handle errors
         .pipe(plumber({
@@ -141,7 +148,7 @@ gulp.task('image', function() {
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest(config.path.image.dest));
+        .pipe(gulp.dest(buildPath + config.path.image.dest));
 });
 
 /* Script task
@@ -155,7 +162,7 @@ gulp.task('script', ['html']);
  * Compiles scss files to css dest dir
  */
 gulp.task('style', function () {
-    gulp.src(config.path.style.src + '/*.scss')
+    gulp.src(config.path.source + config.path.style.src + '/*.scss')
 
         // Handle errors
         .pipe(plumber({
@@ -168,11 +175,15 @@ gulp.task('style', function () {
                 browsers: ['last 2 version']
             }),
             mqpacker,
-            csswring
+            csswring,
+            postcssEasings,
+            postcssSVG({
+                paths: [config.path.source + config.path.icon.src],
+            })
         ]))
         .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(config.path.style.dest));
+        .pipe(gulp.dest(buildPath + config.path.style.dest));
 });
 
 /* Sprite task
@@ -182,23 +193,43 @@ gulp.task('style', function () {
  * into src/styles folder before 'styles' task begins
  */
 gulp.task('sprite', function () {
-    // Generate our spritesheet
-    var spriteData = gulp.src(config.path.sprite.src + '/**/*.png')
-        .pipe(spritesmith({
-            imgName: 'sprite.png',
-            cssName: '_sprite.scss',
-            imgPath: '../images/sprite.png'
-        }));
+    var folders = getFolders(config.path.source + config.path.icon.src);
 
-    // Pipe image stream through image optimizer and onto disk
-    var imgStream = spriteData.img
-        .pipe(gulp.dest(config.path.image.dest));
+    createSprites(config.path.source + config.path.icon.src, 'sprite.png', '_sprite.scss', '../images/sprite.png', 'sprite');
 
-    // Pipe CSS stream through CSS optimizer and onto disk
-    var scssStream = spriteData.css
-        .pipe(gulp.dest(config.path.style.src + '/generated'));
+    folders.map(function(folder) {
+        var path = config.path.source + config.path.icon.src + '/' + folder;
+        var imgName = folder + '.png';
+        var cssName = '_' + folder + '.scss';
+        var imgPath = '../../images/' + folder + '.png';
+        var prefix = folder;
 
-    return merge(imgStream, scssStream);
+        createSprites(path, imgName, cssName, imgPath, prefix);
+    });
+
+    function createSprites(path, imgName, cssName, imgPath, prefix) {
+        // Generate our spritesheet
+        var spriteData = gulp.src(path + '/*.png')
+            .pipe(spritesmith({
+                imgName: imgName,
+                cssName: cssName,
+                imgPath: imgPath,
+                cssVarMap: function (sprite) {
+                    sprite.name = prefix + '_' + sprite.name;
+                }
+            }));
+
+        // Pipe image stream through image optimizer and onto disk
+        var imgStream = spriteData.img
+            .pipe(gulp.dest(buildPath + config.path.image.dest));
+
+        // Pipe CSS stream through CSS optimizer and onto disk
+        var scssStream = spriteData.css
+            .pipe(gulp.dest(config.path.source + config.path.style.src + '/generated'));
+
+        return merge(imgStream, scssStream);
+    };
+    
 });
 
 /* Misc task
@@ -207,8 +238,8 @@ gulp.task('sprite', function () {
  */
 gulp.task('misc', function () {
     var files = config.path.misc.files,
-        src   = config.path.misc.src,
-        dest  = config.path.misc.dest;
+        src   = config.path.source + config.path.misc.src,
+        dest  = buildPath;
 
     // Iterate through files from the list
     // We need this because apparently there is a maximum number of files
@@ -230,31 +261,31 @@ gulp.task('misc', function () {
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    watch(config.path.html.src + '/*.html', function() { 
+    watch(config.path.source + '/*.html', function() { 
         gulp.start('html')
     });
 
-    watch(config.path.html.partials + '/**/*.partial.html', function() { 
+    watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() { 
         gulp.start('html')
     });
 
-    watch(config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() { 
+    watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() { 
         gulp.start('font')
     });
 
-    watch(config.path.script.src + '/**/*.js', function() { 
+    watch(config.path.source + config.path.script.src + '/**/*.js', function() { 
         gulp.start('script')
     });
 
-    watch(config.path.sprite.src + '**/*.png', function(cb) { 
+    watch(config.path.source + config.path.icon.src + '**/*.png', function(cb) { 
         gulp.start('sprite')
     });
 
-    watch(config.path.style.src + '/**/*.scss', function() { 
+    watch(config.path.source + config.path.style.src + '/**/*.scss', function() { 
         gulp.start('style')
     });
 
-    watch(config.path.image.src + '/**/*.{jpg,png}', function() { 
+    watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() { 
         gulp.start('image')
     });
 });
@@ -264,7 +295,7 @@ gulp.task('watch', function () {
  * Removes font dest folder
  */
 gulp.task('clean:font', function (cb) {
-    del(config.path.font.dest, cb);
+    del(buildPath + config.path.font.dest, cb);
 });
 
 /* Clean:html task
@@ -272,7 +303,7 @@ gulp.task('clean:font', function (cb) {
  * Removes html files from dest folder
  */
 gulp.task('clean:html', function (cb) {
-    del(config.path.html.dest + '/*.html', cb);
+    del(buildPath + config.path.html.dest + '/*.html', cb);
 });
 
 /* Clean:image task
@@ -280,8 +311,8 @@ gulp.task('clean:html', function (cb) {
  * Removes image dest folder
  */
 gulp.task('clean:image', function (cb) {
-    del(config.path.image.dest, cb);
-    gulp.src(config.path.image.src + '/**/*.{jpg,png}')
+    del(buildPath + config.path.image.dest, cb);
+    gulp.src(config.path.source + config.path.image.src + '/**/*.{jpg,png}')
 
         // Handle errors
         .pipe(plumber({
@@ -296,8 +327,8 @@ gulp.task('clean:image', function (cb) {
  * Removes sprite.png from dest folder
  */
 gulp.task('clean:sprite', function (cb) {
-    del(config.path.image.dest, cb);
-    gulp.src(config.path.image.src + '/sprite.png')
+    del(buildPath + config.path.image.dest, cb);
+    gulp.src(config.path.source + config.path.image.src + '/sprite.png')
 
         // Handle errors
         .pipe(plumber({
@@ -312,7 +343,7 @@ gulp.task('clean:sprite', function (cb) {
  * Clears script dest folder, except vendor subfolder
  */
 gulp.task('clean:script', function (cb) {
-    del(config.path.script.dest, cb);
+    del(buildPath + config.path.script.dest, cb);
 });
 
 /* Clean:style task
@@ -320,7 +351,7 @@ gulp.task('clean:script', function (cb) {
  * Removes style dest folder
  */
 gulp.task('clean:style', function (cb) {
-    del(config.path.style.dest, cb);
+    del(buildPath + config.path.style.dest, cb);
 });
 
 /* Clean:misc task
@@ -329,9 +360,9 @@ gulp.task('clean:style', function (cb) {
  */
 gulp.task('clean:misc', function (cb) {
     // Clean all files and folders from the list
-    del(config.path.misc.files, {
+    del(buildPath + config.path.misc.files, {
         read: false,
-        cwd: config.path.misc.dest
+        cwd: buildPath + config.path.misc.dest
     }, cb);
 });
 
@@ -349,13 +380,27 @@ gulp.task('clean', [
     'clean:misc'
 ]);
 
-/* Default task
+/* Build task
  *
- * Compiles all files
+ * Compiles all files. Uglify depends on flag (production or development)
  */
-gulp.task('default', function(cb) {
+gulp.task('build:development', function(cb) {
+    process.env.NODE_ENV = 'development';
+    buildPath = config.path.development;
     gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
 });
+
+gulp.task('build:production', function(cb) {
+    process.env.NODE_ENV = 'production';
+    buildPath = config.path.production;
+    gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
+});
+
+/* Default task
+ *
+ * Compiles all files. Uglify depends on flag (production or development)
+ */
+gulp.task('default', ['build:development']);
 
 /* Init task
  *
@@ -374,8 +419,8 @@ gulp.task('connect', function() {
         serveIndex  = require('serve-index');
 
     var app = require('connect')()
-        .use(serveStatic(config.path.html.dest)) // serve files from within a given root directory
-        .use(serveIndex(config.path.html.dest)); // returns middlware that serves an index of the directory in the given path
+        .use(serveStatic(buildPath)) // serve files from within a given root directory
+        .use(serveIndex(buildPath)); // returns middlware that serves an index of the directory in the given path
 
     require('http')
         .createServer(app)
@@ -395,6 +440,7 @@ gulp.task('server', [
 ]);
 
 
+// Helper functions
 
 /* Handle error function */
 function handleError(errorObject, callback) {
@@ -403,9 +449,17 @@ function handleError(errorObject, callback) {
     if (typeof this.emit === 'function') this.emit('end');
 };
 
+/* Get folders inside some diriectory function */
+function getFolders(dir) {
+    return fs.readdirSync(dir)
+        .filter(function(file) {
+            return fs.statSync(path.join(dir, file)).isDirectory();
+        });
+}
 
 
-/* Unused gulp tasks */
+
+// Unused gulp tasks
 
 /* Lint:style task
  *

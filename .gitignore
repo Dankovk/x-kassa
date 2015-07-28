@@ -107,3 +107,4 @@ src/vendor/**
 src/styles/generated/**
 # ignore compiled files, they should be re-compiled on deploy
 dist/**
+dev/**

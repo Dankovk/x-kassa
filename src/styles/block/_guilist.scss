@@ -1,0 +1,16 @@
+.barebones-link {
+	padding: 0 0 0 25px;
+	position: relative;
+
+	.svg-icon-animated:before {
+		background-image: svg("facebook");
+	}
+
+	.svg-icon-animated:after {
+		background-image: svg("facebook", "[fill]: #aaa");
+	}
+
+	.icon {
+		@include sprite($sprite2-barebones);
+	}
+}

@@ -1,34 +1,35 @@
 {
     "path": {
+        "production": "dist/",
+        "development": "dev/",
+        "source": "src/",
         "font": {
-            "src": "src/fonts",
-            "dest": "dist/fonts"
+            "src": "fonts",
+            "dest": "fonts"
         },
         "html": {
-            "src": "src",
-            "dest": "dist",
-            "partials": "./src/partials"
+            "partials": "partials"
         },
         "image": {
-            "src": "src/images",
-            "dest": "dist/images"
+            "src": "images",
+            "dest": "images"
         },
         "script": {
-            "src": "src/scripts",
-            "dest": "dist/scripts",
-            "vendor": "src/scripts/vendor"
+            "src": "scripts",
+            "dest": "scripts",
+            "vendor": "scripts/vendor"
         },
-        "sprite": {
-            "src": "src/sprites",
-            "dest": "dist/images"
+        "icon": {
+            "src": "icons",
+            "dest": "images"
         },
         "style": {
-            "src": "src/styles",
-            "dest": "dist/styles",
-            "vendor": "src/styles/vendor"
+            "src": "styles",
+            "dest": "styles",
+            "vendor": "styles/vendor"
         },
         "misc": {
-            "src": "src/favicons",
+            "src": "favicons",
             "dest": "dist",
             "files": [
                 "favicon.ico",
@@ -49,8 +50,7 @@
                 "robots.txt",
                 "humans.txt"
             ]
-        },
-        "http": "/dist/"
+        }
     },
     "server": {
         "port": 9000

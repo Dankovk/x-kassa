@@ -7,10 +7,10 @@
  * Incorporate some of the ideas from [HTML 5 Boilerplate gulpfile](https://github.com/h5bp/html5-boilerplate/blob/master/gulpfile.js)
  * Incorporate ideas from [Barebones gitlab wiki](https://gitlab.com/popel/barebones/wikis/home)
  
- * SVG PostCSS
- * MultiSprites
- * Auto path to sprite
  * Add Gulp-change
+ * Auto port
+ * Prettify time
+ * Remove .min
  * Debug watcher (it doesn't run on file rename or when new file added)
 
 ## Misc
