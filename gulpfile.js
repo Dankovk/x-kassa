@@ -1,10 +1,12 @@
 // Basic stuff we need
-var exec    = require('child_process').exec,
-    del     = require('del'),
-    config  = require('./barebones.json'),
-    fs      = require('fs'),
-    path    = require('path'),
-    gulp    = require('gulp');
+var exec       = require('child_process').exec,
+    del        = require('del'),
+    config     = require('./barebones.json'),
+    fs         = require('fs'), 
+    path       = require('path'),
+    connect    = require('gulp-connect'),
+    portfinder = require('portfinder'),
+    gulp       = require('gulp');
 
 // Gulp plugins
 var rename         = require('gulp-rename'),
@@ -14,6 +16,8 @@ var rename         = require('gulp-rename'),
     watch          = require('gulp-watch'),
     gulpif         = require('gulp-if'),
     notify         = require("gulp-notify"),
+    concat         = require('gulp-concat'),
+    lazypipe       = require('lazypipe'),
 
     cache          = require('gulp-cache'),
     imagemin       = require('gulp-imagemin'),
@@ -31,6 +35,7 @@ var rename         = require('gulp-rename'),
     csswring       = require('csswring'),
     postcssSVG     = require('postcss-svg'),
     postcssEasings = require('postcss-easings'),
+    csso           = require('gulp-csso'),
 
     useref         = require('gulp-useref'),
     uglify         = require('gulp-uglify');
@@ -99,8 +104,7 @@ gulp.task('font', function () {
  * Copies html files over to dest dir
  */
 gulp.task('html', function () {
-    var assets  = useref.assets(),
-        jsfiles = filter("**/*.js");
+    var jsfiles = filter("**/*.js");
 
     gulp.src(config.path.source + '/*.html')
 
@@ -118,15 +122,20 @@ gulp.task('html', function () {
         }))
 
         // Include all available assets
-        .pipe(assets)
+        .pipe(useref.assets(
+            {}, 
+            lazypipe()
+                .pipe(sourcemaps.init, {loadMaps: true})
+        ))
 
         // Concatenate and minify javascripts
         .pipe(jsfiles)
         .pipe(gulpif(process.env.NODE_ENV == 'production', uglify()))
+        .pipe(sourcemaps.write())
         .pipe(jsfiles.restore())
 
         // Restore html stream and write concatenated js file names
-        .pipe(assets.restore())
+        .pipe(useref.assets().restore())
         .pipe(useref())
         .pipe(gulp.dest(buildPath));
 });
@@ -143,11 +152,11 @@ gulp.task('image', function() {
             errorHandler: handleError
         }))
 
-        .pipe(cache(imagemin({
+        .pipe(gulpif(process.env.NODE_ENV == 'production', cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
-        })))
+        }))))
         .pipe(gulp.dest(buildPath + config.path.image.dest));
 });
 
@@ -162,6 +171,27 @@ gulp.task('script', ['html']);
  * Compiles scss files to css dest dir
  */
 gulp.task('style', function () {
+    var productionProcessors = [
+        autoprefixer({
+            browsers: ['last 2 version']
+        }),
+        mqpacker,
+        postcssEasings,
+        postcssSVG({
+            paths: [config.path.source + config.path.icon.src],
+        })
+    ]
+
+    var developmentProcessors = [
+        autoprefixer({
+            browsers: ['last 2 version']
+        }),
+        postcssEasings,
+        postcssSVG({
+            paths: [config.path.source + config.path.icon.src],
+        })
+    ]
+
     gulp.src(config.path.source + config.path.style.src + '/*.scss')
 
         // Handle errors
@@ -169,21 +199,12 @@ gulp.task('style', function () {
             errorHandler: handleError
         }))
         .pipe(sourcemaps.init())
-        .pipe(sass({outputStyle: 'compressed'}))
-        .pipe(postcss([
-            autoprefixer({
-                browsers: ['last 2 version']
-            }),
-            mqpacker,
-            csswring,
-            postcssEasings,
-            postcssSVG({
-                paths: [config.path.source + config.path.icon.src],
-            })
-        ]))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(sass())
+        .pipe(gulpif(process.env.NODE_ENV == 'production', csso()))
+        .pipe(gulpif(process.env.NODE_ENV == 'production', postcss(productionProcessors), postcss(developmentProcessors)))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(buildPath + config.path.style.dest));
+        .pipe(gulp.dest(buildPath + config.path.style.dest))
+        .pipe(connect.reload());
 });
 
 /* Sprite task
@@ -221,6 +242,11 @@ gulp.task('sprite', function () {
 
         // Pipe image stream through image optimizer and onto disk
         var imgStream = spriteData.img
+            .pipe(gulpif(process.env.NODE_ENV == 'production', imagemin({
+                optimizationLevel: 5,
+                progressive: true,
+                interlaced: true
+            })))
             .pipe(gulp.dest(buildPath + config.path.image.dest));
 
         // Pipe CSS stream through CSS optimizer and onto disk
@@ -384,13 +410,13 @@ gulp.task('clean', [
  *
  * Compiles all files. Uglify depends on flag (production or development)
  */
-gulp.task('build:development', function(cb) {
+gulp.task('build:dev', function(cb) {
     process.env.NODE_ENV = 'development';
     buildPath = config.path.development;
     gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
 });
 
-gulp.task('build:production', function(cb) {
+gulp.task('build', function(cb) {
     process.env.NODE_ENV = 'production';
     buildPath = config.path.production;
     gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
@@ -400,7 +426,7 @@ gulp.task('build:production', function(cb) {
  *
  * Compiles all files. Uglify depends on flag (production or development)
  */
-gulp.task('default', ['build:development']);
+gulp.task('default', ['build:dev']);
 
 /* Init task
  *
@@ -414,20 +440,34 @@ gulp.task('init', [
  *
  * Creates a web server with an index of all html files within html dest dir
  */
+// gulp.task('connect', function() {
+//     var serveStatic = require('serve-static'),
+//         serveIndex  = require('serve-index');
+
+//     var app = require('connect')()
+//         .use(serveStatic(buildPath)) // serve files from within a given root directory
+//         .use(serveIndex(buildPath)); // returns middlware that serves an index of the directory in the given path
+
+//     require('http')
+//         .createServer(app)
+//         .listen(config.server.port)
+//         .on('listening', function() {
+//             console.log('Started connect web server on http://localhost:' + config.server.port);
+//         });
+// });
+
 gulp.task('connect', function() {
-    var serveStatic = require('serve-static'),
-        serveIndex  = require('serve-index');
+    portfinder.basePort = config.server.port;
 
-    var app = require('connect')()
-        .use(serveStatic(buildPath)) // serve files from within a given root directory
-        .use(serveIndex(buildPath)); // returns middlware that serves an index of the directory in the given path
-
-    require('http')
-        .createServer(app)
-        .listen(config.server.port)
-        .on('listening', function() {
-            console.log('Started connect web server on http://localhost:' + config.server.port);
+    portfinder.getPort(function (err, port) {
+        connect.server({
+            root: 'dev',
+            livereload: config.server.livereload,
+            port: port
         });
+    });
+
+    
 });
 
 /* Server task
