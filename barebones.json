@@ -19,9 +19,13 @@
             "dest": "scripts",
             "vendor": "scripts/vendor"
         },
+        "sprite": {
+            "src": "sprites",
+            "dest": "images"
+        },
         "icon": {
             "src": "icons",
-            "dest": "images"
+            "dest": "icons"
         },
         "style": {
             "src": "styles",

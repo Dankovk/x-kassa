@@ -6,14 +6,8 @@
  * Add html validation
  * Incorporate some of the ideas from [HTML 5 Boilerplate gulpfile](https://github.com/h5bp/html5-boilerplate/blob/master/gulpfile.js)
  * Incorporate ideas from [Barebones gitlab wiki](https://gitlab.com/popel/barebones/wikis/home)
- 
- * Prettify time
+
  * JS linter
- * Better watcher
- * Split icons folder to icons and sprites
- * Gutil logs on start
- * Auto port
- * Debug watcher (it doesn't run on file rename or when new file added)
  * Extensions to barebones config
  * Catch error if gulp server called when there is no dev folder
 

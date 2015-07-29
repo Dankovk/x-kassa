@@ -18,6 +18,7 @@ var rename         = require('gulp-rename'),
     notify         = require("gulp-notify"),
     concat         = require('gulp-concat'),
     lazypipe       = require('lazypipe'),
+    newer          = require('gulp-newer'),
 
     cache          = require('gulp-cache'),
     imagemin       = require('gulp-imagemin'),
@@ -40,7 +41,7 @@ var rename         = require('gulp-rename'),
     useref         = require('gulp-useref'),
     uglify         = require('gulp-uglify');
 
-var buildPath;
+var buildPath = config.path.development;
 
 /* Unused plugins
  *
@@ -96,7 +97,8 @@ gulp.task('font', function () {
             errorHandler: handleError
         }))
 
-        .pipe(gulp.dest(buildPath + config.path.font.dest));
+        .pipe(gulp.dest(buildPath + config.path.font.dest))
+        .pipe(connect.reload());
 });
 
 /* Html task
@@ -137,7 +139,8 @@ gulp.task('html', function () {
         // Restore html stream and write concatenated js file names
         .pipe(useref.assets().restore())
         .pipe(useref())
-        .pipe(gulp.dest(buildPath));
+        .pipe(gulp.dest(buildPath))
+        .pipe(connect.reload());
 });
 
 /* Image task
@@ -151,13 +154,28 @@ gulp.task('image', function() {
         .pipe(plumber({
             errorHandler: handleError
         }))
-
         .pipe(gulpif(process.env.NODE_ENV == 'production', cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
         }))))
-        .pipe(gulp.dest(buildPath + config.path.image.dest));
+        .pipe(gulp.dest(buildPath + config.path.image.dest))
+        .pipe(connect.reload());
+});
+
+/* Icon task
+ *
+ * Copies icons over to dest dir
+ */
+gulp.task('icon', function() {
+    gulp.src(config.path.source + config.path.icon.src + '/**/*.{jpg,png,svg}')
+
+        // Handle errors
+        .pipe(plumber({
+            errorHandler: handleError
+        }))
+        .pipe(gulp.dest(buildPath + config.path.icon.dest))
+        .pipe(connect.reload());
 });
 
 /* Script task
@@ -214,12 +232,12 @@ gulp.task('style', function () {
  * into src/styles folder before 'styles' task begins
  */
 gulp.task('sprite', function () {
-    var folders = getFolders(config.path.source + config.path.icon.src);
+    var folders = getFolders(config.path.source + config.path.sprite.src);
 
-    createSprites(config.path.source + config.path.icon.src, 'sprite.png', '_sprite.scss', '../images/sprite.png', 'sprite');
+    createSprites(config.path.source + config.path.sprite.src, 'sprite.png', '_sprite.scss', '../images/sprite.png', 'sprite');
 
     folders.map(function(folder) {
-        var path = config.path.source + config.path.icon.src + '/' + folder;
+        var path = config.path.source + config.path.sprite.src + '/' + folder;
         var imgName = folder + '.png';
         var cssName = '_' + folder + '.scss';
         var imgPath = '../../images/' + folder + '.png';
@@ -303,8 +321,12 @@ gulp.task('watch', function () {
         gulp.start('script')
     });
 
-    watch(config.path.source + config.path.icon.src + '**/*.png', function(cb) { 
+    watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) { 
         gulp.start('sprite')
+    });
+
+    watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) { 
+        gulp.start('icon')
     });
 
     watch(config.path.source + config.path.style.src + '/**/*.scss', function() { 
@@ -338,14 +360,22 @@ gulp.task('clean:html', function (cb) {
  */
 gulp.task('clean:image', function (cb) {
     del(buildPath + config.path.image.dest, cb);
-    gulp.src(config.path.source + config.path.image.src + '/**/*.{jpg,png}')
+    // gulp.src(config.path.source + config.path.image.src + '/**/*.{jpg,png}')
 
-        // Handle errors
-        .pipe(plumber({
-            errorHandler: handleError
-        }))
+    //     // Handle errors
+    //     .pipe(plumber({
+    //         errorHandler: handleError
+    //     }))
 
-        .pipe(cache.clear());
+    //     .pipe(cache.clear());
+});
+
+/* Clean:icon task
+ *
+ * Removes icons dest folder
+ */
+gulp.task('clean:icon', function (cb) {
+    del(buildPath + config.path.icon.dest, cb);
 });
 
 /* Clean:sprite task
@@ -386,7 +416,7 @@ gulp.task('clean:style', function (cb) {
  */
 gulp.task('clean:misc', function (cb) {
     // Clean all files and folders from the list
-    del(buildPath + config.path.misc.files, {
+    del(config.path.misc.files, {
         read: false,
         cwd: buildPath + config.path.misc.dest
     }, cb);
@@ -401,6 +431,7 @@ gulp.task('clean', [
     'clean:html',
     'clean:image',
     'clean:sprite',
+    'clean:icon',
     'clean:script',
     'clean:style',
     'clean:misc'
@@ -413,13 +444,13 @@ gulp.task('clean', [
 gulp.task('build:dev', function(cb) {
     process.env.NODE_ENV = 'development';
     buildPath = config.path.development;
-    gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
+    gulpSequence('clean', ['font', 'html', 'sprite', 'icon', 'image', 'misc'], ['style'], cb);
 });
 
 gulp.task('build', function(cb) {
     process.env.NODE_ENV = 'production';
     buildPath = config.path.production;
-    gulpSequence('clean', ['font', 'html', 'sprite', 'image', 'misc'], ['style'], cb);
+    gulpSequence('clean', ['font', 'html', 'sprite', 'icon', 'image', 'misc'], ['style'], cb);
 });
 
 /* Default task
@@ -461,7 +492,7 @@ gulp.task('connect', function() {
 
     portfinder.getPort(function (err, port) {
         connect.server({
-            root: 'dev',
+            root: buildPath,
             livereload: config.server.livereload,
             port: port
         });

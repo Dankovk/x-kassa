@@ -37,6 +37,7 @@
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.2.1",
     "gulp-jslint": "^0.2.2",
+    "gulp-newer": "^0.5.1",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.0",
     "gulp-postcss": "^5.1.10",
