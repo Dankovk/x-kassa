@@ -2,7 +2,7 @@
 var exec       = require('child_process').exec,
     del        = require('del'),
     config     = require('./barebones.json'),
-    fs         = require('fs'), 
+    fs         = require('fs'),
     path       = require('path'),
     connect    = require('gulp-connect'),
     portfinder = require('portfinder'),
@@ -125,7 +125,7 @@ gulp.task('html', function () {
 
         // Include all available assets
         .pipe(useref.assets(
-            {}, 
+            {},
             lazypipe()
                 .pipe(sourcemaps.init, {loadMaps: true})
         ))
@@ -188,7 +188,7 @@ gulp.task('script', ['html']);
  *
  * Compiles scss files to css dest dir
  */
-gulp.task('style', function () {
+gulp.task('style', ['sprite'], function () {
     var productionProcessors = [
         autoprefixer({
             browsers: ['last 2 version']
@@ -227,8 +227,8 @@ gulp.task('style', function () {
 
 /* Sprite task
  *
- * Creates sprite from icons in /sprites folder, 
- * copies it to the dest folder, and creates _sprite.scss 
+ * Creates sprite from icons in /sprites folder,
+ * copies it to the dest folder, and creates _sprite.scss
  * into src/styles folder before 'styles' task begins
  */
 gulp.task('sprite', function () {
@@ -269,11 +269,11 @@ gulp.task('sprite', function () {
 
         // Pipe CSS stream through CSS optimizer and onto disk
         var scssStream = spriteData.css
-            .pipe(gulp.dest(config.path.source + config.path.style.src + '/generated'));
+            .pipe(gulp.dest(config.path.source + '/generated'));
 
         return merge(imgStream, scssStream);
     };
-    
+
 });
 
 /* Misc task
@@ -305,35 +305,35 @@ gulp.task('misc', function () {
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    watch(config.path.source + '/*.html', function() { 
+    watch(config.path.source + '/*.html', function() {
         gulp.start('html')
     });
 
-    watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() { 
+    watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() {
         gulp.start('html')
     });
 
-    watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() { 
+    watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() {
         gulp.start('font')
     });
 
-    watch(config.path.source + config.path.script.src + '/**/*.js', function() { 
+    watch(config.path.source + config.path.script.src + '/**/*.js', function() {
         gulp.start('script')
     });
 
-    watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) { 
-        gulp.start('sprite')
-    });
-
-    watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) { 
-        gulp.start('icon')
-    });
-
-    watch(config.path.source + config.path.style.src + '/**/*.scss', function() { 
+    watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) {
         gulp.start('style')
     });
 
-    watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() { 
+    watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) {
+        gulp.start('icon')
+    });
+
+    watch(config.path.source + config.path.style.src + '/**/*.scss', function() {
+        gulp.start('style')
+    });
+
+    watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() {
         gulp.start('image')
     });
 });
@@ -444,13 +444,13 @@ gulp.task('clean', [
 gulp.task('build:dev', function(cb) {
     process.env.NODE_ENV = 'development';
     buildPath = config.path.development;
-    gulpSequence('clean', ['font', 'html', 'sprite', 'icon', 'image', 'misc'], ['style'], cb);
+    gulpSequence('clean', ['font', 'html', 'icon', 'image', 'misc', 'style'], cb);
 });
 
 gulp.task('build', function(cb) {
     process.env.NODE_ENV = 'production';
     buildPath = config.path.production;
-    gulpSequence('clean', ['font', 'html', 'sprite', 'icon', 'image', 'misc'], ['style'], cb);
+    gulpSequence('clean', ['font', 'html', 'icon', 'image', 'misc', 'style'], cb);
 });
 
 /* Default task
@@ -498,7 +498,7 @@ gulp.task('connect', function() {
         });
     });
 
-    
+
 });
 
 /* Server task
