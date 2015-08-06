@@ -352,7 +352,7 @@ gulp.task('clean:font', function (cb) {
  * Removes html files from dest folder
  */
 gulp.task('clean:html', function (cb) {
-    del(buildPath + config.path.html.dest + '/*.html', cb);
+    del(buildPath + '/*.html', cb);
 });
 
 /* Clean:image task
