@@ -113,7 +113,7 @@ gulp.task('html', function () {
             .pipe(sourcemaps.init, {loadMaps: true})
     );
 
-    gulp.src(config.path.source + '/*.html')
+    gulp.src(config.path.source + '*.html')
 
         // Handle errors
         .pipe(plumber({
@@ -352,7 +352,7 @@ gulp.task('clean:font', function (cb) {
  * Removes html files from dest folder
  */
 gulp.task('clean:html', function (cb) {
-    del(buildPath + '/*.html', cb);
+    del(buildPath + '*.html', cb);
 });
 
 /* Clean:image task
