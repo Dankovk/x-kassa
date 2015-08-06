@@ -80,7 +80,7 @@
 
             <div class="layout-container">
 
-                <form id="my-form" data-toggle="popel.validate">
+                <form id="my-form" data-toggle="popel-validator">
 
                     <div class="form-group">
                         <label for="firstname">First name:</label>
@@ -120,6 +120,14 @@
                             data-same-as="pass">
                     </div>
 
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input id="phone" name="phone" type="tel" class="form-control"
+                            data-rules="min-length max-length"
+                            data-min-length="7"
+                            data-max-length="15">
+                    </div>
+
                     <button type="submit" class="btn btn-primary disabled" disabled>Submit</button>
 
                 </form>
@@ -134,12 +142,11 @@
         <script>(function ($) {
 
             // Redefine some default values
-            $.fn.popelValidate.defaults.errorTemplate     = '<p class="help-block collapse"><span class="error-text"></span></p>';
-            $.fn.popelValidate.defaults.errorSelector     = '.help-block';
-            $.fn.popelValidate.defaults.errorTextSelector = '.error-text';
+            $.fn.popelValidator.defaults.messageTemplate     = '<p class="help-block collapse"><span class="message-text"></span></p>';
+            $.fn.popelValidator.defaults.messageTextSelector = '.message-text';
 
             // Custom async rule example
-            $.fn.popelValidate.addAsyncRule('email-unique', function (value) {
+            $.fn.popelValidator.addRule('email-unique', function (value) {
                 var promise = $.Deferred();
 
                 window.setTimeout(function () {
@@ -152,28 +159,28 @@
             });
 
             // Custom error messages example
-            $.fn.popelValidate.setMessage({
+            $.fn.popelValidator.setRuleMessage({
                 email: "Введите корректный e-mail",
                 'email-unique': "E-mail :value уже занят"
             });
 
             // Use collapse to show field errors
-            $(document).on('fieldvalidated.popel.validate', '.form-control', function (event) {
-                var state  = event.validateState;
+            $(document).on('controlvalidated.popel.validator', '.form-control', function (event) {
+                var state  = event.state;
 
-                if (state === $.fn.popelValidate.Constructor.STATE_INVALID) {
+                if (state === $.fn.popelValidator.Constructor.STATE_INVALID) {
                     $(this).closest('.form-group').find('.help-block').collapse('show');
                 }
             });
 
             // Remove field errors after collapse hide animation finishes
-            $(document).on('resetfielderror.popel.validate', '.form-control', function (event) {
+            $(document).on('resetcontrolmessage.popel.validator', '.form-control', function (event) {
                 event.preventDefault();
 
-                var $error = $(event.relatedTarget);
+                var $message = $(event.relatedTarget);
 
-                $error.collapse('hide').one('hidden.bs.collapse', function () {
-                    $error.remove();
+                $message.collapse('hide').one('hidden.bs.collapse', function () {
+                    $message.remove();
                 })
             });
 
