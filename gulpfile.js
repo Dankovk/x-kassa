@@ -107,6 +107,11 @@ gulp.task('font', function () {
  */
 gulp.task('html', function () {
     var jsfiles = filter("**/*.js");
+    var assets = useref.assets(
+        {},
+        lazypipe()
+            .pipe(sourcemaps.init, {loadMaps: true})
+    );
 
     gulp.src(config.path.source + '/*.html')
 
@@ -124,11 +129,7 @@ gulp.task('html', function () {
         }))
 
         // Include all available assets
-        .pipe(useref.assets(
-            {},
-            lazypipe()
-                .pipe(sourcemaps.init, {loadMaps: true})
-        ))
+        .pipe(assets)
 
         // Concatenate and minify javascripts
         .pipe(jsfiles)
@@ -137,7 +138,7 @@ gulp.task('html', function () {
         .pipe(jsfiles.restore())
 
         // Restore html stream and write concatenated js file names
-        .pipe(useref.assets().restore())
+        .pipe(assets.restore())
         .pipe(useref())
         .pipe(gulp.dest(buildPath))
         .pipe(connect.reload());
