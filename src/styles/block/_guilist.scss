@@ -11,6 +11,8 @@
 	}
 
 	.icon {
-		@include sprite($sprite2-barebones);
+		background-image: url(../sprites/barebones.png);
+		width: 20px;
+		height: 20px;
 	}
 }

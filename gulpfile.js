@@ -189,13 +189,23 @@ gulp.task('script', ['html']);
  *
  * Compiles scss files to css dest dir
  */
-gulp.task('style', ['sprite'], function () {
+gulp.task('style', function () {
     var productionProcessors = [
         autoprefixer({
             browsers: ['last 2 version']
         }),
         mqpacker,
         postcssEasings,
+        sprites({
+            stylesheetPath: buildPath + config.path.style.dest,
+            spritePath: buildPath + config.path.image.dest + '/sprite.png',
+            retina: true,
+            engine: 'pixelsmith',
+            filterBy      : function(image) {
+              return /\/sprites\/[-\/a-z0-9_]+\.png$/gi.test(image.url);
+            },
+            verbose: true
+        }),
         postcssSVG({
             paths: [config.path.source + config.path.icon.src],
         })
@@ -206,6 +216,16 @@ gulp.task('style', ['sprite'], function () {
             browsers: ['last 2 version']
         }),
         postcssEasings,
+        sprites({
+            stylesheetPath: buildPath + config.path.style.dest,
+            spritePath: buildPath + config.path.image.dest + '/sprite.png',
+            retina: true,
+            engine: 'pixelsmith',
+            filterBy      : function(image) {
+              return /\/sprites\/[-\/a-z0-9_]+\.png$/gi.test(image.url);
+            },
+            verbose: true
+        }),
         postcssSVG({
             paths: [config.path.source + config.path.icon.src],
         })
@@ -224,57 +244,6 @@ gulp.task('style', ['sprite'], function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(buildPath + config.path.style.dest))
         .pipe(connect.reload());
-});
-
-/* Sprite task
- *
- * Creates sprite from icons in /sprites folder,
- * copies it to the dest folder, and creates _sprite.scss
- * into src/styles folder before 'styles' task begins
- */
-gulp.task('sprite', function () {
-    var folders = getFolders(config.path.source + config.path.sprite.src);
-
-    createSprites(config.path.source + config.path.sprite.src, 'sprite.png', '_sprite.scss', '../images/sprite.png', 'sprite');
-
-    folders.map(function(folder) {
-        var path = config.path.source + config.path.sprite.src + '/' + folder;
-        var imgName = folder + '.png';
-        var cssName = '_' + folder + '.scss';
-        var imgPath = '../../images/' + folder + '.png';
-        var prefix = folder;
-
-        createSprites(path, imgName, cssName, imgPath, prefix);
-    });
-
-    function createSprites(path, imgName, cssName, imgPath, prefix) {
-        // Generate our spritesheet
-        var spriteData = gulp.src(path + '/*.png')
-            .pipe(spritesmith({
-                imgName: imgName,
-                cssName: cssName,
-                imgPath: imgPath,
-                cssVarMap: function (sprite) {
-                    sprite.name = prefix + '_' + sprite.name;
-                }
-            }));
-
-        // Pipe image stream through image optimizer and onto disk
-        var imgStream = spriteData.img
-            .pipe(gulpif(process.env.NODE_ENV == 'production', imagemin({
-                optimizationLevel: 5,
-                progressive: true,
-                interlaced: true
-            })))
-            .pipe(gulp.dest(buildPath + config.path.image.dest));
-
-        // Pipe CSS stream through CSS optimizer and onto disk
-        var scssStream = spriteData.css
-            .pipe(gulp.dest(config.path.source + '/generated'));
-
-        return merge(imgStream, scssStream);
-    };
-
 });
 
 /* Misc task
@@ -361,14 +330,6 @@ gulp.task('clean:html', function (cb) {
  */
 gulp.task('clean:image', function (cb) {
     del(buildPath + config.path.image.dest, cb);
-    // gulp.src(config.path.source + config.path.image.src + '/**/*.{jpg,png}')
-
-    //     // Handle errors
-    //     .pipe(plumber({
-    //         errorHandler: handleError
-    //     }))
-
-    //     .pipe(cache.clear());
 });
 
 /* Clean:icon task
@@ -377,22 +338,6 @@ gulp.task('clean:image', function (cb) {
  */
 gulp.task('clean:icon', function (cb) {
     del(buildPath + config.path.icon.dest, cb);
-});
-
-/* Clean:sprite task
- *
- * Removes sprite.png from dest folder
- */
-gulp.task('clean:sprite', function (cb) {
-    del(buildPath + config.path.image.dest, cb);
-    gulp.src(config.path.source + config.path.image.src + '/sprite.png')
-
-        // Handle errors
-        .pipe(plumber({
-            errorHandler: handleError
-        }))
-
-        .pipe(cache.clear());
 });
 
 /* Clean:script
@@ -431,7 +376,6 @@ gulp.task('clean', [
     'clean:font',
     'clean:html',
     'clean:image',
-    'clean:sprite',
     'clean:icon',
     'clean:script',
     'clean:style',
