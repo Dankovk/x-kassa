@@ -438,12 +438,22 @@ gulp.task('connect', function() {
     portfinder.getPort(function (err, port) {
         connect.server({
             root: buildPath,
-            livereload: config.server.livereload,
+            livereload: false,
             port: port
         });
     });
+});
 
+gulp.task('connect:live', function() {
+    portfinder.basePort = config.server.port;
 
+    portfinder.getPort(function (err, port) {
+        connect.server({
+            root: buildPath,
+            livereload: true,
+            port: port
+        });
+    });
 });
 
 /* Server task
@@ -452,6 +462,15 @@ gulp.task('connect', function() {
  */
 gulp.task('server', [
     'connect',
+    'watch'
+]);
+
+/* Server task
+ *
+ * Creates a web server and starts watching for any changes within src dir
+ */
+gulp.task('server:live', [
+    'connect:live',
     'watch'
 ]);
 

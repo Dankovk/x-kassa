@@ -57,8 +57,7 @@
         }
     },
     "server": {
-        "port": 9000,
-        "livereload": false
+        "port": 9000
     },
     "partials": {
         "prefix": "<!-- partial:",
