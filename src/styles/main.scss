@@ -31,6 +31,10 @@
 @import "form/validation";
 @import "form/button";
 
+// Components
+@import "component";
+@import "component/scrollsize";
+
 // Standalone blocks
 @import "block";
 @import "block/guilist";
