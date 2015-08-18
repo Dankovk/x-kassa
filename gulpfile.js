@@ -13,7 +13,6 @@ var rename         = require('gulp-rename'),
     filter         = require('gulp-filter'),
     plumber        = require('gulp-plumber'),
     gulpSequence   = require('gulp-sequence'),
-    watch          = require('gulp-watch'),
     gulpif         = require('gulp-if'),
     notify         = require("gulp-notify"),
     concat         = require('gulp-concat'),
@@ -275,35 +274,35 @@ gulp.task('misc', function () {
  * Enters watch mode, automatically recompiling assets on source changes
  */
 gulp.task('watch', function () {
-    watch(config.path.source + '/*.html', function() {
+    gulp.watch(config.path.source + '/*.html', function() {
         gulp.start('html')
     });
 
-    watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() {
+    gulp.watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() {
         gulp.start('html')
     });
 
-    watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() {
+    gulp.watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() {
         gulp.start('font')
     });
 
-    watch(config.path.source + config.path.script.src + '/**/*.js', function() {
+    gulp.watch(config.path.source + config.path.script.src + '/**/*.js', function() {
         gulp.start('script')
     });
 
-    watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) {
+    gulp.watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) {
         gulp.start('style')
     });
 
-    watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) {
+    gulp.watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) {
         gulp.start('icon')
     });
 
-    watch(config.path.source + config.path.style.src + '/**/*.scss', function() {
+    gulp.watch(config.path.source + config.path.style.src + '/**/*.scss', function() {
         gulp.start('style')
     });
 
-    watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() {
+    gulp.watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() {
         gulp.start('image')
     });
 });
