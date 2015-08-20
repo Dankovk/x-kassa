@@ -59,6 +59,9 @@
     "server": {
         "port": 9000
     },
+    "sprites": {
+        "retina": false
+    },
     "partials": {
         "prefix": "<!-- partial:",
         "suffix": " -->",

@@ -198,7 +198,8 @@ gulp.task('style', function () {
         sprites({
             stylesheetPath: buildPath + config.path.style.dest,
             spritePath: buildPath + config.path.image.dest + '/sprite.png',
-            retina: true,
+            retina: config.sprites.retina,
+            outputDimensions: true,
             engine: 'pixelsmith',
             filterBy      : function(image) {
               return /\/sprites\/[-\/a-z0-9_]+\.png$/gi.test(image.url);
@@ -218,7 +219,8 @@ gulp.task('style', function () {
         sprites({
             stylesheetPath: buildPath + config.path.style.dest,
             spritePath: buildPath + config.path.image.dest + '/sprite.png',
-            retina: true,
+            retina: config.sprites.retina,
+            outputDimensions: true,
             engine: 'pixelsmith',
             filterBy      : function(image) {
               return /\/sprites\/[-\/a-z0-9_]+\.png$/gi.test(image.url);
