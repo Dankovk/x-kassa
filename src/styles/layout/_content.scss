@@ -4,9 +4,11 @@
  */
 
 .layout-content {
-
+    @if ($layout-header-fixed != false) {
+        padding-top: $layout-header-height + 20px;
+    }
 }
 
 .layout-aside + .layout-content {
-    margin-left: $aside-width + $aside-margin-right;
+    margin-left: $layout-aside-width + $layout-aside-margin-right;
 }

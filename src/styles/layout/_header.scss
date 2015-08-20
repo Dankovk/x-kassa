@@ -2,7 +2,16 @@
  *
  * Header styles
  */
+$layout-header-fixed: false !default;
 
 .layout-header {
-    height: $header-height;
+    @if ($layout-header-fixed != false and $layout-header-height > 0) {
+        height: $layout-header-height;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    } @else if ($layout-header-height > 0) {
+        height: $layout-header-height;
+    }
 }

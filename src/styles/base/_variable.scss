@@ -65,27 +65,20 @@ $layout-grid-columns:        12;
 $layout-grid-column-width:   60px;
 $layout-grid-column-spacing: 20px;
 
+$layout-header-fixed: true;
+$layout-header-height: 50px;
+
 /* Sticky footer settings
  *
- * To use sticky footer, set the following value to the height of the footer (in px).
+ * To use sticky footer, set the following value to true. Layout footer height
+ * setting is required for the sticky footer to work
+ *
  * Your layout markup should only have two elements within the body:
  * .layout-content and .layout-footer. All other elements should be within
  * .layout-content
  */
-$layout-footer-sticky: 0;
+$layout-footer-sticky: true;
+$layout-footer-height: 100px;
 
-
-/* Main container settings
- *
- *
- */
-
-//Header
-$header-height: 100px;
-
-//Footer
-$footer-height:100px;
-
-
-$aside-width:300px;
-$aside-margin-right: 10px;
+$layout-aside-width: 300px;
+$layout-aside-margin-right: 10px;
