@@ -689,15 +689,11 @@
 
         email: function (value) {
             /**
-            * Email pattern:myemail+anything@gmail.com
-            *
-            *   /^(([^<>()[\]\\.,;:\s@\"]+(\.\+[^<>()[\]\\.,;:\s@\"]+)*))+[^\+]           //started not with symbol and followed by dot or plus delimetered not-technical symbols ended not with plus…
-            *   @
-            *   ((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.) // dot-delimetered groups of alphabetical and numeric characters ended with dot
-            *   +[a-zA-Z]{2,}))$/                                                         //…finally ended with two or more letters for zone
-            *
-            */
-            var stringEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\+\.[^<>()[\]\\.,;:\s@\"]+)*)+[^\+])@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+             * Basic email pattern
+             *
+             * PCRE-compatible analogue: https://regex101.com/r/iR0uT9
+             */
+            var stringEmail = /^[^<>\(\)\[\]\\\.,;:\s@\"]+(?:[\+\.][^<>\(\)\[\]\\\.,;:\s@\"]+)*@(?:[a-z\-\d]+\.)+[a-z]{2,}$/i;
             return stringEmail.test(value);
         },
 
