@@ -1,0 +1,70 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.wrappingColumn": 120,
+
+    "files.exclude": {
+        // Folders
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.idea": true,
+        "**/.sass-cache": true,
+        "**/.c9revisions": true,
+        "**/.komodotools": true,
+        "**/node_modules": true,
+        "**/nbproject": true,
+        "**/nbbuild": true,
+        "**/nbdist": true,
+        "**/$RECYCLE.BIN": true,
+
+        // Files
+        "**/.DS_Store": true,
+        "**/.tmproj": true,
+        "**/.submime-grunt.cache": true,
+        "**/.project": true,
+        "**/.cache": true,
+        "**/*.esproj": true,
+        "**/*.sublime-workspace": true,
+        "**/*.komodoproject": true,
+        "**/*.psd": true,
+        "**/Thumbs.db": true,
+        "**/ehthumbs.db": true,
+        "**/Desktop.ini": true,
+        "**/dwsync.xml": true,
+        "**/nbactions.xml": true,
+        "**/nb-configuration.xml": true
+    },
+
+    "files.encoding": "utf8",
+    "files.trimTrailingWhitespace": true,
+
+    // JavaScript linting
+    "javascript.validate.lint.missingSemicolon": "error",
+    "javascript.validate.lint.functionsInsideLoops": "warning",
+    "javascript.validate.lint.unusedFunctions": "warning",
+    "javascript.validate.lint.undeclaredVariables": "error",
+    "javascript.validate.lint.unknownProperty": "warning",
+
+    // CSS linting
+    "css.lint.vendorPrefix": "error",
+    "css.lint.zeroUnits": "warning",
+    "css.lint.ieHack": "error",
+    "css.lint.unknownVendorSpecificProperties": "warning",
+    "css.lint.propertyIgnoredDueToDisplay": "warning",
+
+    // LESS linting
+    "less.lint.vendorPrefix": "error",
+    "less.lint.zeroUnits": "warning",
+    "less.lint.ieHack": "error",
+    "less.lint.unknownVendorSpecificProperties": "warning",
+    "less.lint.propertyIgnoredDueToDisplay": "warning",
+
+    // SASS linting
+    "sass.lint.vendorPrefix": "error",
+    "sass.lint.zeroUnits": "warning",
+    "sass.lint.ieHack": "error",
+    "sass.lint.unknownVendorSpecificProperties": "warning",
+    "sass.lint.propertyIgnoredDueToDisplay": "warning"
+}

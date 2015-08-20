@@ -3,8 +3,30 @@
 	[
 		{
 			"path": ".",
-            "folder_exclude_patterns": ["node_modules", ".idea", ".sass-cache", ".c9revisions", ".settings", "nbproject", "nbbuild", "nbdist", ".komodotools"],
-            "file_exclude_patterns": [".tmproj","*.esproj",".sublime-grunt.cache","*.sublime-workspace", ".project", "dwsync.xml", "nbactions.xml", "nb-configuration.xml", ".cache", "*.komodoproject", "*.psd"]
+            "folder_exclude_patterns": [
+                "node_modules",
+                ".idea",
+                ".sass-cache",
+                ".c9revisions",
+                ".settings",
+                "nbproject",
+                "nbbuild",
+                "nbdist",
+                ".komodotools"
+            ],
+            "file_exclude_patterns": [
+                ".tmproj",
+                "*.esproj",
+                ".sublime-grunt.cache",
+                "*.sublime-workspace",
+                ".project",
+                "dwsync.xml",
+                "nbactions.xml",
+                "nb-configuration.xml",
+                ".cache",
+                "*.komodoproject",
+                "*.psd"
+            ]
 		}
 	],
     "settings": {
