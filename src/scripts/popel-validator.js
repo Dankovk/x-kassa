@@ -202,8 +202,7 @@
     };
 
     Validator.prototype.update = function () {
-        var validator = this,
-            $controls = this.$element.find(this.options.controlSelector),
+        var $controls = this.$element.find(this.options.controlSelector),
             state     = Validator.STATE_VALID,
             $control, saved, value, empty, rules, ruleName, rule;
 
@@ -304,8 +303,7 @@
             params = [value, $control[0], this.$element[0], this];
 
         $.each(rules, function (i, name) {
-            var name = Validator.camelCase(name),
-                rule = validator.rules[name];
+            var rule = validator.rules[Validator.camelCase(name)];
 
             // Ignore undefined rules and non-empty rules for empty controls
             if (!rule || (empty && !rule.emptyRule)) return;
