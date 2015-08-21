@@ -316,7 +316,7 @@
             if (result.done && result.fail) {
                 result.done(function () {
                     promise.resolve();
-                })
+                });
                 result.fail(function () {
                     promise.reject(validator.getRuleMessage(name));
                 });
@@ -394,8 +394,6 @@
     };
 
     Validator.prototype.setControlState = function (control, state) {
-        if (!this.isValidControl(control)) return this;
-
         var className;
 
         // Check state value
@@ -448,14 +446,9 @@
     };
 
     Validator.prototype.resetControlState = function (control) {
-        if (!this.isValidControl(control)) return this;
-        if (!this.savedState) return this;
-
         var $control = $(control),
             selector = this.options.controlGroupSelector || false,
             $group   = selector ? $control.closest(selector) : $control;
-
-        delete this.savedState[id];
 
         // Clear all classes from the group
         $group.removeClass([
@@ -465,7 +458,7 @@
         ].join(' '));
 
         // Reset control readonly state
-        $control.prop('readonly', false)
+        $control.prop('readonly', false);
 
         // Remove readonly class from control
         if (this.options.readonlyClass) {
@@ -479,8 +472,6 @@
     };
 
     Validator.prototype.setControlMessage = function (control, message) {
-        if (!this.isValidControl(control)) return this;
-
         var $control = $(control),
             data     = $control.data();
 
@@ -493,10 +484,10 @@
         };
 
         $.each(data, function (prop, val) {
-            if (typeof val == 'string'
-                || typeof val == 'number'
-                || typeof val == 'boolean'
-                || val === null) params[Validator.camelCase('data-' + prop)] = val;
+            if (typeof val == 'string' || typeof val == 'number'
+              || typeof val == 'boolean' || val === null) {
+                params[Validator.camelCase('data-' + prop)] = val;
+            }
         });
 
         if (!params.label) {
@@ -505,10 +496,14 @@
                 $label;
 
             // Find label by id
-            if (id) $label = $('label[for="' + id + '"]');
+            if (id) {
+                $label = $('label[for="' + id + '"]');
+            }
 
             // Find parent label
-            if (!$label || $label.length === 0) $label = $control.closest('label');
+            if (!$label || $label.length === 0) {
+                $label = $control.closest('label');
+            }
 
             if ($label && $label.length > 0) {
                 params.label = $label.data('caption') || $label.text();
@@ -519,7 +514,7 @@
         }
 
         // Replace params in message text
-        message = message.replace(/:([^\s]+)/g, function(match, name) {
+        message = message.replace(/:([^\s]+)/g, function (match, name) {
             return params[name] || match;
         });
 
@@ -529,8 +524,11 @@
 
         selector = this.options.messageTextSelector || this.options.messageSelector;
 
-        if ($message.is(selector)) $message.text(message);
-        else $message.find(selector).text(message);
+        if ($message.is(selector)) {
+            $message.text(message);
+        } else {
+            $message.find(selector).text(message);
+        }
 
         // Trigger set event (cancellable)
         var event = $.Event('setcontrolmessage.popel.validator', {
@@ -552,14 +550,19 @@
             if (this.options.controlGroupSelector) {
                 $group = $control.closest(this.options.controlGroupSelector);
 
-                if ($group.is(element)) $element = $group;
-                else $element = $group.find(element);
+                if ($group.is(element)) {
+                    $element = $group;
+                } else {
+                    $element = $group.find(element);
+                }
             } else {
                 $element = $control.find(element);
             }
         }
 
-        if (!$element || $element.length === 0) $element = $control;
+        if (!$element || $element.length === 0) {
+            $element = $control;
+        }
 
         if (!method || !$element[method]) {
             method = $control.is($element) ? 'after' : 'append';
@@ -571,8 +574,6 @@
     };
 
     Validator.prototype.resetControlMessage = function (control) {
-        if (!this.isValidControl(control)) return this;
-
         var $control = $(control),
             selector = this.options.controlGroupSelector || false,
             $group   = selector ? $control.closest(selector) : $control,
@@ -644,8 +645,13 @@
                 data    = $this.data('popel.validator'),
                 options = typeof option == 'object' && option;
 
-            if (!data) $this.data('popel.validator', (data = new Validator(this, options)));
-            if (typeof option == 'string') data[option]();
+            if (!data) {
+                $this.data('popel.validator', (data = new Validator(this, options)));
+            }
+
+            if (typeof option == 'string') {
+                data[option]();
+            }
         });
     };
 
@@ -709,7 +715,7 @@
                 $controls = $form.find(validator.options.controlSelector),
                 $control, $other, name, ignored;
 
-            for (var i = 0, l = $controls.length; i < l; i++) {
+            for (var i = 0, il = $controls.length; i < il; i++) {
                 $control = $controls.eq(i);
 
                 ignored = validator.options.ignoredControlSelector;
@@ -761,7 +767,9 @@
             $form    = $control.closest(_formSelector);
 
         // Create validator instance if not created yet
-        if (!$form.data('popel.validator')) Plugin.call($form, $form.data());
+        if (!$form.data('popel.validator')) {
+            Plugin.call($form, $form.data());
+        }
 
         $form.data('popel.validator').validateControl($control).always(function () {
             this.update();
@@ -775,13 +783,17 @@
             tid      = $control.data('popel.validator.timeout.keyup');
 
         // Clear any existing timeout by a previously stored id (see below)
-        if (tid) window.clearTimeout(tid);
+        if (tid) {
+            window.clearTimeout(tid);
+        }
 
         // If tab pressed, blur event will soon follow
         if (event.which == 9) return true;
 
         // Create validator instance if not created yet
-        if (!$form.data('popel.validator')) Plugin.call($form, $form.data());
+        if (!$form.data('popel.validator')) {
+            Plugin.call($form, $form.data());
+        }
 
         var validator = $form.data('popel.validator');
 
@@ -804,7 +816,9 @@
         var $form   = $(this),
             _submit = !event.isDefaultPrevented();
 
-        if (!$form.data('popel.validator')) Plugin.call($form, $form.data());
+        if (!$form.data('popel.validator')) {
+            Plugin.call($form, $form.data());
+        }
 
         /* Since validation is async, we always cancel the form submit.
          * In case it wasn't cancelled by other handlers (event state was saved above),
@@ -813,7 +827,9 @@
         event.preventDefault();
 
         $form.data('popel.validator').validate().done(function () {
-            if (_submit) $form[0].submit();
+            if (_submit) {
+                $form[0].submit();
+            }
         });
     });
 
