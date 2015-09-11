@@ -1,5 +1,5 @@
 (function ($) {
-    "use strict";
+    'use strict';
 
 
     // Closure vars
@@ -7,6 +7,7 @@
 
     var pluginName     = 'popelValidator';
     var pluginDefaults = {
+
         // Should submit buttons be disabled until validation passes
         disableSubmits: true,
 
@@ -56,7 +57,7 @@
         messageInjectElement: '.form-control',
 
         // Message inject method (called on message inject element)
-        messageInjectMethod:  'after',
+        messageInjectMethod: 'after',
 
 
         // Delay before keyup event triggers control validation
@@ -64,8 +65,9 @@
     };
 
     // A simple Object.create polyfill
-    var _object_create = Object.create || function (obj) {
-        function Empty() {};
+    var _objectCreate = Object.create || function (obj) {
+        var Empty = function () {};
+
         Empty.prototype = obj;
 
         return new Empty();
@@ -80,9 +82,9 @@
         this.$element = $(element).attr('data-toggle', 'popel-validator');
 
         // Use correct global values in case they are changed at runtime and local values are not set
-        this.options  = $.extend(_object_create(pluginDefaults), options);
-        this.rules    = _object_create(Validator.rules);
-        this.messages = _object_create(Validator.messages);
+        this.options  = $.extend(_objectCreate(pluginDefaults), options);
+        this.rules    = _objectCreate(Validator.rules);
+        this.messages = _objectCreate(Validator.messages);
     };
 
 
@@ -257,7 +259,7 @@
         var $control = $(control);
 
         // Check if control part of this form
-        if (this.$element.has($control[0]).length == 0) return false;
+        if (this.$element.has($control[0]).length === 0) return false;
 
         // Skip controls with no rules
         if (!$control.data('rules')) return false;
@@ -482,8 +484,10 @@
         };
 
         $.each(data, function (prop, val) {
-            if (typeof val == 'string' || typeof val == 'number'
-              || typeof val == 'boolean' || val === null) {
+            if (typeof val == 'string' ||
+                typeof val == 'number' ||
+                typeof val == 'boolean' ||
+                val === null) {
                 params[Validator.camelCase('data-' + prop)] = val;
             }
         });
@@ -760,7 +764,7 @@
     /* Blur is triggered when control loses focus
      * change is triggerred when the value is autocompleted (among other things)
      */
-    $(document).on('blur.popel.validator change.popel.validator', _controlSelector, function (event) {
+    $(document).on('blur.popel.validator change.popel.validator', _controlSelector, function () {
         var $control = $(this),
             $form    = $control.closest(_formSelector);
 

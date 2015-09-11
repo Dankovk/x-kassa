@@ -1,4 +1,4 @@
-(function ($, undefined) {
+(function ($) {
     "use strict";
 
 
@@ -12,7 +12,9 @@
         scrollDiv.className = 'scrollbar-measure';
 
         $body.append(scrollDiv);
+
         var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+
         $body[0].removeChild(scrollDiv);
 
         return scrollbarWidth;
@@ -28,12 +30,13 @@
     // Event handlers
     // --------------
 
-    $(document).on('show.bs.modal', '.modal', function (event) {
+    $(document).on('show.bs.modal', '.modal', function () {
         var scrollSize      = measureScroll(),
             fullWindowWidth = window.innerWidth;
 
         if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
             var documentElementRect = document.documentElement.getBoundingClientRect();
+
             fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
         }
 
@@ -43,7 +46,7 @@
             // Add padding to fixed navbars and custom fixed elements
             $('.navbar-fixed-top, .navbar-fixed-bottom, [data-adapt-to="modal"]').each(function () {
                 var $this   = $(this),
-                    initial = parseInt(($this.css('padding-right') || 0), 10);
+                    initial = parseInt($this.css('padding-right' || 0), 10);
 
                 $this.data('popel.measurescroll.initialPadding', this.style.paddingRight || '');
                 $this.css('padding-right', initial + scrollSize);
@@ -60,7 +63,6 @@
     });
 
     $(document).on('hidden.bs.modal', '.modal', function () {
-
         // Handle fixed navbars
         $('.navbar-fixed-top, .navbar-fixed-bottom, [data-adapt-to="modal"]').each(function () {
             var $this = $(this);
@@ -76,5 +78,4 @@
         // Trigger event for custom use cases
         $(this).trigger('modalhidden.popel.measurescroll');
     });
-
 })(window.jQuery);

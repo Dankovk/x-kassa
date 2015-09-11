@@ -43,6 +43,7 @@
     "files.trimTrailingWhitespace": true,
 
     // JavaScript linting
+    "javascript.validate.enable": false,
     "javascript.validate.lint.missingSemicolon": "error",
     "javascript.validate.lint.functionsInsideLoops": "warning",
     "javascript.validate.lint.unusedFunctions": "warning",
@@ -68,5 +69,26 @@
     "sass.lint.zeroUnits": "warning",
     "sass.lint.ieHack": "error",
     "sass.lint.unknownVendorSpecificProperties": "warning",
-    "sass.lint.propertyIgnoredDueToDisplay": "warning"
+    "sass.lint.propertyIgnoredDueToDisplay": "warning",
+
+    // JSHint
+    // Disabled in favor of ESLint
+    "jshint.enable": false,
+    "jshint.options": {
+        /* Options are set in .jshintrc
+         *
+         * For the list of all available options,
+         * see: http://jshint.com/docs/options/
+         */
+    },
+
+    // ESLint
+    "eslint.enable": true,
+    "eslint.options": {
+        /* Options are set in .eslintrc
+         *
+         * For the list of all available options,
+         * see: http://eslint.org/docs/user-guide/configuring
+         */
+    }
 }

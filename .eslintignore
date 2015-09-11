@@ -1,0 +1,6 @@
+# Ignore compiled files
+dev/scripts/**/*.js
+dist/scripts/**/*.js
+
+# Ignore vendor files
+src/vendor/**/*.js

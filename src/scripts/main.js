@@ -1,4 +1,5 @@
 (function ($) {
+    "use strict";
 
     $('.selectize').selectize({
         sortField: 'text'
@@ -8,13 +9,11 @@
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
-        create: function(input) {
+        create: function (input) {
             return {
                 value: input,
                 text: input
-            }
+            };
         }
     });
-
-    console.log('hello');
 })(window.jQuery);

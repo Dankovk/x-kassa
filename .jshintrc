@@ -1,0 +1,12 @@
+{
+    "forin": true,
+    "futurehostile": true,
+    "noarg": true,
+    "nonbsp": true,
+    "strict": true,
+    "undef": true,
+    "unused": true,
+    "browser": true,
+    "devel": true,
+    "jquery": true
+}
