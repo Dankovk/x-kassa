@@ -12,6 +12,8 @@
         "**/.idea": true,
         "**/.sass-cache": true,
         "**/.c9revisions": true,
+        "**/.settings": true,
+        "**/.vscode": true,
         "**/.komodotools": true,
         "**/node_modules": true,
         "**/nbproject": true,
