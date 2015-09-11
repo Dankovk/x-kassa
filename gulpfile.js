@@ -1,3 +1,4 @@
+/* global process */
 // Basic stuff we need
 var exec       = require('child_process').exec,
     del        = require('del'),
@@ -209,7 +210,7 @@ gulp.task('style', function () {
         postcssSVG({
             paths: [config.path.source + config.path.icon.src],
         })
-    ]
+    ];
 
     var developmentProcessors = [
         autoprefixer({
@@ -230,7 +231,7 @@ gulp.task('style', function () {
         postcssSVG({
             paths: [config.path.source + config.path.icon.src],
         })
-    ]
+    ];
 
     gulp.src(config.path.source + config.path.style.src + '/*.scss')
 
@@ -277,35 +278,35 @@ gulp.task('misc', function () {
  */
 gulp.task('watch', function () {
     gulp.watch(config.path.source + '/*.html', function() {
-        gulp.start('html')
+        gulp.start('html');
     });
 
     gulp.watch(config.path.source + '/' + config.path.html.partials + '/**/*.partial.html', function() {
-        gulp.start('html')
+        gulp.start('html');
     });
 
     gulp.watch(config.path.source + config.path.font.src + '/**/*.{eot,otf,svg,ttf,woff}', function() {
-        gulp.start('font')
+        gulp.start('font');
     });
 
     gulp.watch(config.path.source + config.path.script.src + '/**/*.js', function() {
-        gulp.start('script')
+        gulp.start('script');
     });
 
     gulp.watch(config.path.source + config.path.sprite.src + '**/*.png', function(cb) {
-        gulp.start('style')
+        gulp.start('style');
     });
 
     gulp.watch(config.path.source + config.path.icon.src + '**/*.{jpg,png,svg}', function(cb) {
-        gulp.start('icon')
+        gulp.start('icon');
     });
 
     gulp.watch(config.path.source + config.path.style.src + '/**/*.scss', function() {
-        gulp.start('style')
+        gulp.start('style');
     });
 
     gulp.watch(config.path.source + config.path.image.src + '/**/*.{jpg,png}', function() {
-        gulp.start('image')
+        gulp.start('image');
     });
 });
 
