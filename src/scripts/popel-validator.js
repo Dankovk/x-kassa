@@ -381,7 +381,11 @@
     Validator.prototype.getControlValue = function (control) {
         var $control = $(control);
 
-        // TODO: add support for checkboxes and radiobuttons
+        // Set checkbox checked property as value
+        if ($control.attr('type') === 'checkbox') {
+            var prop = $control.prop('checked')
+            return prop.toString();
+        }
 
         return $control.val();
     };
@@ -730,6 +734,10 @@
                     $other = $control;
                     break;
                 }
+            },
+
+            check: function (value) {
+                return (value === 'true');
             }
 
             if ($other.length < 1) return true; // Other control does not exist, skip this validation
