@@ -734,15 +734,15 @@
                     $other = $control;
                     break;
                 }
-            },
-
-            check: function (value) {
-                return (value === 'true');
             }
 
             if ($other.length < 1) return true; // Other control does not exist, skip this validation
 
             return validator.getControlValue($other) === value;
+        },
+
+        check: function (value) {
+            return (value === 'true');
         }
 
     });
