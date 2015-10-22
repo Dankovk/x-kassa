@@ -4,27 +4,27 @@
  */
 
 .btn {
-    letter-spacing: 1px;
     text-align: center;
-
+    width: 180px;
+    height: 50px;
     background-image: none;
-
+    font-size: 20px;
     margin: 0;
     outline: 0;
     border: 0;
     border-radius: 5px;
-    padding: 5px;
+    padding: -1px 20px;
 
     display: inline-block;
     vertical-align: middle;
-
+    background-color: $color-light-green;
     user-select: none;
+    transition: all .3s linear;
+    &:hover{
+        background-color: $color-yellow;
+    }
 
-    @include button-basic(
-        $bg:        #333, $color:        #fff,
-        $bg-hover:  #777, $color-hover:  #fff,
-        $bg-active: #000, $color-active: #fff
-    );
+
 }
 
 .btn-primary {
@@ -45,11 +45,30 @@
 }
 
 .btn-transparent {
-    border: 1px solid #555;
-    background: transparent;
-    outline: 0;
-    text-decoration: none;
-    color: #555;
+    background-color: transparent;
+    height: 40px;
+    padding-bottom: 15px;
+
+    border: 1px solid #1f9ff4;
+    width: 60px;
+    color: #1f9ff4;
+    &:hover{
+        color:#3c22ff;
+        border: 1px solid #3c22ff;
+        background-color: transparent;
+    }
+    &:active{
+        color:#103f79;
+        border: 1px solid #103f79;
+        background-color: transparent;
+    }
+}
+.btn-white{
+    background-color: #fff;
+    color: #000;
+    &:active{
+        background-color: #f2f0ed;
+    }
 }
 
 .btn-disabled {

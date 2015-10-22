@@ -10,10 +10,20 @@
             <div class="layout-container">
                 <div class="row">
                     <div class="col-3">
-                        sidebar
+                        <div class="logo-cont" style="background-color: transparent">
+                            <div class="logo">
+                                <a href="" class="logo-link"><span class="x">a</span><span class="kassa">b</span></a>
+                            </div>
+                        </div>
+                        <div class="logo-cont">
+                            <div class="logo logo-bg">
+                                <a href="" class="logo-link"><span class="x">a</span><span class="kassa">b</span></a>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="col-9">
-                        <h1>Заголовок h1</h1>
+                        <h1>Technical documentation</h1>
 
                         <p>Lorem ipsum dolor sit <strong>amet</strong>, consectetur adipisicing elit. <em>Facere quam totam, minus cumque, recusandae esse fugiat.</em> Quisquam necessitatibus voluptatibus ea unde culpa, voluptates nostrum numquam et. Alias provident qui laboriosam!</p>
 
@@ -23,105 +33,36 @@
 
                         <a href="#" class="link-ajax">ajax ссылка</a>
                         <a href="#">Ссылка</a>
-                        <a href="#" class="barebones-link"><i class="svg-icon-animated"></i>Ссылка c svg-иконкой</a>
-                        <a href="#" class="barebones-link"><span class="icon"></span>Ссылка c иконкой</a>
+
 
                         <br>
 
-                        <button class="btn">Кнопка</button>
-                        <button class="btn btn-primary">Primary button</button>
-                        <button class="btn btn-transparent">Transparent</button>
-                        <button disabled class="btn btn-disabled">Отключенная кнопка</button>
+                        <button class="btn btn-green">Demo Payment</button>
+                        <button class="btn btn-white">Demo Cabinet</button>
+                      <div class="row">
+                          <div class="col-9">
+                              <button class="btn btn-transparent">Next</button>
+                          </div>
+                          </div>
+
+
 
                         <h3>Поля для ввода (h3)</h3>
 
                         <form action="">
                             <div class="form-group">
-                                <label for="input1">Ваш e-mail:</label>
-                                <input class="form-control" type="text" id="input1" placeholder="E-main">
+
+                                <input class="form-control" type="text" id="input1" placeholder="E-mail">
+                                <div class="icon-x-magnifier"></div>
                             </div>
-                            <div class="form-group" class="has-success">
-                                <label for="input2">Ваш e-mail:</label>
-                                <input class="form-control" type="text" id="input2" value="myEmail@mail.com">
-                            </div>
-                            <div class="form-group" class="has-error">
-                                <label for="input3">Ваш e-mail:</label>
-                                <input class="form-control" type="text" id="input3" value="email@.com">
-                                <p class="help-block error-text">Неверный e-mail</p>
-                            </div>
-                            <div class="form-group" class="validating">
-                                <label for="input4">Ваш e-mail:</label>
-                                <input class="form-control" type="text" id="input4">
-                            </div>
-                            <div class="form-group" >
-                                <label for="input4">Не ваш e-mail:</label>
-                                <input disabled value="NotUrMail@mail.com" class="form-control disabled" type="text" id="input4">
-                            </div>
-                            <div class="form-group">
-                                <label for="input6">Выберите один вариант:</label>
-                                <select name="select" class="selectize" id="input6" placeholder="Выберите элемент">
-                                    <option value="value1">option-1</option>
-                                    <option value="value2">option-2</option>
-                                    <option value="value3">option-3</option>
-                                    <option value="value4">option-4</option>
-                                    <option value="value5">option-5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="input7">Выберите вариант из группы:</label>
-                                <select name="select2" class="selectize" id="input7" placeholder="Выберите элемент">
-                                    <optgroup label="Group 1">
-                                        <option value="value12">option-1</option>
-                                        <option value="value22">option-2</option>
-                                    </optgroup>
-                                    <optgroup label="Group 2">
-                                        <option value="value32">option-3</option>
-                                        <option value="value42">option-4</option>
-                                        <option value="value52">option-5</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="input8">Выберите несколько вариантов:</label>
-                                <select name="select3" multiple class="selectize-tag" id="input8" placeholder="Выберите элемент">
-                                    <option value="value1f">option-1</option>
-                                    <option value="value2f">option-2</option>
-                                    <option value="value3f">option-3</option>
-                                    <option value="value4f">option-4</option>
-                                    <option value="value5f">option-5</option>
-                                </select>
-                            </div>
-                            <div class="form-group" class="validating">
-                                <label for="input5">Комментарии</label>
-                                <textarea class="form-control" name="" id="input5" placeholder="Комментарии"></textarea>
-                            </div>
+
 
                         </form>
-
-
-                        <div class="row">
-                            <div class="col-3">
-                                <h4>Чекбоксы</h4>
-                                <input type="checkbox" id="toggle1" name="toggle">
-                                <label for="toggle1" class="checkbox-label">Автоскролл</label>
-                                <input type="checkbox" id="toggle2" name="toggle">
-                                <label for="toggle2" class="checkbox-label">Во весь єкран</label>
-                            </div>
-                            <div class="col-3">
-                                <h4>Радиокнопки</h4>
-                                <input type="radio" id="radio1" name="radio">
-                                <label for="radio1" class="radio-label">Длинный вариант текста, с несколькими строками</label>
-                                <input type="radio" id="radio2" name="radio">
-                                <label for="radio2" class="radio-label">Короткий вариант</label>
-                            </div>
-                            <div class="col-3">
-                                <h4>Переключатели</h4>
-                                <input type="checkbox" id="checkbox1">
-                                <label for="checkbox1" class="toggle-label">Вариант 1</label>
-                                <input type="checkbox" id="checkbox2">
-                                <label for="checkbox2" class="toggle-label">Вариант 2</label>
-                            </div>
+                        <div class="arrow-cont">
+                            <a  class="icon-x-right-arrow"></a>
                         </div>
+
+
                     </div>
                 </div>
             </div>

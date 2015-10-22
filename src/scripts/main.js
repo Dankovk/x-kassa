@@ -16,4 +16,19 @@
             };
         }
     });
+
+
+
+    $('#how-it-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('.icon-x-right-arrow').click(function(){
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+    $('.accept').on("click",function(){
+        $('.icon').addClass('slide-in');
+    });
+
+
 })(window.jQuery);

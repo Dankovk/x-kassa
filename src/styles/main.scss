@@ -17,6 +17,10 @@
 // Vendor
 @import "../vendor/selectize-scss/src/selectize.scss";
 @import "../vendor/selectize-scss/src/selectize.default.scss";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+
 
 // Elements
 @import "element";
@@ -38,6 +42,7 @@
 // Standalone blocks
 @import "block";
 @import "block/guilist";
+@import "block/global";
 // @import "block/blockname";
 
 // Layout styles

@@ -35,45 +35,12 @@ a {
  * @uses $link-transition-function
  */
 .link-ajax {
-    $link-ajax-style: dotted;
-    $link-ajax-width: 1px;
-
-    @include link-bordered ($link-color, $link-hover-color, $link-active-color, $link-visited-color, $style: $link-ajax-style, $width: $link-ajax-width);
-
-    &.link-segmented {
-        border-bottom: 0;
-
-        @if $link-transitions {
-            // Split transition: use color for the whole link
-            transition: color $link-transition-duration $link-transition-function;
-        }
-
-        .segment-text {
-            border-bottom: $link-ajax-width $link-ajax-width $link-color;
-
-            @if $link-transitions {
-                // Split transition: use border-bottom-color for the text
-                transition: border-bottom-color $link-transition-duration $link-transition-function;
-            }
-        }
-
-        &:visited {
-            .segment-text {
-                border-bottom-color: $link-visited-color;
-            }
-        }
-
-        &:hover,
-        &:focus {
-            .segment-text {
-                border-bottom-color: $link-hover-color;
-            }
-        }
-
-        &:active {
-            .segment-text {
-                border-bottom-color: $link-active-color;
-            }
-        }
+    text-decoration: none;
+    border-bottom: 1px dotted $link-color;
+    &:hover{
+        border-bottom: 1px dotted $link-hover-color;
+    }
+    &:active{
+        border-bottom: 1px dotted $link-active-color;
     }
 }

@@ -18,7 +18,10 @@ $base-line-height: 1.5;
 /* Base visual settings
  */
 $base-background-color: #fff;
-
+$color-light-green: #4ae158;
+$color-yellow: #f8f050;
+$color-grey:#b7c0c6;
+$color-light-blue:#1e8ade;
 /* Base layout settings
  */
 $base-margin: 20px;
@@ -34,10 +37,11 @@ $link-transitions: true;
 $link-transition-duration: .15s;
 $link-transition-function: linear;
 
-$link-color: #177ee6;
-$link-hover-color: #14ccad;
-$link-active-color: #3d5266;
+$link-color: #1f9ff5;
+$link-hover-color: #3c22ff;
+$link-active-color: #0f3e78;
 $link-visited-color: #5777d9;
+
 
 /* Button settings
  */
@@ -78,7 +82,7 @@ $layout-header-height: 50px;
  * .layout-content
  */
 $layout-footer-sticky: true;
-$layout-footer-height: 100px;
+$layout-footer-height: 60px;
 
 $layout-aside-width: 300px;
 $layout-aside-margin-right: 10px;

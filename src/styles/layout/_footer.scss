@@ -4,14 +4,14 @@
  */
 
 .layout-footer {
-    background-color: #f0f2f5;
+    background-color: #0f2d41;
 
     @if ($layout-footer-height > 0) {
         height: $layout-footer-height;
     }
 }
 
-$layout-footer-sticky: false !default;
+$layout-footer-sticky: true;
 
 @if ($layout-footer-sticky != false and $layout-footer-height > 0) {
     html,

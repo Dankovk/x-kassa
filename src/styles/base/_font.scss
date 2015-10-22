@@ -32,3 +32,55 @@
 $font-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-serif: Cambria, Georgia, serif;
 $font-monospace: Consolas, monaco, monospace;
+@import url(https://fonts.googleapis.com/css?family=Rubik:400,300,300italic,400italic,500,500italic,700,700italic,900);
+
+@font-face {
+  font-family: "kassa";
+  src:url("../fonts/x-k.eot");
+  src:url("../fonts/x-k.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/x-k.woff") format("woff"),
+  url("../fonts/x-k.ttf") format("truetype"),
+  url("../fonts/x-k.svg#x-k") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+[data-icon]:before {
+  font-family: "kassa" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "kassa" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-x-logo:before {
+  content: "a";
+}
+.icon-x-kassa:before {
+  content: "b";
+}
+.icon-x-right-arrow:before {
+  content: "d";
+}
+.icon-x-magnifier:before {
+  content: "c";
+}
+
+
