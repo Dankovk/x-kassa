@@ -525,8 +525,17 @@ a{
 .layout-footer{
   line-height: 60px;
   min-width: 1024px;
+  padding-left: 20px;
+  text-align: center;
+  span{
+    font-weight: normal;
+  }
   .popel-cont{
     display: inline-block;
+    float: right;
+    span{
+      color:#466478 ;
+    }
     .svg-cont{
       padding-top: 0;
     }
@@ -535,6 +544,7 @@ a{
 }
 .date-owner{
   display: inline-block;
+  float: left;
   .date{
     color: #466478;
   }
@@ -545,14 +555,18 @@ a{
 .bottom-nav{
   display: inline-block;
   vertical-align: middle;
+  margin: 0 auto;
   ul{
     list-style: none;
     margin: 0;
+
     li{
       display: inline-block;
       margin: 0;
+      margin-right: 10px;
       a{
         color: #fff;
+        cursor: pointer;
       }
     }
   }

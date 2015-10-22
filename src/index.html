@@ -4,9 +4,29 @@
     <!-- partial:include('page/meta.partial.html', {
         "compileJs": true
     }) -->
-
+	<style>
+		.page-preloader {
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			background: #1e8ade;
+			z-index: 9999991005000;
+		}
+		.page-preloader .preloader-itself {
+			width: 128px;
+			height: 128px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			background: url('preloader.gif') no-repeat 50% 50%;
+			margin: -64px 0 0 -64px;
+		}
+	</style>
 </head>
 <body>
+<div class="page-preloader"><div class="preloader-itself"></div></div>
 <div class="layout-content">
     <div class="head-block">
         <div class="navbar">
