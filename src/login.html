@@ -1,0 +1,138 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <!-- partial:include('page/meta.partial.html') -->
+    <style>
+        .page-preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #1e8ade;
+            z-index: 9999991005000;
+        }
+        .page-preloader .preloader-itself {
+            width: 128px;
+            height: 128px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: url('preloader.gif') no-repeat 50% 50%;
+            margin: -64px 0 0 -64px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-preloader"><div class="preloader-itself"></div></div>
+<div class="layout-content login-content">
+
+        <div class="navbar">
+            <div class="logo-container">
+                <div class="logo logo-bg">
+                    <a href="index.html" class="logo-link"><span class="x">a</span><span class="kassa">b</span></a>
+                </div>
+            </div>
+            <div class="navigation">
+                <ul>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="how-to-start.html">How to start</a></li>
+                    <li><a href="contact.html">Contacts</a></li>
+
+                </ul>
+            </div>
+        </div>
+    <div class="video-block">
+        <iframe width="444" height="307" src="https://www.youtube.com/embed/zJrfmIlkIVI" frameborder="0" allowfullscreen autoplay></iframe>
+    </div>
+
+        <div class="tab-login-cont">
+        <div class="layout-container">
+            <div class="register-login-cont">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Registration</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Login</a></li>
+
+                </ul>
+
+
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                    <form action="">
+                        <div class="differ-input">
+                    <div class="form-group">
+                        <input id="r-name" name="fname" placeholder="Name" type="text" class="form-control"
+                               data-rules="not-empty min-length max-length"
+                               data-min-length="3"
+                               data-max-length="255">
+                    </div>
+                    <div class="form-group">
+                        <input id="r-email" name="fname" placeholder="E-mail" type="text" class="form-control"
+                               data-rules="not-empty min-length max-length"
+                               data-min-length="3"
+                               data-max-length="255">
+                    </div>
+                    <div class="form-group">
+                        <input id="r-password" name="fname" placeholder="Password" type="text" class="form-control"
+                               data-rules="not-empty min-length max-length"
+                               data-min-length="3"
+                               data-max-length="255">
+                    </div>
+                    <div class="form-group">
+                        <input id="r-repeat-password" name="fname" placeholder="Repeat password" type="text" class="form-control"
+                               data-rules="not-empty min-length max-length"
+                               data-min-length="3"
+                               data-max-length="255">
+                    </div>
+                        </div>
+                        <button class="btn">Sign up</button>
+                    </form>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="profile">
+                    <form action="POST">
+                        <div class="differ-input">
+
+
+                        <div class="form-group">
+                            <input id="email" name="fname" placeholder="E-mail" type="text" class="form-control"
+                                   data-rules="not-empty min-length max-length"
+                                   data-min-length="3"
+                                   data-max-length="255">
+                        </div>
+                        <div class="form-group">
+                            <input id="password"  placeholder="Password" name="fname" placeholder="E-mail" type="text" class="form-control"
+                                   data-rules="not-empty min-length max-length"
+                                   data-min-length="3"
+                                   data-max-length="255">
+                            <a href="" class="forgot">Forgot pass?</a>
+                        </div>
+                        <button class="btn">Sign in</button>
+                        <input type="checkbox" id="toggle1" name="toggle">
+                        <label for="toggle1" class="checkbox-label">Keep me signed in</label>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- partial:include('layout/footer.partial.html') -->
+
+<!-- partial:include('page/footer.partial.html') -->
+<script>
+//    $(document).on('load',function(){
+//        $('a[href='+window.location.hash+']').closest('li').addClass('active');
+//    });
+
+</script>
+
+</body>
+</html>

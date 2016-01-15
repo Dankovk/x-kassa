@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <!-- partial:include('page/meta.partial.html') -->
+    <style>
+        .page-preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #1e8ade;
+            z-index: 9999991005000;
+        }
+        .page-preloader .preloader-itself {
+            width: 128px;
+            height: 128px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: url('preloader.gif') no-repeat 50% 50%;
+            margin: -64px 0 0 -64px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-preloader"><div class="preloader-itself"></div></div>
+<div class="layout-content features-content">
+
+    <div class="navbar">
+        <div class="logo-container">
+            <div class="logo">
+                <a href="index.html" class="logo-link"><span class="x">a</span><span class="kassa">b</span></a>
+            </div>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li><a href="features.html">Про систему</a></li>
+                <li class="active"><a href="how-to-start.html">Как начать</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="login.html">Войти</a></li>
+                <li class="btn btn-ru"><a href="login.html">Зарегистрироваться</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="how-to-start">
+        <div class="layout-container">
+            <h1>Как начать</h1>
+            <div class="tab-cont">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" id="how-to-start-tab" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" class="link-ajax"  aria-controls="home" role="tab" data-toggle="tab">Зарегистрироваться</a><span class="icon-x-right-arrow"></span></li>
+                    <li role="presentation"><a href="#profile"  class="link-ajax" aria-controls="profile" role="tab" data-toggle="tab">Добавить пользователя</a><span class="icon-x-right-arrow"></span></li>
+                    <li role="presentation"><a href="#messages" class="link-ajax"  aria-controls="messages" role="tab" data-toggle="tab">Настроить систему</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                        <div class="tab-img">
+                            <img src="images/how-to.png" alt="" class="how-to"/>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <div class="tab-img">
+                            <img src="images/how-to.png" alt="" class="how-to"/>
+                        </div>
+
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="messages">
+                        <div class="tab-img">
+                            <img src="images/how-to.png" alt="" class="how-to"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- partial:include('layout/footer.partial.html') -->
+
+<!-- partial:include('page/footer.partial.html') -->
+
+</body>
+</html>

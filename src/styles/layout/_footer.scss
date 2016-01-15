@@ -24,13 +24,13 @@ $layout-footer-sticky: true;
         min-height: 100%;
         height: auto !important;
         height: 100%;
-        margin-bottom: -$layout-footer-height;
+        margin-bottom: -140px;
     }
 
     .layout-content:after {
         content: "";
         display: block;
-        height: $layout-footer-height;
+        height: 140px;
     }
 
     .layout-footer {

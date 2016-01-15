@@ -20,7 +20,7 @@
     "jquery-touchswipe": "~1.6.6",
     "selectize": "~0.12.0",
     "selectize-scss": "~0.8.9",
-    "inuit-normalize": "~3.0.3"
+    "inuit-normalize": "~3.0.3",
     "bootstrap-sass":"~3.3.5"
   },
   "resolutions": {
