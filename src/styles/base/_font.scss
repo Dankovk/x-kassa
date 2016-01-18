@@ -36,11 +36,11 @@ $font-monospace: Consolas, monaco, monospace;
 
 @font-face {
   font-family: Rubik;
-  src: url('../fonts/font/rubik-thin-webfont.eot');
+  src: url('../fonts/font/rubik-light-webfont.eot');
   src: local('☺'),
-  url('../fonts/font/rubik-thin-webfont.woff') format('woff'),
-  url('../fonts/font/rubik-thin-webfont.ttf') format('truetype'),
-  url('../../fonts/font/rubik-thin-webfont.svg#webfontE40g3tc3') format('svg');
+  url('../fonts/font/rubik-light-webfont.woff') format('woff'),
+  url('../fonts/font/rubik-light-webfont.ttf') format('truetype'),
+  url('../fonts/font/rubik-light-webfont.svg#webfontE40g3tc3') format('svg');
   font-weight: normal;
   font-style: normal;
 }
