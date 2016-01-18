@@ -1314,6 +1314,7 @@ input[type="checkbox"]:checked:hover + .checkbox-label:before {
   background-color: #1b384b;
 }
 .social-links{
+  position: static;
   display: inline-block;
   float: left;
   margin-left: 30px;
